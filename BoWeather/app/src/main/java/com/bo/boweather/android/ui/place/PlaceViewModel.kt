@@ -7,6 +7,12 @@ import com.bo.boweather.android.logic.Repository
 import com.bo.boweather.android.logic.model.Place
 
 class PlaceViewModel: ViewModel() {
+    fun getSavedPlace()=Repository.getSavedPlace()
+
+    fun savePlace(place: Place)=Repository.savePlace(place)
+
+    fun isSavedPlace()=Repository.isSavedPlace()
+
     private val searchLiveData= MutableLiveData<String>()//存放的字符串是城市的名称
 
     val placeList=ArrayList<Place>()//用于缓存在界面上显示的城市信息
