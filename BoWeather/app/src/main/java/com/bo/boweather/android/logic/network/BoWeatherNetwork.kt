@@ -8,6 +8,12 @@ import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 object BoWeatherNetwork {
+    private val weatherService = ServiceCreator.create(WeatherService::class.java)
+
+    suspend fun getDailyWeather(lng: String, lat: String) = weatherService.getDailyWeather(lng, lat).await()
+
+    suspend fun getRealtimeWeather(lng: String, lat: String) = weatherService.getRealtimeWeather(lng, lat).await()
+
     private val placeService=ServiceCreator.create(PlaceService::class.java)
     //利用ServiceCreator这个单例类(看作静态)创建出一个placeService的动态代理对象
 
@@ -21,7 +27,7 @@ object BoWeatherNetwork {
 
     private suspend fun <T> Call<T>.await():T{
         return suspendCoroutine { continuation ->
-            enqueue(object : Callback<T> {
+            enqueue(object :Callback<T>{
                 override fun onResponse(call: Call<T>, response: Response<T>) {
                     val body=response.body()
                     if(body!=null) continuation.resume(body)
@@ -29,7 +35,6 @@ object BoWeatherNetwork {
                         RuntimeException("response body is null")
                     )
                 }
-
                 override fun onFailure(call: Call<T>, t: Throwable) {
                     continuation.resumeWithException(t)
                 }
