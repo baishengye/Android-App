@@ -1,13 +1,17 @@
 package com.bo.boweather.android.ui.weather
 
+import android.content.Context
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bo.boweather.android.R
@@ -26,14 +30,32 @@ class WeatherActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_weather)
+
+        navBtn.setOnClickListener {
+            /*一旦点击导航按钮就会打开滑动窗口*/
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+        //监听整个布局，一旦监听到创建了一个滑动菜单就会监听这个滑动菜单
+        drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener{
+            /*监听整个布局，一旦手点击到滑动菜单以外的地方就会关闭滑动菜单*/
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
+            override fun onDrawerStateChanged(newState: Int) {}
+            override fun onDrawerOpened(drawerView: View) {}
+
+            override fun onDrawerClosed(drawerView: View) {
+                //一旦滑动菜单关闭，那么输入发也会关闭
+                val manager=getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                manager.hideSoftInputFromWindow(drawerView.windowToken,InputMethodManager.HIDE_NOT_ALWAYS)
+            }
+        })
 
         val decorView=window.decorView//获取到当前Activity的DecorView(Android视图树的根节点视图)
         decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE//布局回显示在状态栏上面
         window.statusBarColor= Color.TRANSPARENT//状态栏变透明
-
-        setContentView(R.layout.activity_weather)
 
         //首先从intent 中取出地区的经纬度的名称
         if(viewModel.locationLng.isEmpty()){//只有viewModel中的位置信息是空的时候才会更新
@@ -52,11 +74,21 @@ class WeatherActivity : AppCompatActivity() {
             if(weather!=null){
                 showWeatherInfo(weather)//获取到信息之后就把信息展示到UI上
             }else{
-                Toast.makeText(this,"无法成功获取天气信息",Toast.LENGTH_SHORT)
+                Toast.makeText(this,"无法成功获取天气信息",Toast.LENGTH_SHORT).show()
                 result.exceptionOrNull()?.printStackTrace()
             }
+            swipeRefresh.isRefreshing=false//当新的天气信息获取到并且显示到UI上之后就结束刷新，并且隐藏刷新条
         })
-        viewModel.refreshWeather(viewModel.locationLng,viewModel.locationlat)//刷新天气的请求
+        swipeRefresh.setColorSchemeResources(R.color.purple_500)//设置刷新条的颜色
+        refreshWeather()//这个地方是打开软件的后默认地区显示天气信息的时候刷新一下
+        swipeRefresh.setOnRefreshListener {//监听swipeRefresh的刷新事件
+            refreshWeather()
+        }
+    }
+
+    fun refreshWeather(){
+        swipeRefresh.isRefreshing=true//我认为应先标识刷新事件开始，显示刷新条然后再去请求数据
+        viewModel.refreshWeather(viewModel.locationLng,viewModel.locationlat)
     }
 
     private fun showWeatherInfo(weather: Weather) {

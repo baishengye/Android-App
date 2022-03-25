@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--SwipeRefreshLayout实现下拉控件-->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
@@ -35,6 +36,8 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <!--androidx.drawerlayout.widget.DrawerLayout控件下
+    指定了android:layout_gravity="start"的就是滑动菜单-->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

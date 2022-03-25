@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.bo.boweather.android.MainActivity
 import com.bo.boweather.android.R
 import com.bo.boweather.android.logic.model.Place
 import com.bo.boweather.android.ui.weather.WeatherActivity
+import kotlinx.android.synthetic.main.activity_weather.*
 
 class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: List<Place>):
     RecyclerView.Adapter<PlaceAdapter.ViewHolder>(){
@@ -27,14 +29,23 @@ class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: L
             val position=holder.adapterPosition
             val place=placeList[position]
 
-            val intent= Intent(parent.context, WeatherActivity::class.java).apply {
-                putExtra("location_lng",place.location.lng)
-                putExtra("location_lat",place.location.lat)
-                putExtra("place_name",place.name)
+            val activity=fragment.activity//获取fragment所在的activity中
+            if(activity is WeatherActivity){//如果PlaceFragment是在WeatherActivity中
+                activity.drawerLayout.closeDrawers()//关闭滑动菜单
+                activity.viewModel.locationLng=place.location.lng//更新viewNodel中的地区
+                activity.viewModel.locationlat=place.location.lat
+                activity.viewModel.placeName=place.name
+                activity.refreshWeather()//刷新Weather界面的数据
+            }else{
+                val intent= Intent(parent.context, WeatherActivity::class.java).apply {
+                    putExtra("location_lng",place.location.lng)
+                    putExtra("location_lat",place.location.lat)
+                    putExtra("place_name",place.name)
+                }
+                fragment.startActivity(intent)
+                activity?.finish()//如果跳转到天气界面的话就把当前的这个地区列表布局Activity退出栈，资源还没有释放
             }
             fragment.viewModel.savePlace(place)//保存地区
-            fragment.startActivity(intent)
-            fragment.activity?.finish()//如果跳转到天气界面的话就把当前的这个地区列表布局Activity退出栈，资源还没有释放
         }
         return holder
     }
