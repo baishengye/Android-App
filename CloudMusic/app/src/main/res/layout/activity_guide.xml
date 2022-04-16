@@ -22,6 +22,7 @@
             android:layout_weight="1"/>
         <!--登录注册按钮-->
         <Button
+            android:id="@+id/bt_login_or_register"
             android:background="@drawable/selector_color_primary"
             android:layout_width="@dimen/button_width_large"
             android:layout_height="48dp"
@@ -34,6 +35,7 @@
             android:layout_weight="1"/>
         <!--⽴即体验按钮-->
         <Button
+            android:id="@+id/bt_enter"
             android:background="@drawable/selector_color_primary_reverse"
             android:layout_width="@dimen/button_width_large"
             android:layout_height="48dp"
