@@ -4,14 +4,14 @@ plugins {
 
 android {
     //编译版本
-    compileSdk 28
+    compileSdk rootProject.ext.compileSdk
 
     //buildToolVersion "31.0.2"编译工具版本，新版本的AS中不用显式写出，工具会自动调用
 
     //默认配置
     defaultConfig {
         //app唯一标识
-        applicationId "com.bo.cloudmusic"
+        applicationId rootProject.ext.applicationId
 
         //最小版本
         minSdk rootProject.ext.minSdk
@@ -20,10 +20,10 @@ android {
         targetSdk rootProject.ext.targetSdk
 
         //版本号
-        versionCode 1
+        versionCode rootProject.ext.versionCode
 
         //版本名称
-        versionName "1.0"
+        versionName rootProject.ext.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,8 +35,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility rootProject.ext.compileOptions
+        targetCompatibility rootProject.ext.compileOptions
     }
 
     viewBinding {

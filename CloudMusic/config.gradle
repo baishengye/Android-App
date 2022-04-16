@@ -1,10 +1,18 @@
 ext{
+    applicationId="com.bo.cloudmusic"
+
     android=[
+            compileSdk=29,
             minSdk=16,
-            targetSdk=29
+            targetSdk=29,
+            versionCode=1,
+            versionName="1.0",
+
+            compileOptions=JavaVersion.VERSION_1_8
     ]
 
     dependVerson=[
 
     ]
 }
+
