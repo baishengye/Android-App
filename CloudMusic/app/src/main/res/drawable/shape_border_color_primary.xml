@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--圆⻆的⼤⼩-->
+    <corners android:radius="@dimen/radius_button"/>
+    <!--填充颜⾊-->
+    <solid android:color="@color/white"/>
+    <!--边框-->
+    <stroke
+        android:width="@dimen/divider_small"
+        android:color="@color/colorPrimary"/>
+</shape>

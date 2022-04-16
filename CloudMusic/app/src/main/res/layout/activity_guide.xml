@@ -33,9 +33,10 @@
             android:layout_weight="1"/>
         <!--⽴即体验按钮-->
         <Button
+            android:background="@drawable/shape_border_color_primary"
             android:layout_width="@dimen/button_width_large"
             android:layout_height="48dp"
-            android:text="@string/login_or_register" />
+            android:text="@string/immediate_experience" />
         <!--占位控件-->
         <View
             android:layout_width="0dp"
