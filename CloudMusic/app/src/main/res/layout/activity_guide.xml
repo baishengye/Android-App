@@ -22,6 +22,7 @@
             android:layout_weight="1"/>
         <!--登录注册按钮-->
         <Button
+            android:background="@drawable/shape_color_primary"
             android:layout_width="@dimen/button_width_large"
             android:layout_height="48dp"
             android:text="@string/login_or_register" />
