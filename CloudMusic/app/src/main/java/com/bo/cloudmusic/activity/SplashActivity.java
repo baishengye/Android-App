@@ -1,7 +1,6 @@
 package com.bo.cloudmusic.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -9,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 
 import com.bo.cloudmusic.databinding.ActivitySplashBinding;
@@ -17,7 +15,7 @@ import com.bo.cloudmusic.databinding.ActivitySplashBinding;
 /**
  * 启动界面
  */
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseCommonActivity {
     /**
      * 下一步常量
      */
@@ -73,7 +71,6 @@ public class SplashActivity extends AppCompatActivity {
             decorView.setSystemUiVisibility(options);
         }
 
-
         //handle经过一段时间后就发送一条消息
         //在企业中通常会有横夺逻辑处理
         //所以延时一般用maxTime-处理用时
@@ -92,13 +89,5 @@ public class SplashActivity extends AppCompatActivity {
     private void starActivity(Class<?> clazz){
         Intent intent = new Intent(this, clazz);
         startActivity(intent);
-    }
-
-    /**
-     * 启动界面，关闭当前界面
-     */
-    private void startActivityAfterFinishThis(Class<?> clazz){
-        starActivity(clazz);
-        finish();
     }
 }
