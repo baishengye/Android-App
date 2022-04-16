@@ -7,6 +7,9 @@ import android.os.Bundle;
 import com.bo.cloudmusic.databinding.ActivityMainBinding;
 import com.bo.cloudmusic.databinding.ActivitySplashBinding;
 
+/**
+ * 启动界面
+ */
 public class SplashActivity extends AppCompatActivity {
     private ActivitySplashBinding activitySplashBinding;
     @Override

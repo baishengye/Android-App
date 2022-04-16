@@ -5,4 +5,12 @@
         <item name="android:textColor">@color/light_grey</item>
         <item name="android:textSize">@dimen/text_small</item>
     </style>
+
+    <!--自定义去除actionBar-->
+    <style name="Theme.随波云音乐.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
 </resources>
