@@ -1,0 +1,10 @@
+ext{
+    android=[
+            minSdk=16,
+            targetSdk=29
+    ]
+
+    dependVerson=[
+
+    ]
+}

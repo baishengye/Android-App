@@ -14,3 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "随波云音乐"
 include ':app'
+
+
