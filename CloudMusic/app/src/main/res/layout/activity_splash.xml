@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/splash_banner"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"/>
+        android:layout_marginTop="200dp"/>
 
     <!--logo-->
     <ImageView
