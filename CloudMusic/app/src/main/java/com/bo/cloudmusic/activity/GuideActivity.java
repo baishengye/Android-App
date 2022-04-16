@@ -45,7 +45,7 @@ public class GuideActivity extends BaseCommonActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_login_or_register:
-                Toast.makeText(this,"点击了登录注册",Toast.LENGTH_SHORT).show();
+                startActivityAfterFinishThis(LoginOrRegisterActivity.class);
                 break;
             case R.id.bt_enter:
                 Toast.makeText(this,"点击了体验",Toast.LENGTH_SHORT).show();
