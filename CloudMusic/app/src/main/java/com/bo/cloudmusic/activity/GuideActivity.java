@@ -18,8 +18,8 @@ public class GuideActivity extends BaseCommonActivity implements View.OnClickLis
     @Override
     protected void initViews() {
         super.initViews();
-        //隐藏系统状态栏
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        hideStatusBar();
 
         btLoginOrRegister = activityGuideBinding.btLoginOrRegister;
         btEnter = activityGuideBinding.btEnter;

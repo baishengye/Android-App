@@ -56,20 +56,7 @@ public class SplashActivity extends BaseCommonActivity {
         activitySplashBinding=ActivitySplashBinding.inflate(getLayoutInflater());
         setContentView(activitySplashBinding.getRoot());
 
-        //设置界面全屏
-        //获取屏幕view
-        View decorView = getWindow().getDecorView();
-        //判断版本
-        if(Build.VERSION.SDK_INT>11&&Build.VERSION.SDK_INT<19){
-            //11~18版本
-            decorView.setSystemUiVisibility(View.GONE);//gone是不显示
-        }else if(Build.VERSION.SDK_INT>=19){
-            int options = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |//隐藏导航栏
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |//从状态栏下拉半透明悬浮显示一会二状态栏和导航栏
-                    View.SYSTEM_UI_FLAG_FULLSCREEN;//全屏
-
-            decorView.setSystemUiVisibility(options);
-        }
+        fullScreen();
 
         //handle经过一段时间后就发送一条消息
         //在企业中通常会有横夺逻辑处理
