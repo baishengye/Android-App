@@ -1,4 +1,4 @@
-package com.bo.cloudmusic;
+package com.bo.cloudmusic.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

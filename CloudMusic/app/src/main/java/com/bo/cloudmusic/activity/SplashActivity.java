@@ -1,9 +1,10 @@
-package com.bo.cloudmusic;
+package com.bo.cloudmusic.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,7 +48,8 @@ public class SplashActivity extends AppCompatActivity {
     };
 
     private void next() {
-        Log.d(TAG,"next");
+        //Log.d(TAG,"next");
+        startActivityAfterFinishThis(GuideActivity.class);
     }
 
     @Override
@@ -81,5 +83,22 @@ public class SplashActivity extends AppCompatActivity {
                 handler.sendEmptyMessage(MESSAGE_NEXT);
             }
         },DEFAULT_DELAY_TIME);
+    }
+
+    /**
+     * 启动界面
+     * @param clazz
+     */
+    private void starActivity(Class<?> clazz){
+        Intent intent = new Intent(this, clazz);
+        startActivity(intent);
+    }
+
+    /**
+     * 启动界面，关闭当前界面
+     */
+    private void startActivityAfterFinishThis(Class<?> clazz){
+        starActivity(clazz);
+        finish();
     }
 }

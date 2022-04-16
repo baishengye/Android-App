@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.随波云音乐">
         <activity
-            android:name=".GuideActivity"
+            android:name=".activity.GuideActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
