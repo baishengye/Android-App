@@ -7,6 +7,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.bo.cloudmusic.MainActivity;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.databinding.ActivityGuideBinding;
 
@@ -48,7 +49,7 @@ public class GuideActivity extends BaseCommonActivity implements View.OnClickLis
                 startActivityAfterFinishThis(LoginOrRegisterActivity.class);
                 break;
             case R.id.bt_enter:
-                Toast.makeText(this,"点击了体验",Toast.LENGTH_SHORT).show();
+                startActivityAfterFinishThis(MainActivity.class);
                 break;
         }
     }
