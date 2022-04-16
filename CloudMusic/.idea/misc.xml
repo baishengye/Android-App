@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/drawable/selector_color_primary.xml" value="0.115" />
+        <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/drawable/selector_color_primary_reverse.xml" value="0.115" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/drawable/shape_border_color_primary.xml" value="0.1" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/drawable/shape_color_primary.xml" value="0.1" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/layout/activity_guide.xml" value="0.15715579710144928" />
