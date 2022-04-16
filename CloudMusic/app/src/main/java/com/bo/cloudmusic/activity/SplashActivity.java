@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -76,5 +77,10 @@ public class SplashActivity extends BaseCommonActivity {
     private void starActivity(Class<?> clazz){
         Intent intent = new Intent(this, clazz);
         startActivity(intent);
+    }
+
+    @Override
+    protected void initDatum() {
+        super.initDatum();
     }
 }
