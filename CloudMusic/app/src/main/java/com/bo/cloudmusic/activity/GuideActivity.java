@@ -3,13 +3,12 @@ package com.bo.cloudmusic.activity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.bo.cloudmusic.MainActivity;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.databinding.ActivityGuideBinding;
+import com.bo.cloudmusic.utils.PreferencesUtil;
 
 public class GuideActivity extends BaseCommonActivity implements View.OnClickListener {
     private ActivityGuideBinding activityGuideBinding;
@@ -47,10 +46,19 @@ public class GuideActivity extends BaseCommonActivity implements View.OnClickLis
         switch (v.getId()){
             case R.id.bt_login_or_register:
                 startActivityAfterFinishThis(LoginOrRegisterActivity.class);
+                setShowGuide(false);
                 break;
             case R.id.bt_enter:
                 startActivityAfterFinishThis(MainActivity.class);
+                setShowGuide(false);
                 break;
         }
+    }
+
+    /**
+     * 设置已经显示了引导界⾯
+     */
+    private void setShowGuide(boolean isShowGuide) {
+        sp.setShowGuide(isShowGuide);
     }
 }

@@ -5,10 +5,26 @@ import android.os.Build;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.bo.cloudmusic.utils.PreferencesUtil;
+
 /**
  * 通用逻辑
  */
 public class BaseCommonActivity extends BaseActivity{
+
+    /**
+     * 偏好设置字段
+     */
+    protected PreferencesUtil sp;
+
+    @Override
+    protected void initDatum() {
+        super.initDatum();
+
+        //出生化偏好设置
+        sp = PreferencesUtil.getInstance(getMainActivity());
+    }
+
     /**
      * 启动界⾯
      */

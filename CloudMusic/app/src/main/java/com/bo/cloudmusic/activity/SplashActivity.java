@@ -47,8 +47,13 @@ public class SplashActivity extends BaseCommonActivity {
     };
 
     private void next() {
-        //Log.d(TAG,"next");
-        startActivityAfterFinishThis(GuideActivity.class);
+        if (sp.isShowGuide()) {
+            //显示引导界⾯
+            startActivityAfterFinishThis(GuideActivity.class);
+        } else {
+            //登录/注册⻚⾯
+            startActivityAfterFinishThis(LoginOrRegisterActivity.class);
+        }
     }
 
     @Override
