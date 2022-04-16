@@ -10,4 +10,7 @@
 
     <!--亮灰-->
     <color name="light_grey">#aaa</color>
+
+    <!--背景白-->
+    <color name="background">#fff</color>
 </resources>
