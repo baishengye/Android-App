@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 
+import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.databinding.ActivitySplashBinding;
 
 /**
@@ -27,7 +28,6 @@ public class SplashActivity extends BaseCommonActivity {
      */
     private static final long DEFAULT_DELAY_TIME = 3000;
     private static final String TAG = "SplashActivity";
-    private ActivitySplashBinding activitySplashBinding;
 
     /**
      * 创建handle
@@ -59,8 +59,7 @@ public class SplashActivity extends BaseCommonActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activitySplashBinding=ActivitySplashBinding.inflate(getLayoutInflater());
-        setContentView(activitySplashBinding.getRoot());
+        setContentView(R.layout.activity_splash);
 
         fullScreen();
 

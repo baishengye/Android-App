@@ -13,7 +13,6 @@ import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.PreferencesUtil;
 
 public class GuideActivity extends BaseCommonActivity implements View.OnClickListener {
-    private ActivityGuideBinding activityGuideBinding;
     private Button btLoginOrRegister;
     private Button btEnter;
 
@@ -23,8 +22,8 @@ public class GuideActivity extends BaseCommonActivity implements View.OnClickLis
 
         hideStatusBar();
 
-        btLoginOrRegister = activityGuideBinding.btLoginOrRegister;
-        btEnter = activityGuideBinding.btEnter;
+        btLoginOrRegister = findViewById(R.id.bt_login_or_register);
+        btEnter = findViewById(R.id.bt_enter);
 
         //测试显示GuideFragment
         getSupportFragmentManager()
@@ -44,8 +43,7 @@ public class GuideActivity extends BaseCommonActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityGuideBinding=ActivityGuideBinding.inflate(getLayoutInflater());
-        setContentView(activityGuideBinding.getRoot());
+        setContentView(R.layout.activity_guide);
     }
 
     @SuppressLint("NonConstantResourceId")

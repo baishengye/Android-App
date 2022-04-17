@@ -20,7 +20,6 @@ import com.bo.cloudmusic.utils.Constant;
  * 引导界面的Fragment,使用androidx可以适配
  */
 public class GuideFragment extends Fragment {
-    private FragmentGuideBinding fragmentGuideBinding;
     private ImageView iv;
     public GuideFragment() {
         // Required empty public constructor
@@ -44,7 +43,6 @@ public class GuideFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fragmentGuideBinding=FragmentGuideBinding.inflate(getLayoutInflater());
     }
 
     /**
@@ -66,7 +64,7 @@ public class GuideFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //找到控件
-        iv=fragmentGuideBinding.iv;
+        iv=getView().findViewById(R.id.iv);
         
         //取出数据
         int id = getArguments().getInt(Constant.ID,-1);
