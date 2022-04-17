@@ -71,4 +71,13 @@ dependencies {
     //圆形指示器
     //https://github.com/ongakuer/CircleIndicator
     implementation 'me.relex:circleindicator:2.1.6'
+
+    //提供通过注解的⽅式找控件
+    //绑定⽅法
+    //https://github.com/JakeWharton/butterknife
+    implementation 'com.jakewharton:butterknife:10.2.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
+
+
+    
 }
