@@ -1,9 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.LoginOrRegisterActivity">
+    tools:context=".activity.LoginOrRegisterActivity"
+    android:background="@color/background"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!--顶部-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!--背景图片-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/background_login" />
+
+        <!--logo-->
+        <ImageView
+            android:layout_centerInParent="true"
+            android:layout_width="@dimen/login_logo_weight"
+            android:layout_height="@dimen/login_logo_height"
+            android:src="@drawable/logo"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!--登录注册按钮容器-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_large"
+            android:layout_marginRight="@dimen/padding_large"
+            android:orientation="vertical">
+
+            <!--登录-->
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:text="@string/login"
+                android:background="@drawable/selector_color_primary"
+                android:textColor="@drawable/selector_text_color_primary"/>
+
+            <!--注册-->
+            <Button
+                android:layout_marginTop="@dimen/padding_large"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:text="@string/register"
+                android:background="@drawable/selector_color_primary_reverse"
+                android:textColor="@drawable/selector_text_color_primary_reverse"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_above="@+id/ll_other_login_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/other_login"
+            android:textColor="@color/light_grey"/>
+
+        <!--第三方登录按钮容器-->
+        <LinearLayout
+            android:id="@+id/ll_other_login_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/padding_large"
+            android:layout_marginTop="@dimen/padding_large">
+
+            <!--占位控件-->
+            <include layout="@layout/fill"/>
+
+            <!--微信登录按钮-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:src="@drawable/selector_login_wechat"/>
+
+            <!--占位控件-->
+            <include layout="@layout/fill"/>
+
+            <!--qq登录按钮-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:src="@drawable/selector_login_qq"/>
+
+            <!--占位控件-->
+            <include layout="@layout/fill"/>
+
+            <!--微博登录按钮-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:src="@drawable/selector_login_weibo"/>
+
+            <!--占位控件-->
+            <include layout="@layout/fill"/>
+
+            <!--网易登录按钮-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:src="@drawable/selector_login_netease"/>
+
+            <!--占位控件-->
+            <include layout="@layout/fill"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>
