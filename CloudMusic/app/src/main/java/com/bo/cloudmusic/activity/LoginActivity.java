@@ -12,24 +12,11 @@ import butterknife.BindView;
 /**
  * 登陆界面
  */
-public class LoginActivity extends BaseCommonActivity {
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+public class LoginActivity extends BaseTitleActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
     }
-
-    @Override
-    protected void initViews() {
-        super.initViews();
-
-        //初始化ToolBar
-        setSupportActionBar(toolbar);
-    }
-
-
 }

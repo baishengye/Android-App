@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--AppBarLayout主要⽤来实现标题折叠功能
+elevation：阴影⾼度-->
+<com.google.android.material.appbar.AppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/Theme.随波云音乐.AppBarOverlay"
+    android:elevation="0dp">
+
+    <!--ToolBar控件-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="@color/white"
+        app:popupTheme="@style/Theme.随波云音乐.PopupOverlay"/>
+
+
+</com.google.android.material.appbar.AppBarLayout>
