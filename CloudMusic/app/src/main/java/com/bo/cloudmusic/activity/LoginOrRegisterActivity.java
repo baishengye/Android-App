@@ -1,14 +1,10 @@
 package com.bo.cloudmusic.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.bo.cloudmusic.R;
-import com.bo.cloudmusic.databinding.ActivityLoginOrRegisterBinding;
 
 public class LoginOrRegisterActivity extends BaseCommonActivity implements View.OnClickListener {
     private Button bt_login;
@@ -47,7 +43,7 @@ public class LoginOrRegisterActivity extends BaseCommonActivity implements View.
                 startActivity(LoginActivity.class);
                 break;
             case R.id.bt_register:
-                Toast.makeText(this,"注册",Toast.LENGTH_SHORT).show();
+                startActivity(RegisterActivity.class);
                 break;
         }
     }
