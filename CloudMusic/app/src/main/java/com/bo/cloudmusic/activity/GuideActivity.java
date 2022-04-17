@@ -18,11 +18,14 @@ import com.bo.cloudmusic.utils.PreferencesUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.relex.circleindicator.CircleIndicator;
+
 public class GuideActivity extends BaseCommonActivity implements View.OnClickListener {
     private Button btLoginOrRegister;
     private Button btEnter;
     private ViewPager vp;
     private GuideAdapter adapter;
+    private CircleIndicator ci;
 
     @Override
     protected void initViews() {
@@ -36,6 +39,9 @@ public class GuideActivity extends BaseCommonActivity implements View.OnClickLis
 
         //ViewPager控件
         vp=findViewById(R.id.vp);
+
+        //找到指示器控件
+        ci=findViewById(R.id.ci);
 
         //测试显示GuideFragment
         /*getSupportFragmentManager()
@@ -53,6 +59,12 @@ public class GuideActivity extends BaseCommonActivity implements View.OnClickLis
 
         //设置适配器到控件
         vp.setAdapter(adapter);
+
+        //让指示器根据列表控件配合⼯作
+        ci.setViewPager(vp);
+
+        //适配器注册数据源观察者
+        adapter.registerDataSetObserver(ci.getDataSetObserver());
 
         //准备数据
         List<Integer> datum=new ArrayList<>();

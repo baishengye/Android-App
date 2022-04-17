@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:background="@color/background"
@@ -17,6 +19,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
+
+    <!--指示器-->
+    <me.relex.circleindicator.CircleIndicator
+        android:id="@+id/ci"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/guide_indicator_height"
+        app:ci_drawable="@drawable/shape_circle_color_primary"
+        app:ci_drawable_unselected="@drawable/shape_circle_light_grey"/>
 
     <!--按钮容器-->
     <LinearLayout

@@ -15,4 +15,7 @@
 
     <!--分割线-->
     <dimen name="divider_small">1dp</dimen>
+
+    <!--指示器相关-->
+    <dimen name="guide_indicator_height">40dp</dimen>
 </resources>

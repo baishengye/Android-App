@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <!--形状为椭圆
+    只要控件是正圆
+    显示出来也是正圆-->
+    <!--填充颜⾊-->
+    <solid
+        android:color="@color/light_grey"/>
+</shape>
