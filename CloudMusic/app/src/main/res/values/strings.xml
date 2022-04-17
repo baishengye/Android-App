@@ -4,4 +4,6 @@
     <string name="copyright">Copyright © 2019 bo. All Rights Reserved</string>
     <string name="login_or_register">登录/注册</string>
     <string name="immediate_experience">立即体验</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

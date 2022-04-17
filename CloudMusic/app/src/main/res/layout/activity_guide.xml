@@ -5,7 +5,8 @@
     android:background="@color/background"
     android:layout_height="match_parent">
     <!--占位控件-->
-    <View
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>

@@ -55,6 +55,7 @@ dependencies {
 
     //可视化布局依赖
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     //java测试依赖
     testImplementation 'junit:junit:4.13.2'

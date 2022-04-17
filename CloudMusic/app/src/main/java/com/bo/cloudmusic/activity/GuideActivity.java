@@ -8,6 +8,7 @@ import android.widget.Button;
 import com.bo.cloudmusic.MainActivity;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.databinding.ActivityGuideBinding;
+import com.bo.cloudmusic.fragment.GuideFragment;
 import com.bo.cloudmusic.utils.PreferencesUtil;
 
 public class GuideActivity extends BaseCommonActivity implements View.OnClickListener {
@@ -23,6 +24,12 @@ public class GuideActivity extends BaseCommonActivity implements View.OnClickLis
 
         btLoginOrRegister = activityGuideBinding.btLoginOrRegister;
         btEnter = activityGuideBinding.btEnter;
+
+        //测试显示GuideFragment
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, GuideFragment.newInstance())
+                .commit();
     }
 
     @Override
@@ -46,7 +53,7 @@ public class GuideActivity extends BaseCommonActivity implements View.OnClickLis
         switch (v.getId()){
             case R.id.bt_login_or_register:
                 startActivityAfterFinishThis(LoginOrRegisterActivity.class);
-                setShowGuide(false);
+                setShowGuide(true);
                 break;
             case R.id.bt_enter:
                 startActivityAfterFinishThis(MainActivity.class);
