@@ -9,6 +9,8 @@ import android.view.WindowManager;
 
 import com.bo.cloudmusic.utils.PreferencesUtil;
 
+import butterknife.ButterKnife;
+
 /**
  * 通用逻辑
  */
@@ -18,6 +20,31 @@ public class BaseCommonActivity extends BaseActivity{
      * 偏好设置字段
      */
     protected PreferencesUtil sp;
+
+    @Override
+    protected void initViews() {
+        super.initViews();
+
+        if(isBindView()){
+            bindView();
+        }
+    }
+
+    /**
+     * 绑定View
+     */
+    protected void bindView() {
+        ButterKnife.bind(this);
+    }
+
+
+    /**
+     * 是否绑定View
+     */
+    protected boolean isBindView() {
+        return true;
+    }
+
 
     @Override
     protected void initDatum() {

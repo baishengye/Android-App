@@ -34,6 +34,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    //源码兼容到java8
+    //黄油刀需要java8
     compileOptions {
         sourceCompatibility rootProject.ext.compileOptions
         targetCompatibility rootProject.ext.compileOptions
@@ -79,5 +82,5 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 
 
-    
+
 }
