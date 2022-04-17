@@ -19,7 +19,7 @@ import com.bo.cloudmusic.utils.Constant;
 /**
  * 引导界面的Fragment,使用androidx可以适配
  */
-public class GuideFragment extends Fragment {
+public class GuideFragment extends BaseCommonFragment {
     private ImageView iv;
     public GuideFragment() {
         // Required empty public constructor
@@ -50,22 +50,21 @@ public class GuideFragment extends Fragment {
      * 返回要显示的view
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // 通过布局填充器将一个布局加载成view
+    protected View getLayoutView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_guide, container, false);
     }
 
-    /**
-     * view创建完毕了就执行的操作
-     */
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
+    protected void initViews() {
+        super.initViews();
         //找到控件
         iv=getView().findViewById(R.id.iv);
-        
+    }
+
+    @Override
+    protected void initDatum() {
+        super.initDatum();
+
         //取出数据
         int id = getArguments().getInt(Constant.ID,-1);
 
