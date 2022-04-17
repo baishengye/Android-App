@@ -39,7 +39,7 @@ public class BaseCommonActivity extends BaseActivity{
         finish();
     }
     /**
-     * 获取界⾯
+     * 获取当前界⾯
      */
     public BaseCommonActivity getMainActivity() {
         return this;
