@@ -9,6 +9,7 @@ import com.bo.cloudmusic.MainActivity;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.databinding.ActivityGuideBinding;
 import com.bo.cloudmusic.fragment.GuideFragment;
+import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.PreferencesUtil;
 
 public class GuideActivity extends BaseCommonActivity implements View.OnClickListener {
@@ -28,7 +29,7 @@ public class GuideActivity extends BaseCommonActivity implements View.OnClickLis
         //测试显示GuideFragment
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.container, GuideFragment.newInstance())
+                .replace(R.id.container, GuideFragment.newInstance(R.drawable.guide1))
                 .commit();
     }
 
