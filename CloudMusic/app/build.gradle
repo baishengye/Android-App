@@ -65,5 +65,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     //okHttp依赖
+    //https://github.com/square/okhttp
     implementation 'com.squareup.okhttp3:okhttp:4.2.0'
+
+    //圆形指示器
+    //https://github.com/ongakuer/CircleIndicator
+    implementation 'me.relex:circleindicator:2.1.6'
 }
