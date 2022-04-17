@@ -45,6 +45,7 @@
 
             <!--登录-->
             <Button
+                android:id="@+id/bt_login"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_height"
                 android:text="@string/login"
@@ -53,6 +54,7 @@
 
             <!--注册-->
             <Button
+                android:id="@+id/bt_register"
                 android:layout_marginTop="@dimen/padding_large"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_height"
