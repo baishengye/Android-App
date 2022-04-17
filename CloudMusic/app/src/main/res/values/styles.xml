@@ -12,5 +12,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <!--toolbar样式-->
+    <style name="Theme.随波云音乐.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <!--AppBarLayout样式-->
+    <style name="Theme.随波云音乐.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
 </resources>
