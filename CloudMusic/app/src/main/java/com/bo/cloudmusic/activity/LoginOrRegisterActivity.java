@@ -44,7 +44,7 @@ public class LoginOrRegisterActivity extends BaseCommonActivity implements View.
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_login:
-                Toast.makeText(this,"登录",Toast.LENGTH_SHORT).show();
+                startActivity(LoginActivity.class);
                 break;
             case R.id.bt_register:
                 Toast.makeText(this,"注册",Toast.LENGTH_SHORT).show();
