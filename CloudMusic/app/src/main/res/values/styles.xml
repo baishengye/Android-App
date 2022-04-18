@@ -27,19 +27,21 @@
         <item name="android:drawableLeft">@drawable/ic_phone</item>
 
         <!--上内边距-->
-        <item name="android:paddingTop">@dimen/padding_large</item>
+        <item name="android:paddingTop">@dimen/padding_meddle</item>
 
         <!--下内边距-->
-        <item name="android:paddingBottom">@dimen/padding_large</item>
+        <item name="android:paddingBottom">@dimen/padding_meddle</item>
 
         <!--最大显示一行-->
         <item name="android:lines">1</item>
 
         <!--上外边距-->
-        <!--<item name="android:layout_marginTop">@dimen/padding_meddle</item>-->
+        <item name="android:layout_marginTop">@dimen/padding_meddle</item>
 
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+
+        <item name="android:background">@drawable/selector_edit_text</item>
     </style>
 
 </resources>
