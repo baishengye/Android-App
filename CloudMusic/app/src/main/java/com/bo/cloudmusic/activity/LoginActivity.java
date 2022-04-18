@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.bo.cloudmusic.R;
+import com.bo.cloudmusic.utils.LogUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -17,6 +18,8 @@ import butterknife.OnClick;
  * 登陆界面
  */
 public class LoginActivity extends BaseTitleActivity {
+
+    private static final String TAG = "LoginActivity";
 
     @BindView(R.id.et_username)
     EditText et_username;
@@ -32,11 +35,10 @@ public class LoginActivity extends BaseTitleActivity {
 
     @OnClick(R.id.bt_login)
     public void onLoginClick(Button view){
-        Toast.makeText(this,"点击登录",Toast.LENGTH_SHORT).show();
+        LogUtil.d(TAG,"点击登录");
     }
 
     @OnClick(R.id.bt_forget_password)
     public void onForgetPasswordClick(Button view){
-        Toast.makeText(this,"点击忘记密码",Toast.LENGTH_SHORT).show();
-    }
+        LogUtil.d(TAG,"点击登录");}
 }
