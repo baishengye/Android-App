@@ -6,6 +6,7 @@ import android.widget.EditText;
 
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.utils.LogUtil;
+import com.bo.cloudmusic.utils.StringUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
 
 import org.apache.commons.lang3.StringUtils;
@@ -48,6 +49,18 @@ public class LoginActivity extends BaseTitleActivity {
         if(StringUtils.isAllBlank(password)){
             LogUtil.w(TAG,"点击登录");
             ToastUtil.errorShortToast(getMainActivity(),R.string.enter_password);
+            return;
+        }
+
+        //如果输入的用户名既不是邮箱也不是电话
+        if(!(StringUtil.isPhone(username)||StringUtil.isEmail(username))){
+            ToastUtil.errorShortToast(getMainActivity(),R.string.error_username_format);
+            return;
+        }
+
+        //如果输入的密码格式错误
+        if(!(StringUtil.isPassword(password))){
+            ToastUtil.errorShortToast(getMainActivity(),R.string.error_password_format);
             return;
         }
     }
