@@ -49,7 +49,7 @@ android {
 
 dependencies {
     //添加所有libs目录下的jar文件
-    implementation fileTree(dir: 'libs',includes: ['*.jar'])
+    implementation fileTree(dir: 'libs', includes: ['*.jar'])
 
     //兼容性控件
     implementation 'androidx.appcompat:appcompat:1.3.0'
@@ -81,6 +81,9 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 
-
+    //apache common lang3⼯具包
+    //提供了StringUtils等这样的类
+    //http://commons.apache.org/proper/commons-lang/
+    implementation 'org.apache.commons:commons-lang3:3.9'
 
 }

@@ -22,4 +22,13 @@ public class LogUtil {
             Log.d(tag, value);
         }
     }
+
+    /**
+     * 警告级别日志
+     */
+    public static void w(String tag, String value) {
+        if (isDebug) {
+            Log.w(tag, value);
+        }
+    }
 }
