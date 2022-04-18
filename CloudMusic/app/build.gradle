@@ -86,4 +86,8 @@ dependencies {
     //http://commons.apache.org/proper/commons-lang/
     implementation 'org.apache.commons:commons-lang3:3.9'
 
+    //toast⼯具类
+    //https://github.com/GrenderG/Toasty
+    implementation 'com.github.GrenderG:Toasty:1.5.2'
+
 }

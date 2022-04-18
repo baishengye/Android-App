@@ -10,11 +10,13 @@ import android.widget.Toast;
 
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.utils.LogUtil;
+import com.bo.cloudmusic.utils.ToastUtil;
 
 import org.apache.commons.lang3.StringUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import es.dmoral.toasty.Toasty;
 
 /**
  * 登陆界面
@@ -43,14 +45,14 @@ public class LoginActivity extends BaseTitleActivity {
         //如果username字符串是空的
         if(StringUtils.isAllBlank(username)){
             LogUtil.w(TAG,"点击登录");
-            Toast.makeText(getMainActivity(),R.string.enter_username,Toast.LENGTH_SHORT).show();
+            ToastUtil.errorShortToast(getMainActivity(),R.string.enter_username);
             return;
         }
 
         String password = et_password.getText().toString().trim();
         if(StringUtils.isAllBlank(password)){
             LogUtil.w(TAG,"点击登录");
-            Toast.makeText(getMainActivity(),R.string.enter_password,Toast.LENGTH_SHORT).show();
+            ToastUtil.errorShortToast(getMainActivity(),R.string.enter_password);
             return;
         }
     }
