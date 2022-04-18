@@ -12,10 +12,44 @@
     <!--内容部分
     layout_behavior:⽤来控制内容区域(表示不覆盖标题栏)-->
     <LinearLayout
-        android:background="@color/purple_200"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:padding="@dimen/activity_margin"
+        android:orientation="vertical">
+
+        <!--用户名输入框-->
+        <EditText
+            style="@style/EditText"
+            android:hint="@string/enter_username"
+            android:inputType="textEmailAddress"
+            android:autofillHints="emailAddress"/>
+
+        <!--密码输入框-->
+        <EditText
+            style="@style/EditText"
+            android:hint="@string/enter_password"
+            android:inputType="textPassword"
+            android:autofillHints="password" />
+
+        <!--登录按钮-->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/padding_large"
+            android:textColor="@drawable/selector_text_color_primary"
+            android:background="@drawable/selector_color_primary"
+            android:text="@string/login"/>
+
+        <Button
+            android:background="@color/transparent"
+            android:textColor="@color/light_grey"
+            android:text="@string/forget_password"
+            android:layout_marginTop="@dimen/padding_large"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"/>
+
+    </LinearLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

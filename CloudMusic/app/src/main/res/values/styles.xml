@@ -18,4 +18,28 @@
     <!--AppBarLayout样式-->
     <style name="Theme.随波云音乐.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
+    <!--登录注册界面输入框样式-->
+    <style name="EditText">
+        <!--图标和内容的间距-->
+        <item name="android:drawablePadding">@dimen/padding_meddle</item>
+
+        <!--左侧图标-->
+        <item name="android:drawableLeft">@drawable/ic_phone</item>
+
+        <!--上内边距-->
+        <item name="android:paddingTop">@dimen/padding_large</item>
+
+        <!--下内边距-->
+        <item name="android:paddingBottom">@dimen/padding_large</item>
+
+        <!--最大显示一行-->
+        <item name="android:lines">1</item>
+
+        <!--上外边距-->
+        <!--<item name="android:layout_marginTop">@dimen/padding_meddle</item>-->
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
 </resources>

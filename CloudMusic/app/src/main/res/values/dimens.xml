@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <!-- 小文本-->
+
+    <!--Activity间距-->
+    <dimen name="activity_margin">16dp</dimen>
+
+    <!-- 小文本-->
     <dimen name="text_small">12sp</dimen>
 
+    <!--中间歇-->
+    <dimen name="padding_meddle">10dp</dimen>
     <!--大间歇-->
     <dimen name="padding_large">20dp</dimen>
 
