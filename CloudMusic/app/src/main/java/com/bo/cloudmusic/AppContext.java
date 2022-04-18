@@ -1,6 +1,9 @@
 package com.bo.cloudmusic;
 
 import android.app.Application;
+import android.content.Context;
+
+import androidx.multidex.MultiDex;
 
 import com.bo.cloudmusic.utils.ToastUtil;
 
@@ -22,5 +25,13 @@ public class AppContext extends Application {
 
         //初始化Toast工具类
         ToastUtil.init(getApplicationContext());
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+
+        //初始化MultiDex
+        MultiDex.install(base);
     }
 }

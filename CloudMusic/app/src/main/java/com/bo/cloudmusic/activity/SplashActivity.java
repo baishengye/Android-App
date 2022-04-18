@@ -13,6 +13,8 @@ import android.view.View;
 
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.databinding.ActivitySplashBinding;
+import com.bo.cloudmusic.utils.Constant;
+import com.bo.cloudmusic.utils.LogUtil;
 
 /**
  * 启动界面
@@ -72,6 +74,8 @@ public class SplashActivity extends BaseCommonActivity {
                 handler.sendEmptyMessage(MESSAGE_NEXT);
             }
         },DEFAULT_DELAY_TIME);
+
+        LogUtil.d(TAG,"initDatum"+ Constant.ENDPOINT);
     }
 
     /**

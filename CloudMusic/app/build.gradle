@@ -26,6 +26,12 @@ android {
         versionName rootProject.ext.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        //开启MultiDex
+        multiDexEnabled true
+
+        //产品风味的维度就是该版本号
+        flavorDimensions "versionCode"
     }
 
     buildTypes {
@@ -44,6 +50,22 @@ android {
 
     viewBinding {
         enabled = true
+    }
+
+    //配置不同的环境
+    productFlavors{
+        //开发环境
+        dev {
+            //API端点
+            buildConfigField('String',"ENDPOINT",'"http://dev-my-cloud-music-api-rails.ixuea.com/"')
+            dimension = minSdkVersion
+        }
+        //正式环境
+        prod {
+            //API端点
+            buildConfigField 'String','ENDPOINT','"http://api-courses-misuc.ixuea.com/"'
+            dimension = minSdkVersion
+        }
     }
 }
 
@@ -89,5 +111,9 @@ dependencies {
     //toast⼯具类
     //https://github.com/GrenderG/Toasty
     implementation 'com.github.GrenderG:Toasty:1.5.2'
+
+    //MultiDex
+    implementation "androidx.multidex:multidex:2.0.0"
+
 
 }
