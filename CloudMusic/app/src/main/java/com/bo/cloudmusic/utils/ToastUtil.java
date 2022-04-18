@@ -8,18 +8,27 @@ import androidx.annotation.NonNull;
 import es.dmoral.toasty.Toasty;
 
 public class ToastUtil {
+    /**
+     * 上下文
+     */
+    private static Context context;
+
+    public static void init(Context context) {
+        ToastUtil.context=context;
+    }
 
     /**
      * 短时间错误土司
      */
-    public static void errorShortToast(@NonNull Context context, int id) {
+    public static void errorShortToast(int id) {
         Toasty.error(context, id, Toast.LENGTH_SHORT).show();
     }
 
     /**
      * 长时间错误土司
      */
-    public static void errorLongToast(@NonNull Context context, int id) {
+    public static void errorLongToast(int id) {
         Toasty.error(context, id, Toast.LENGTH_LONG).show();
     }
+
 }
