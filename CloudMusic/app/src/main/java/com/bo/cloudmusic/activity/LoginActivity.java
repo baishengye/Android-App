@@ -68,6 +68,7 @@ public class LoginActivity extends BaseTitleActivity {
                     public void onSubscribe(Disposable d) {
 
                         LoadingUtil.showLoading(getMainActivity());
+                        /*LoadingUtil.showLoading(getMainActivity());
 
                         //3秒后隐藏加载提示框
                         //因为显示对话框后无法电视后面的按钮
@@ -76,7 +77,7 @@ public class LoginActivity extends BaseTitleActivity {
                             public void run() {
                                 LoadingUtil.hideLoading();
                             }
-                        },3000);
+                        },3000);*/
                     }
 
                     /**
@@ -85,6 +86,9 @@ public class LoginActivity extends BaseTitleActivity {
                     @Override
                     public void onNext(SheetDetailWrapper sheetDetailWrapper) {
                         LogUtil.d(TAG,"歌单请求成功"+sheetDetailWrapper.getData().getTitle());
+
+                        //隐藏加载提示框
+                        LoadingUtil.hideLoading();
                     }
 
                     /**
@@ -118,6 +122,9 @@ public class LoginActivity extends BaseTitleActivity {
                         } else{
                             ToastUtil.errorShortToast(R.string.error_network_unkown);
                         }
+
+                        //隐藏加载提示框
+                        LoadingUtil.hideLoading();
                     }
 
                     /**
