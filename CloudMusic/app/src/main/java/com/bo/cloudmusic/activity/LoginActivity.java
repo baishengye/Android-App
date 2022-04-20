@@ -59,6 +59,9 @@ public class LoginActivity extends BaseTitleActivity {
         Api.getInstance()
                 .sheetDetail("1")
                 .subscribe(new Observer<SheetDetailWrapper>() {//订阅请求的歌单详情的数据
+                    /**
+                     * 开始请求的时候调用，所以可以在这里显示请求对话框
+                     */
                     @Override
                     public void onSubscribe(Disposable d) {
 
@@ -104,6 +107,9 @@ public class LoginActivity extends BaseTitleActivity {
                         }
                     }
 
+                    /**
+                     * 请求成功结束时会显示，但是请求失败结束时不会显示
+                     */
                     @Override
                     public void onComplete() {
 
