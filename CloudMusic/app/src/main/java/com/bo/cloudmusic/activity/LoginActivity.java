@@ -1,6 +1,7 @@
 package com.bo.cloudmusic.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -9,6 +10,7 @@ import com.bo.cloudmusic.api.Api;
 import com.bo.cloudmusic.api.Service;
 import com.bo.cloudmusic.domain.SheetDetailWrapper;
 import com.bo.cloudmusic.utils.Constant;
+import com.bo.cloudmusic.utils.LoadingUtil;
 import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.StringUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
@@ -65,6 +67,16 @@ public class LoginActivity extends BaseTitleActivity {
                     @Override
                     public void onSubscribe(Disposable d) {
 
+                        LoadingUtil.showLoading(getMainActivity());
+
+                        //3秒后隐藏加载提示框
+                        //因为显示对话框后无法电视后面的按钮
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                LoadingUtil.hideLoading();
+                            }
+                        },3000);
                     }
 
                     /**
@@ -79,9 +91,10 @@ public class LoginActivity extends BaseTitleActivity {
                      * 请求失败
                      */
                     public void onError(Throwable e) {
-//请求失败
+                        //请求失败
                         LogUtil.d(TAG,"request sheet detail failed:"+e.getLocalizedMessage());
-//判断错误类型
+
+                        //判断错误类型
                         if (e instanceof UnknownHostException) {
                             ToastUtil.errorShortToast(R.string.error_network_unkown_host);
                         }else if (e instanceof ConnectException) {
