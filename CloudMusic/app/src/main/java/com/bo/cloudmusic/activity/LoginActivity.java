@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.bo.cloudmusic.R;
+import com.bo.cloudmusic.api.Api;
 import com.bo.cloudmusic.api.Service;
 import com.bo.cloudmusic.domain.SheetDetailWrapper;
 import com.bo.cloudmusic.utils.Constant;
@@ -54,26 +55,9 @@ public class LoginActivity extends BaseTitleActivity {
     public void onLoginClick(Button view){
         LogUtil.d(TAG,"点击登录");
 
-        //测试网络请求
-
-        //初始化一个okhHttp
-        OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
-
-        //初始化retrofit
-        Retrofit retrofit = new Retrofit.Builder()
-                .client(okHttpBuilder.build())//retrofit使用okHttp客户端
-                .baseUrl(Constant.ENDPOINT)//api的地址
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//适配Rxjava
-                .addConverterFactory(GsonConverterFactory.create())//使用Gson来解析得到的json字符串
-                .build();//创建retrofit
-
-        //创建service
-        Service service = retrofit.create(Service.class);//通过retrofit来创建Service.class接口对应的实例
-
-        //请求歌单详情
-        service.sheetDetail("-20")
-                .subscribeOn(Schedulers.io())//设置网络请求在子线程中使用
-                .observeOn(AndroidSchedulers.mainThread())//观察者模式，在android的主线程中观察，UI只能在主线程中使用
+        //使用重构的Api
+        Api.getInstance()
+                .sheetDetail("1")
                 .subscribe(new Observer<SheetDetailWrapper>() {//订阅请求的歌单详情的数据
                     @Override
                     public void onSubscribe(Disposable d) {
