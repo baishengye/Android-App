@@ -4,6 +4,7 @@ import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.SheetDetailWrapper;
 import com.bo.cloudmusic.domain.SheetListWrapper;
 import com.bo.cloudmusic.domain.response.DetailResponse;
+import com.bo.cloudmusic.domain.response.ListResponse;
 import com.bo.cloudmusic.utils.Constant;
 
 import io.reactivex.Observable;
@@ -78,11 +79,11 @@ public class Api {
     /**
      * 歌单列表
      */
-    public Observable<SheetListWrapper> sheets(){
+    /*public Observable<SheetListWrapper> sheets(){
         return service.sheets()
                 .subscribeOn(Schedulers.io())//设置网络请求在子线程中使用
                 .observeOn(AndroidSchedulers.mainThread());
-    }
+    }*/
 
     /**
      * 歌单详情
@@ -93,4 +94,12 @@ public class Api {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    /**
+     * 歌单列表
+     */
+    public Observable<ListResponse<Sheet>> sheets() {
+        return service.sheets()
+                .subscribeOn(Schedulers.io())//设置网络请求在子线程中使用
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

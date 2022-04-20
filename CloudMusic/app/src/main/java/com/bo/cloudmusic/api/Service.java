@@ -4,6 +4,7 @@ import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.SheetDetailWrapper;
 import com.bo.cloudmusic.domain.SheetListWrapper;
 import com.bo.cloudmusic.domain.response.DetailResponse;
+import com.bo.cloudmusic.domain.response.ListResponse;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -30,15 +31,18 @@ public interface Service {
     /**
      * 歌单列表
      */
-    @GET("v1/sheets")
-    Observable<SheetListWrapper> sheets();
+    /*@GET("v1/sheets")
+    Observable<SheetListWrapper> sheets();*/
 
     /**
      * 歌单详情
-     *
-     * @param id
-     * @return
      */
     @GET("v1/sheets/{id}")
     Observable<DetailResponse<Sheet>> sheetDetail(@Path("id") String id);
+
+    /**
+     * 歌单列表
+     */
+    @GET("v1/sheets")
+    Observable<ListResponse<Sheet>> sheets();
 }

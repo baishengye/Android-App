@@ -12,6 +12,7 @@ import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.SheetDetailWrapper;
 import com.bo.cloudmusic.domain.SheetListWrapper;
 import com.bo.cloudmusic.domain.response.DetailResponse;
+import com.bo.cloudmusic.domain.response.ListResponse;
 import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.LoadingUtil;
 import com.bo.cloudmusic.utils.LogUtil;
@@ -61,6 +62,30 @@ public class LoginActivity extends BaseTitleActivity {
         LogUtil.d(TAG,"点击登录");
 
         Api.getInstance()
+                .sheets()
+                .subscribe(new Observer<ListResponse<Sheet>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ListResponse<Sheet> sheetListResponse) {
+                        LogUtil.d(TAG,"onNext:"+sheetListResponse.getData().size());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+        /*Api.getInstance()
                 .sheetDetail("1")
                 .subscribe(new Observer<DetailResponse<Sheet>>() {
                     @Override
@@ -82,7 +107,7 @@ public class LoginActivity extends BaseTitleActivity {
                     public void onComplete() {
 
                     }
-                });
+                });*/
 
 
         /*Api.getInstance()
