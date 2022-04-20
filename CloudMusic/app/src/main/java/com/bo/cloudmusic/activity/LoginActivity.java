@@ -8,8 +8,10 @@ import android.widget.EditText;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.api.Api;
 import com.bo.cloudmusic.api.Service;
+import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.SheetDetailWrapper;
 import com.bo.cloudmusic.domain.SheetListWrapper;
+import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.LoadingUtil;
 import com.bo.cloudmusic.utils.LogUtil;
@@ -59,6 +61,31 @@ public class LoginActivity extends BaseTitleActivity {
         LogUtil.d(TAG,"点击登录");
 
         Api.getInstance()
+                .sheetDetail("1")
+                .subscribe(new Observer<DetailResponse<Sheet>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(DetailResponse<Sheet> sheetDetailResponse) {
+                        LogUtil.d(TAG,"onNext:"+sheetDetailResponse.getData().getTitle());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+
+        /*Api.getInstance()
                 .sheets()
                 .subscribe(new Observer<SheetListWrapper>() {
                     @Override
@@ -80,7 +107,7 @@ public class LoginActivity extends BaseTitleActivity {
                     public void onComplete() {
 
                     }
-                });
+                });*/
 
         //使用重构的Api
         /*Api.getInstance()

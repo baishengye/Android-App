@@ -1,7 +1,9 @@
 package com.bo.cloudmusic.api;
 
+import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.SheetDetailWrapper;
 import com.bo.cloudmusic.domain.SheetListWrapper;
+import com.bo.cloudmusic.domain.response.DetailResponse;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -21,8 +23,8 @@ public interface Service {
      * @param id
      * @return
      */
-    @GET("v1/sheets/{id}")
-    Observable<SheetDetailWrapper> sheetDetail(@Path("id") String id);
+    /*@GET("v1/sheets/{id}")
+    Observable<SheetDetailWrapper> sheetDetail(@Path("id") String id);*/
     //RxJava2中的Observable解析成SheetDetailWrapper
 
     /**
@@ -30,4 +32,13 @@ public interface Service {
      */
     @GET("v1/sheets")
     Observable<SheetListWrapper> sheets();
+
+    /**
+     * 歌单详情
+     *
+     * @param id
+     * @return
+     */
+    @GET("v1/sheets/{id}")
+    Observable<DetailResponse<Sheet>> sheetDetail(@Path("id") String id);
 }
