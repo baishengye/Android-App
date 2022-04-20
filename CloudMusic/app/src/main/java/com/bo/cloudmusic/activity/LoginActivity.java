@@ -14,6 +14,10 @@ import com.bo.cloudmusic.utils.ToastUtil;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.Observer;
@@ -22,6 +26,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
+import retrofit2.HttpException;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -66,7 +71,7 @@ public class LoginActivity extends BaseTitleActivity {
         Service service = retrofit.create(Service.class);//通过retrofit来创建Service.class接口对应的实例
 
         //请求歌单详情
-        service.sheetDetail("1")
+        service.sheetDetail("-20")
                 .subscribeOn(Schedulers.io())//设置网络请求在子线程中使用
                 .observeOn(AndroidSchedulers.mainThread())//观察者模式，在android的主线程中观察，UI只能在主线程中使用
                 .subscribe(new Observer<SheetDetailWrapper>() {//订阅请求的歌单详情的数据
@@ -86,9 +91,33 @@ public class LoginActivity extends BaseTitleActivity {
                     /**
                      * 请求失败
                      */
-                    @Override
                     public void onError(Throwable e) {
-                        LogUtil.d(TAG,"歌单请求失败: "+e.getLocalizedMessage());
+//请求失败
+                        LogUtil.d(TAG,"request sheet detail failed:"+e.getLocalizedMessage());
+//判断错误类型
+                        if (e instanceof UnknownHostException) {
+                            ToastUtil.errorShortToast(R.string.error_network_unkown_host);
+                        }else if (e instanceof ConnectException) {
+                            ToastUtil.errorShortToast(R.string.error_network_connect);
+                        }else if(e instanceof SocketTimeoutException){
+                            ToastUtil.errorShortToast(R.string.error_network_timeout);
+                        }else if (e instanceof HttpException){
+                            HttpException exception = (HttpException) e;
+                            int code = exception.code();
+                            if (code == 401) {
+                                ToastUtil.errorShortToast(R.string.error_network_not_auth);
+                            } else if (code == 403) {
+                                ToastUtil.errorShortToast(R.string.error_network_not_permission);
+                            } else if (code == 404) {
+                                ToastUtil.errorShortToast(R.string.error_network_not_found);
+                            } else if (code >= 500) {
+                                ToastUtil.errorShortToast(R.string.error_network_server);
+                            } else {
+                                ToastUtil.errorShortToast(R.string.error_network_unkown);
+                            }
+                        } else{
+                            ToastUtil.errorShortToast(R.string.error_network_unkown);
+                        }
                     }
 
                     @Override
