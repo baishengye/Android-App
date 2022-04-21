@@ -3,9 +3,16 @@ package com.bo.cloudmusic.api;
 import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.SheetDetailWrapper;
 import com.bo.cloudmusic.domain.SheetListWrapper;
+import com.bo.cloudmusic.domain.User;
 import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.domain.response.ListResponse;
 import com.bo.cloudmusic.utils.Constant;
+import com.bo.cloudmusic.utils.StringUtil;
+
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -65,31 +72,25 @@ public class Api {
 
     /**
      * 歌单详情
-     *//*
-   public Observable<SheetDetailWrapper> sheetDetail(String id) {
-        //RxJava2中的Observable解析成SheetDetailWrapper
-
-        //请求歌单详情
-        //观察者模式，在android的主线程中观察，UI只能在主线程中使用
-        return service.sheetDetail(id)
-                .subscribeOn(Schedulers.io())//设置网络请求在子线程中使用
-                .observeOn(AndroidSchedulers.mainThread());
-    }*/
-
-    /**
-     * 歌单列表
-     */
-    /*public Observable<SheetListWrapper> sheets(){
-        return service.sheets()
-                .subscribeOn(Schedulers.io())//设置网络请求在子线程中使用
-                .observeOn(AndroidSchedulers.mainThread());
-    }*/
-
-    /**
-     * 歌单详情
      */
     public Observable<DetailResponse<Sheet>> sheetDetail(String id){
         return service.sheetDetail(id)
+                .subscribeOn(Schedulers.io())//设置网络请求在子线程中使用
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 用户详情
+     */
+    public Observable<DetailResponse<User>> userDetail(String id,String nickname){
+
+        Map<String, String> data = new HashMap<>();
+
+        if(StringUtils.isNoneBlank(nickname)){
+            data.put(Constant.NICKNAME,nickname);
+        }
+
+        return service.UserDetail(id,data)
                 .subscribeOn(Schedulers.io())//设置网络请求在子线程中使用
                 .observeOn(AndroidSchedulers.mainThread());
     }

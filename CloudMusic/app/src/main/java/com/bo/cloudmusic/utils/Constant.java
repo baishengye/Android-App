@@ -31,4 +31,9 @@ public class Constant {
      * 邮箱正则表达式
      */
     public static final String REGEX_EMAIL = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$";
+
+    /**
+     * 服务端用户查询昵称的id，，使用这个表达想要查询通过用户昵称查询
+     */
+    public static final String NICKNAME = "nickname";
 }

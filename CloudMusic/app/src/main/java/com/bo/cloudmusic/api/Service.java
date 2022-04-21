@@ -3,12 +3,16 @@ package com.bo.cloudmusic.api;
 import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.SheetDetailWrapper;
 import com.bo.cloudmusic.domain.SheetListWrapper;
+import com.bo.cloudmusic.domain.User;
 import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.domain.response.ListResponse;
+
+import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.QueryMap;
 
 /**
  * ⽹络接⼝配置
@@ -45,4 +49,10 @@ public interface Service {
      */
     @GET("v1/sheets")
     Observable<ListResponse<Sheet>> sheets();
+
+    /**
+     * 用户详情
+     */
+    @GET("v1/user/{id}")
+    Observable<DetailResponse<User>> UserDetail(@Path("id") String id, @QueryMap Map<String,String> data);
 }

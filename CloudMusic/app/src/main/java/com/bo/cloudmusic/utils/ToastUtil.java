@@ -25,6 +25,13 @@ public class ToastUtil {
     }
 
     /**
+     * 短时间错误土司
+     */
+    public static void errorShortToast(String message) {
+        Toasty.error(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
      * 长时间错误土司
      */
     public static void errorLongToast(int id) {
