@@ -13,6 +13,7 @@ import com.bo.cloudmusic.domain.SheetDetailWrapper;
 import com.bo.cloudmusic.domain.SheetListWrapper;
 import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.domain.response.ListResponse;
+import com.bo.cloudmusic.listener.HttpObserver;
 import com.bo.cloudmusic.listener.ObserverAdapter;
 import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.LoadingUtil;
@@ -62,7 +63,18 @@ public class LoginActivity extends BaseTitleActivity {
     public void onLoginClick(Button view){
         LogUtil.d(TAG,"点击登录");
 
+        //使⽤HttpObserver
         Api.getInstance()
+                .sheetDetail("1")
+                .subscribe(new HttpObserver<DetailResponse<Sheet>>(){
+                    @Override
+                    public void onSucceeded(DetailResponse<Sheet> data) {
+                        //请求成功
+                        LogUtil.d(TAG,"onSucceeded:"+data.getData().getTitle());
+                    }
+                });
+
+        /*Api.getInstance()
                 .sheetDetail("1")
                 .subscribe(new ObserverAdapter<DetailResponse<Sheet>>(){
                     @Override
@@ -70,7 +82,7 @@ public class LoginActivity extends BaseTitleActivity {
                         super.onNext(sheetDetailResponse);
                         LogUtil.d(TAG,"onNext:"+sheetDetailResponse.getData().getTitle());
                     }
-                });
+                });*/
 
         /*Api.getInstance()
                 .sheets()
