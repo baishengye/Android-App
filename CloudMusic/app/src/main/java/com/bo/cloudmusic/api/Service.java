@@ -1,5 +1,6 @@
 package com.bo.cloudmusic.api;
 
+import com.bo.cloudmusic.domain.BaseModel;
 import com.bo.cloudmusic.domain.Session;
 import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.SheetDetailWrapper;
@@ -54,6 +55,11 @@ public interface Service {
     @GET("v1/sheets")
     Observable<ListResponse<Sheet>> sheets();
 
+    /**
+     * 注册返回id
+     */
+    @POST("v1/users")
+    Observable<DetailResponse<BaseModel>> register(@Body User data);
 
     /**
      * 登录返回Session

@@ -1,6 +1,7 @@
 package com.bo.cloudmusic.api;
 
 import com.bo.cloudmusic.AppContext;
+import com.bo.cloudmusic.domain.BaseModel;
 import com.bo.cloudmusic.domain.Session;
 import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.User;
@@ -100,7 +101,16 @@ public class Api {
     }
 
     /**
-     * 歌单详情
+     * 注册
+     */
+    public Observable<DetailResponse<BaseModel>> register(User data){
+        return service.register(data)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 登录
      */
     public Observable<DetailResponse<Session>> login(User data){
         return service.login(data)

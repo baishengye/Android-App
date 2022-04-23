@@ -4,6 +4,12 @@ package com.bo.cloudmusic.domain;
  * 用户模型
  */
 public class User extends BaseModel{
+
+    /**
+     * 昵称
+     */
+    private String nickname;
+
     /**
      * ⼿机号
      */
@@ -12,6 +18,15 @@ public class User extends BaseModel{
      * 邮件
      */
     private String email;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     /**
      * ⽤户的密码,登录，注册向服务端传递
      */

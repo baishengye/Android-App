@@ -6,6 +6,12 @@ import android.os.Bundle;
 import android.widget.EditText;
 
 import com.bo.cloudmusic.R;
+import com.bo.cloudmusic.api.Api;
+import com.bo.cloudmusic.domain.BaseModel;
+import com.bo.cloudmusic.domain.User;
+import com.bo.cloudmusic.domain.response.DetailResponse;
+import com.bo.cloudmusic.listener.HttpObserver;
+import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.StringUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
 
@@ -16,6 +22,7 @@ import butterknife.OnClick;
 
 public class RegisterActivity extends BaseCommonActivity {
 
+    private static final String TAG = "RegisterActivity";
     /**
      * 昵称输入框
      */
@@ -129,6 +136,22 @@ public class RegisterActivity extends BaseCommonActivity {
             return;
         }
 
-        //TODO 调用注册接口注册
+        User user = new User();
+        user.setNickname(nickname);
+        user.setPhone(phone);
+        user.setEmail(email);
+        user.setPassword(password);
+
+        Api.getInstance()
+                .register(user)
+                .subscribe(new HttpObserver<DetailResponse<BaseModel>>(){
+                    @Override
+                    public void onSucceeded(DetailResponse<BaseModel> data) {
+                        LogUtil.d(TAG,"onSucceeded:"+data.getData().getId());
+
+                        //TODO 自动登录
+                    }
+                });
+
     }
 }

@@ -17,7 +17,7 @@ import java.net.UnknownHostException;
 import io.reactivex.disposables.Disposable;
 import retrofit2.HttpException;
 
-public class HttpObserver<T> extends ObserverAdapter<T> {
+public abstract class HttpObserver<T> extends ObserverAdapter<T> {
     private static final String TAG = "HttpObserver";
 
     /**
@@ -48,8 +48,7 @@ public class HttpObserver<T> extends ObserverAdapter<T> {
     /**
      * 请求成功
      */
-    public void onSucceeded(T data) {
-    }
+    public abstract void onSucceeded(T data);
 
     /**
      * 请求错误
