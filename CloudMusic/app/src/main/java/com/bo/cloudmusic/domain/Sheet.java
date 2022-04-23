@@ -3,12 +3,7 @@ package com.bo.cloudmusic.domain;
 /**
  * 歌单对象
  */
-public class Sheet {
-    /**
-     * 歌单id
-     */
-    private String id;
-
+public class Sheet extends BaseModel{
     /**
      * 歌单标题
      */
@@ -18,14 +13,6 @@ public class Sheet {
      * 歌单封面
      */
     private String banner;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
