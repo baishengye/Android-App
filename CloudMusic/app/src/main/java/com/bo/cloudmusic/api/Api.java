@@ -5,6 +5,8 @@ import com.bo.cloudmusic.domain.User;
 import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.domain.response.ListResponse;
 import com.bo.cloudmusic.utils.Constant;
+import com.bo.cloudmusic.utils.LogUtil;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -15,6 +17,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -51,6 +54,22 @@ public class Api {
     public Api() {
         //初始化一个okhHttp
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
+
+        if(LogUtil.isDebug){
+            //只有在调试模式下进行
+
+            //创建OkHttp日志拦截器
+            HttpLoggingInterceptor loggingInterceptor=new HttpLoggingInterceptor();
+
+            //设置日志等级
+            loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+
+            //添加到网络框架中
+            okHttpBuilder.addInterceptor(loggingInterceptor);
+
+            //添加Stetho抓包拦截器
+            okHttpBuilder.addInterceptor(new StethoInterceptor());
+        }
 
         //初始化retrofit
         Retrofit retrofit = new Retrofit.Builder()
