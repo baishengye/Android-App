@@ -27,4 +27,9 @@
     <string name="enter_phone">请输入手机号</string>
     <string name="enter_email">请输入邮箱</string>
     <string name="enter_confirm_password">请确认密码</string>
+    <string name="error_nickname_format">昵称格式错误</string>
+    <string name="error_phone_format">手机号格式错误</string>
+    <string name="error_email_format">邮箱格式错误</string>
+    <string name="error_confirm_password_format">确认密码格式错误</string>
+    <string name="error_confirm_password">请保持确认密码和密码一致</string>
 </resources>
