@@ -20,9 +20,20 @@ public class PreferencesUtil {
     private static PreferencesUtil instance;
 
     /**
-     * 是否显示引导界⾯key
+     * 是否显示引导界⾯ key
      */
     private static final String SHOW_GUIDE = "SHOW_GUIDE";
+
+    /**
+     * 用户登录session key
+     */
+    private static final String SESSION = "SESSION";
+
+    /**
+     * 用户登录UserId key
+     */
+    private static final String USER_ID = "USER_ID";
+
 
     /**
      * 上下文
@@ -73,5 +84,33 @@ public class PreferencesUtil {
      */
     public void setShowGuide(boolean value) {
         preference.edit().putBoolean(SHOW_GUIDE, value).apply();
+    }
+
+    /**
+     * 设置session
+     */
+    public void setSession(String session) {
+        preference.edit().putString(SESSION,session).apply();
+    }
+
+    /**
+     * 获取登录session
+     */
+    public String getSession() {
+        return preference.getString(SESSION,null);
+    }
+
+    /**
+     * 设置UserId
+     */
+    public void setUserId(String user) {
+        preference.edit().putString(USER_ID,user).apply();
+    }
+
+    /**
+     * 获取登录session
+     */
+    public String getUserId() {
+        return preference.getString(USER_ID,null);
     }
 }

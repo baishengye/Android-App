@@ -1,7 +1,5 @@
 package com.bo.cloudmusic.api;
 
-import android.media.browse.MediaBrowser;
-
 import com.bo.cloudmusic.AppContext;
 import com.bo.cloudmusic.domain.Session;
 import com.bo.cloudmusic.domain.Sheet;
@@ -76,7 +74,7 @@ public class Api {
             okHttpClientBuilder.addNetworkInterceptor(new StethoInterceptor());
 
             //添加Chucker实现应用内显示网络请求信息拦截器
-            okHttpClientBuilder.addInterceptor(new ChuckerInterceptor(AppContext.getContext()));
+            okHttpClientBuilder.addInterceptor(new ChuckerInterceptor(AppContext.getInstance()));
         }
 
         //初始化retrofit

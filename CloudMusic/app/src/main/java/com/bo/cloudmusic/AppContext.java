@@ -5,6 +5,8 @@ import android.content.Context;
 
 import androidx.multidex.MultiDex;
 
+import com.bo.cloudmusic.domain.Session;
+import com.bo.cloudmusic.utils.PreferencesUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
 import com.facebook.stetho.Stetho;
 
@@ -14,7 +16,7 @@ import es.dmoral.toasty.Toasty;
  * 全局Application
  */
 public class AppContext extends Application {
-    private static Context context;
+    private static AppContext context;
 
     /**
      *创建App
@@ -45,8 +47,27 @@ public class AppContext extends Application {
     }
 
     //获取全局的上下文
-    public static Context getContext() {
+    public static AppContext getInstance() {
         return context;
+    }
+
+    /**
+     * 当用户登录过了
+     * @param sp
+     * @param data
+     */
+    public void login(PreferencesUtil sp, Session data){
+        //保存登录后的Session
+        sp.setSession(data.getSession());
+
+        //保存用户id
+        sp.setUserId(data.getUser());
+
+        //初始化其他登录之后才需要初始化的内容
+        onLogin();
+    }
+
+    private void onLogin() {
     }
 
 }

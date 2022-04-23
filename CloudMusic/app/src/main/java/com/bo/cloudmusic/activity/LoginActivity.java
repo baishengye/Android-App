@@ -9,11 +9,9 @@ import com.bo.cloudmusic.AppContext;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.api.Api;
 import com.bo.cloudmusic.domain.Session;
-import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.User;
 import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.listener.HttpObserver;
-import com.bo.cloudmusic.utils.HttpUtil;
 import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.StringUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
@@ -22,7 +20,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import retrofit2.http.GET;
 
 /**
  * 登陆界面
@@ -388,6 +385,9 @@ public class LoginActivity extends BaseTitleActivity {
                     @Override
                     public void onSucceeded(DetailResponse<Session> data) {
                         LogUtil.d(TAG, "onLoginClick success:" + data.getData());
+
+                        //把登录成功的事件通知到AppContext
+                        AppContext.getInstance().login(sp, data.getData());
                     }
                 });
     }
