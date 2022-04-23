@@ -40,15 +40,47 @@ public class LoginActivity extends BaseTitleActivity {
     public void onLoginClick(Button view){
         LogUtil.d(TAG,"点击登录");
 
+
+        //模拟500错误
+        //手动处理错误
+        Api.getInstance().userDetail("-1","111111111111111111")
+                .subscribe(new HttpObserver<DetailResponse<User>>() {
+                    public void onSucceeded(DetailResponse<User> data) {
+                        ToastUtil.errorShortToast("onSucceeded:"+data.getData());
+                    }
+
+                    @Override
+                    public boolean onFailed(DetailResponse<User> userDetailResponse, Throwable e) {
+                        LogUtil.d(TAG,"onFail:"+e);
+                        return true;
+                    }
+                });
+
+
+        //模拟500错误
+        //父类处理错误
+        /*Api.getInstance().userDetail("-1","111111111111111111")
+                .subscribe(new HttpObserver<DetailResponse<User>>() {
+                    public void onSucceeded(DetailResponse<User> data) {
+                        ToastUtil.errorShortToast("onSucceeded:"+data.getData());
+                    }
+
+                    @Override
+                    public boolean onFailed(DetailResponse<User> userDetailResponse, Throwable e) {
+                        LogUtil.d(TAG,"onFail:"+e);
+                        return super.onFailed(userDetailResponse, e);
+                    }
+                });*/
+
         //模拟404错误
         /*@GET("v1/sheets11111111111/{id}")//模拟404错误*/
-        Api.getInstance().sheetDetail("1")
+        /*Api.getInstance().sheetDetail("1")
                 .subscribe(new HttpObserver<DetailResponse<Sheet>>() {
                     @Override
                     public void onSucceeded(DetailResponse<Sheet> data) {
                         ToastUtil.errorShortToast("onSucceeded:"+data.getData().getTitle());
                     }
-                });
+                });*/
 
         //模拟500错误
         /*Api.getInstance().userDetail("-1","111111111111111111")
