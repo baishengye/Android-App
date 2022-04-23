@@ -41,6 +41,7 @@ public interface Service {
     /**
      * 歌单详情
      */
+    /*@GET("v1/sheets11111111111/{id}")//模拟404错误*/
     @GET("v1/sheets/{id}")
     Observable<DetailResponse<Sheet>> sheetDetail(@Path("id") String id);
 
@@ -53,6 +54,6 @@ public interface Service {
     /**
      * 用户详情
      */
-    @GET("v1/user/{id}")
+    @GET("v1/users/{id}")
     Observable<DetailResponse<User>> UserDetail(@Path("id") String id, @QueryMap Map<String,String> data);
 }

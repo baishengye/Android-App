@@ -5,7 +5,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * 对Obverser空实现，那么我们只需要继承ObserverAdapter,然后只需要重写自己想重写的了
+ * 对Observer空实现，那么我们只需要继承ObserverAdapter,然后只需要重写自己想重写的了
  *
  * @param <T>
  */
