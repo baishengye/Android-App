@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.response.BaseResponse;
+import com.bo.cloudmusic.utils.HttpUtil;
 import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
 
@@ -51,7 +52,7 @@ public class HttpObserver<T> extends ObserverAdapter<T> {
         } else {
             //有状态码
             //表示请求出错了
-            requestErrorHandler(t, null);
+            handlerRequest(t, null);
         }
     }
 
@@ -60,7 +61,7 @@ public class HttpObserver<T> extends ObserverAdapter<T> {
         super.onError(e);
         LogUtil.d(TAG, "onError:" + e.getLocalizedMessage());
 
-        requestErrorHandler(null, e);
+        handlerRequest(null, e);
     }
 
     /**
@@ -89,7 +90,7 @@ public class HttpObserver<T> extends ObserverAdapter<T> {
      * @param data  请求返回的对象
      * @param error 错误信息
      */
-    private void requestErrorHandler(T data, Throwable error) {
+    private void handlerRequest(T data, Throwable error) {
         if (onFailed(data, error)) {
             //回调了请求失败⽅法
             //并且该⽅法返回了true
@@ -97,45 +98,7 @@ public class HttpObserver<T> extends ObserverAdapter<T> {
             //返回true就表示外部⼿动处理错误
             //那我们框架内部就不⽤做任何事情了
         } else {
-            if (error != null) {
-                //判断错误类型
-                if (error instanceof UnknownHostException) {//手机没网或者其他原因导致连不上服务器
-                    ToastUtil.errorShortToast(R.string.error_network_unknown_host);
-                } else if (error instanceof ConnectException) {
-                    ToastUtil.errorShortToast(R.string.error_network_connect);
-                } else if (error instanceof SocketTimeoutException) {//手机有网，但是在一定时间上没连上
-                    ToastUtil.errorShortToast(R.string.error_network_timeout);
-                } else if (error instanceof HttpException) {
-                    HttpException exception = (HttpException) error;
-                    //获取响应码
-                    int code = exception.code();
-                    if (code == 401) {
-                        ToastUtil.errorShortToast(R.string.error_network_not_auth);
-                    } else if (code == 403) {
-                        ToastUtil.errorShortToast(R.string.error_network_not_permission);
-                    } else if (code == 404) {
-                        ToastUtil.errorShortToast(R.string.error_network_not_found);
-                    } else if (code >= 500) {
-                        ToastUtil.errorShortToast(R.string.error_network_server);
-                    } else {
-                        ToastUtil.errorShortToast(R.string.error_network_unknown);
-                    }
-                } else {
-                    ToastUtil.errorShortToast(R.string.error_network_unknown);
-                }
-            } else {
-                if (data instanceof BaseResponse) {
-                    //判断具体的业务请求是否成功
-                    BaseResponse baseResponse = (BaseResponse) data;
-
-                    if (TextUtils.isEmpty(baseResponse.getMessage())) {
-                        //没有错误提示信息
-                        ToastUtil.errorShortToast(R.string.error_network_unknown);
-                    } else {
-
-                    }
-                }
-            }
+            HttpUtil.handleRequest(data,error);
         }
 
 

@@ -10,6 +10,7 @@ import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.User;
 import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.listener.HttpObserver;
+import com.bo.cloudmusic.utils.HttpUtil;
 import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
 
@@ -50,8 +51,11 @@ public class LoginActivity extends BaseTitleActivity {
                     }
 
                     @Override
-                    public boolean onFailed(DetailResponse<User> userDetailResponse, Throwable e) {
+                    public boolean onFailed(DetailResponse<User> data, Throwable e) {
                         LogUtil.d(TAG,"onFail:"+e);
+
+                        HttpUtil.handleRequest(data,e);
+
                         return true;
                     }
                 });
