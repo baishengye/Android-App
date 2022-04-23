@@ -41,10 +41,18 @@ public class LoginActivity extends BaseTitleActivity {
     public void onLoginClick(Button view){
         LogUtil.d(TAG,"点击登录");
 
+        //测试对话框显示
+        Api.getInstance().sheetDetail("10")
+                .subscribe(new HttpObserver<DetailResponse<Sheet>>(getMainActivity(),false) {
+                    @Override
+                    public void onSucceeded(DetailResponse<Sheet> data) {
+                        LogUtil.d(TAG,"onSucceeded:"+data.getData().getTitle());
+                    }
+                });
 
         //模拟500错误
         //手动处理错误
-        Api.getInstance().userDetail("-1","111111111111111111")
+        /*Api.getInstance().userDetail("-1","111111111111111111")
                 .subscribe(new HttpObserver<DetailResponse<User>>() {
                     public void onSucceeded(DetailResponse<User> data) {
                         ToastUtil.errorShortToast("onSucceeded:"+data.getData());
@@ -58,7 +66,7 @@ public class LoginActivity extends BaseTitleActivity {
 
                         return true;
                     }
-                });
+                });*/
 
 
         //模拟500错误

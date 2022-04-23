@@ -3,8 +3,10 @@ package com.bo.cloudmusic.listener;
 import android.text.TextUtils;
 
 import com.bo.cloudmusic.R;
+import com.bo.cloudmusic.activity.BaseCommonActivity;
 import com.bo.cloudmusic.domain.response.BaseResponse;
 import com.bo.cloudmusic.utils.HttpUtil;
+import com.bo.cloudmusic.utils.LoadingUtil;
 import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
 
@@ -12,10 +14,29 @@ import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
+import io.reactivex.disposables.Disposable;
 import retrofit2.HttpException;
 
 public class HttpObserver<T> extends ObserverAdapter<T> {
     private static final String TAG = "HttpObserver";
+
+    /**
+     * 是否显示对话框
+     */
+    private Boolean isShowLoading;
+
+    /**
+     * 界面
+     */
+    private BaseCommonActivity activity;
+
+    public HttpObserver(){
+    }
+
+    public HttpObserver(BaseCommonActivity activity,Boolean isShowLoading){
+        this.activity=activity;
+        this.isShowLoading=isShowLoading;
+    }
 
     /**
      * 请求成功
@@ -25,14 +46,22 @@ public class HttpObserver<T> extends ObserverAdapter<T> {
 
     /**
      * 请求错误
-     *
-     * @param t
-     * @param e
      * @return 如果返回true就表示子类要处理错误
      * 如果返回false就表示父类自动要处理错误
      */
     public boolean onFailed(T t, Throwable e) {
         return false;
+    }
+
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        super.onSubscribe(d);
+
+        //显示对话框
+        if(isShowLoading){
+            LoadingUtil.showLoading(activity);
+        }
     }
 
     /**
@@ -44,6 +73,9 @@ public class HttpObserver<T> extends ObserverAdapter<T> {
     public void onNext(T t) {
         super.onNext(t);
         LogUtil.d(TAG, "onNext:" + t);
+
+        //检查是否需要隐藏加载提示框
+        checkHideLoading();
 
         //判断是否请求正常
         if (isSucceeded(t)) {
@@ -60,6 +92,9 @@ public class HttpObserver<T> extends ObserverAdapter<T> {
     public void onError(Throwable e) {
         super.onError(e);
         LogUtil.d(TAG, "onError:" + e.getLocalizedMessage());
+
+        //检查是否需要隐藏加载提示框
+        checkHideLoading();
 
         handlerRequest(null, e);
     }
@@ -100,7 +135,15 @@ public class HttpObserver<T> extends ObserverAdapter<T> {
         } else {
             HttpUtil.handleRequest(data,error);
         }
-
-
     }
+
+    /**
+     * 检查是否隐藏提示框
+     */
+    private void checkHideLoading() {
+        if(isShowLoading){
+            LoadingUtil.hideLoading();
+        }
+    }
+
 }
