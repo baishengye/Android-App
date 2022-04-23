@@ -83,14 +83,14 @@ public class PreferencesUtil {
      * 设置是否显示引导界⾯
      */
     public void setShowGuide(boolean value) {
-        preference.edit().putBoolean(SHOW_GUIDE, value).apply();
+        putBoolean(SHOW_GUIDE,value);
     }
 
     /**
      * 设置session
      */
     public void setSession(String session) {
-        preference.edit().putString(SESSION,session).apply();
+        putString(SESSION,session);
     }
 
     /**
@@ -104,7 +104,7 @@ public class PreferencesUtil {
      * 设置UserId
      */
     public void setUserId(String user) {
-        preference.edit().putString(USER_ID,user).apply();
+        putString(USER_ID,user);
     }
 
     /**
@@ -112,5 +112,16 @@ public class PreferencesUtil {
      */
     public String getUserId() {
         return preference.getString(USER_ID,null);
+    }
+
+    /**
+     * 辅助方法
+     */
+    private void putString(String key,String value){
+        preference.edit().putString(key,value).apply();
+    }
+
+    private void putBoolean(String key,boolean value){
+        preference.edit().putBoolean(key,value).apply();
     }
 }
