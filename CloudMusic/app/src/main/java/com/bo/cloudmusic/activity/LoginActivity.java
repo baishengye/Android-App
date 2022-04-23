@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.bo.cloudmusic.AppContext;
+import com.bo.cloudmusic.MainActivity;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.api.Api;
 import com.bo.cloudmusic.domain.Session;
@@ -388,6 +389,9 @@ public class LoginActivity extends BaseTitleActivity {
 
                         //把登录成功的事件通知到AppContext
                         AppContext.getInstance().login(sp, data.getData());
+
+                        //关闭当前界面，并且启动主界面
+                        startActivityAfterFinishThis(MainActivity.class);
                     }
                 });
     }

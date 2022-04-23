@@ -2,6 +2,7 @@ package com.bo.cloudmusic.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 /**
  * 偏好设置工具类
@@ -80,6 +81,13 @@ public class PreferencesUtil {
     }
 
     /**
+     * 是否登录了
+     */
+    public boolean isLogin() {
+        return !TextUtils.isEmpty(getSession());
+    }
+
+    /**
      * 设置是否显示引导界⾯
      */
     public void setShowGuide(boolean value) {
@@ -124,4 +132,5 @@ public class PreferencesUtil {
     private void putBoolean(String key,boolean value){
         preference.edit().putBoolean(key,value).apply();
     }
+
 }

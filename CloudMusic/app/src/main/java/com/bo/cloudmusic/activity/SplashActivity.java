@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 
+import com.bo.cloudmusic.MainActivity;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.databinding.ActivitySplashBinding;
 import com.bo.cloudmusic.utils.Constant;
@@ -52,7 +53,11 @@ public class SplashActivity extends BaseCommonActivity {
         if (sp.isShowGuide()) {
             //显示引导界⾯
             startActivityAfterFinishThis(GuideActivity.class);
-        } else {
+        }else if(sp.isLogin()){
+            //已经登录了
+            //跳转到主界面
+            startActivityAfterFinishThis(MainActivity.class);
+        } else{
             //登录/注册⻚⾯
             startActivityAfterFinishThis(LoginOrRegisterActivity.class);
         }
