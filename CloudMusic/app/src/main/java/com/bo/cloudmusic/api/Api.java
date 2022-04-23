@@ -1,6 +1,9 @@
 package com.bo.cloudmusic.api;
 
+import android.media.browse.MediaBrowser;
+
 import com.bo.cloudmusic.AppContext;
+import com.bo.cloudmusic.domain.Session;
 import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.User;
 import com.bo.cloudmusic.domain.response.DetailResponse;
@@ -94,6 +97,15 @@ public class Api {
      */
     public Observable<DetailResponse<Sheet>> sheetDetail(String id){
         return service.sheetDetail(id)
+                .subscribeOn(Schedulers.io())//设置网络请求在子线程中使用
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 歌单详情
+     */
+    public Observable<DetailResponse<Session>> login(User data){
+        return service.login(data)
                 .subscribeOn(Schedulers.io())//设置网络请求在子线程中使用
                 .observeOn(AndroidSchedulers.mainThread());
     }

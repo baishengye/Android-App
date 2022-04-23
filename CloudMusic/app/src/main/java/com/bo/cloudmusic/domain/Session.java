@@ -1,5 +1,7 @@
 package com.bo.cloudmusic.domain;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -30,5 +32,13 @@ public class Session extends BaseModel {//Serializable序列化接口
 
     public void setSession(String session) {
         this.session = session;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("user", user)
+                .append("session", session)
+                .toString();
     }
 }

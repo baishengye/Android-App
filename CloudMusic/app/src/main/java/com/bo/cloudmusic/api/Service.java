@@ -1,5 +1,6 @@
 package com.bo.cloudmusic.api;
 
+import com.bo.cloudmusic.domain.Session;
 import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.SheetDetailWrapper;
 import com.bo.cloudmusic.domain.SheetListWrapper;
@@ -10,7 +11,9 @@ import com.bo.cloudmusic.domain.response.ListResponse;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
@@ -50,6 +53,13 @@ public interface Service {
      */
     @GET("v1/sheets")
     Observable<ListResponse<Sheet>> sheets();
+
+
+    /**
+     * 登录返回Session
+     */
+    @POST("v1/sessions")
+    Observable<DetailResponse<Session>> login(@Body User data);
 
     /**
      * 用户详情

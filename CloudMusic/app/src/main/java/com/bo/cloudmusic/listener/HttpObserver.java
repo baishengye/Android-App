@@ -30,12 +30,19 @@ public class HttpObserver<T> extends ObserverAdapter<T> {
      */
     private BaseCommonActivity activity;
 
-    public HttpObserver(){
+    /**
+     * 无参构造方法
+     */
+    public HttpObserver() {
+        this.isShowLoading=false;
     }
 
-    public HttpObserver(BaseCommonActivity activity,Boolean isShowLoading){
-        this.activity=activity;
-        this.isShowLoading=isShowLoading;
+    /**
+     * 构造方法
+     */
+    public HttpObserver(BaseCommonActivity activity, boolean isShowLoading) {
+        this.activity = activity;
+        this.isShowLoading = isShowLoading;
     }
 
     /**
