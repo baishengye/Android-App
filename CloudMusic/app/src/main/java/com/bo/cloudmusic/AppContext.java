@@ -14,12 +14,16 @@ import es.dmoral.toasty.Toasty;
  * 全局Application
  */
 public class AppContext extends Application {
+    private static Context context;
+
     /**
      *创建App
      */
     @Override
     public void onCreate() {
         super.onCreate();
+
+        context=this;
 
         //初始化第三方toasty工具类
         Toasty.Config.getInstance().apply();
@@ -39,4 +43,10 @@ public class AppContext extends Application {
         //初始化MultiDex
         MultiDex.install(base);
     }
+
+    //获取全局的上下文
+    public static Context getContext() {
+        return context;
+    }
+
 }

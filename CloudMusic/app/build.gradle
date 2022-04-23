@@ -151,4 +151,10 @@ dependencies {
     //https://github.com/facebook/stetho
     implementation 'com.facebook.stetho:stetho:1.5.1'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+
+    //通过OkHttp的拦截器机制
+    //实现在应⽤内显示⽹络请求功能
+    //https://github.com/ChuckerTeam/chucker
+    debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
 }

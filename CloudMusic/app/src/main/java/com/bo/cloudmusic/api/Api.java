@@ -1,11 +1,13 @@
 package com.bo.cloudmusic.api;
 
+import com.bo.cloudmusic.AppContext;
 import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.User;
 import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.domain.response.ListResponse;
 import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.LogUtil;
+import com.chuckerteam.chucker.api.ChuckerInterceptor;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import org.apache.commons.lang3.StringUtils;
@@ -53,7 +55,7 @@ public class Api {
 
     public Api() {
         //初始化一个okhHttp
-        OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
+        OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
 
         if(LogUtil.isDebug){
             //只有在调试模式下进行
@@ -65,15 +67,18 @@ public class Api {
             loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
 
             //添加到网络框架中
-            okHttpBuilder.addInterceptor(loggingInterceptor);
+            okHttpClientBuilder.addInterceptor(loggingInterceptor);
 
             //添加Stetho抓包拦截器
-            okHttpBuilder.addInterceptor(new StethoInterceptor());
+            okHttpClientBuilder.addNetworkInterceptor(new StethoInterceptor());
+
+            //添加Chucker实现应用内显示网络请求信息拦截器
+            okHttpClientBuilder.addInterceptor(new ChuckerInterceptor(AppContext.getContext()));
         }
 
         //初始化retrofit
         Retrofit retrofit = new Retrofit.Builder()
-                .client(okHttpBuilder.build())//retrofit使用okHttp客户端
+                .client(okHttpClientBuilder.build())//retrofit使用okHttp客户端
                 .baseUrl(Constant.ENDPOINT)//api的地址
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//适配Rxjava
                 .addConverterFactory(GsonConverterFactory.create())//使用Gson来解析得到的json字符串
