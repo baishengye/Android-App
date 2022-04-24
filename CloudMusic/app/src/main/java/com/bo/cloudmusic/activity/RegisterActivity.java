@@ -3,11 +3,15 @@ package com.bo.cloudmusic.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 
+import com.bo.cloudmusic.AppContext;
+import com.bo.cloudmusic.MainActivity;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.api.Api;
 import com.bo.cloudmusic.domain.BaseModel;
+import com.bo.cloudmusic.domain.Session;
 import com.bo.cloudmusic.domain.User;
 import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.listener.HttpObserver;
@@ -149,7 +153,35 @@ public class RegisterActivity extends BaseCommonActivity {
                     public void onSucceeded(DetailResponse<BaseModel> data) {
                         LogUtil.d(TAG,"onSucceeded:"+data.getData().getId());
 
-                        //TODO 自动登录
+                        //自动登录
+                        login(phone,email,password);
+                    }
+                });
+
+    }
+
+    /**
+     * 登录
+     */
+    public void login(String phone,String email,String password){
+        User user = new User();
+        user.setPhone(phone);
+        user.setEmail(email);
+        user.setPassword(password);
+
+        //调用登录接口
+        Api.getInstance()
+                .login(user)
+                .subscribe(new HttpObserver<DetailResponse<Session>>() {
+                    @Override
+                    public void onSucceeded(DetailResponse<Session> data) {
+                        LogUtil.d(TAG, "onLoginClick success:" + data.getData());
+
+                        //把登录成功的事件通知到AppContext
+                        AppContext.getInstance().login(sp, data.getData());
+
+                        //关闭当前界面，并且启动主界面
+                        startActivityAfterFinishThis(MainActivity.class);
                     }
                 });
 
