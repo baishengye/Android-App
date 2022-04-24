@@ -34,10 +34,58 @@ android {
         flavorDimensions "versionCode"
     }
 
+    //签名配置
+    //要写到使⽤签名配置的前⾯
+    signingConfigs {
+        //以下两个版本都⽤的是同⼀个
+        //真实项⽬中可能会⽤多个
+        debug{
+            //签名文件路径
+            storeFile file('../config/cloudmusic_app_key.jks')
+
+            //key密码
+            storePassword "156235"
+
+            //别名
+            keyAlias "cloudmusic"
+
+            //签名密码
+            keyPassword "156235"
+        }
+
+        //正式版签名
+        release{
+            //签名文件路径
+            storeFile file('../config/cloudmusic_app_key.jks')
+
+            //key密码
+            storePassword "156235"
+
+            //别名
+            keyAlias "cloudmusic"
+
+            //签名密码
+            keyPassword "156235"
+        }
+    }
+
     buildTypes {
+        //debug版本
+        debug{
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            //签名配置
+            signingConfig signingConfigs.debug
+        }
+
+        //正式版本
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            //签名配置
+            signingConfig signingConfigs.release
         }
     }
 
