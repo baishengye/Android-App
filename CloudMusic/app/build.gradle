@@ -1,5 +1,8 @@
 plugins {
     id 'com.android.application'
+
+    //SharedSDK插件
+    id 'com.mob.sdk'
 }
 
 android {
@@ -117,7 +120,31 @@ android {
     }
 }
 
+//sharesdk配置
+//真实项⽬只需要配置⽤到的平台
+//我们这⾥全写这⾥⽬的是⽅便⼤家参考
+MobSDK {
+    appKey "260604a3dbbea"
+    appSecret "970ca36614ea0aabe7ee0c8defb690f4"
+//第三⽅平台配置
+    ShareSDK {
+        loopShare true
+        devInfo {
+            QQ {
+                id 7
+                sortId 7
+                appId "101481482"//需要用自己的
+                appKey "b4304961e7299dde6b7b6964bfbb4a7f"//需要用自己的
+                shareByAppClient true
+                bypassApproval false
+                enable true
+            }
+        }
+    }
+}
+
 dependencies {
+
     //添加所有libs目录下的jar文件
     implementation fileTree(dir: 'libs', includes: ['*.jar'])
 

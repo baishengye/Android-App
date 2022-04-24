@@ -10,6 +10,7 @@ import com.bo.cloudmusic.domain.event.LoginSuccessEvent;
 import com.bo.cloudmusic.utils.PreferencesUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
 import com.facebook.stetho.Stetho;
+import com.mob.MobSDK;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -39,6 +40,9 @@ public class AppContext extends Application {
         //初始化stetho抓包工具
         //使用默认参数初始化
         Stetho.initializeWithDefaults(this);
+
+        //初始化SharedSDK
+        MobSDK.init(this);
     }
 
     @Override

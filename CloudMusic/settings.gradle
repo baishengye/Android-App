@@ -4,17 +4,36 @@ pluginManagement {
         google()
         mavenCentral()
 
-        maven {url "https://jitpack.io"}
+        maven {
+            url "https://jitpack.io"
+        }
+
+        maven {
+            url "https://mvn.mob.com/android"
+        }
     }
 }
 dependencyResolutionManagement {
+    /*设置存储库的方法：
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    存储库模式：
+    PREFER_PROJECT(true)--首选项目存储库
+    PREFER_SETTINGS(false)--首选设置存储库
+    FAIL_ON_PROJECT_REPOS(false)--强制设置存储库*/
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         google()
         mavenCentral()
 
-        maven {url "https://jitpack.io"}
+        maven {
+            url "https://jitpack.io"
+        }
+
+        maven {
+            url "https://mvn.mob.com/android"
+        }
     }
+
 }
 rootProject.name = "随波云音乐"
 include ':app'
