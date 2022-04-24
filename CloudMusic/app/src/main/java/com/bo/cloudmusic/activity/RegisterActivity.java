@@ -24,7 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class RegisterActivity extends BaseCommonActivity {
+public class RegisterActivity extends BaseLoginActivity {
 
     private static final String TAG = "RegisterActivity";
     /**
@@ -155,33 +155,6 @@ public class RegisterActivity extends BaseCommonActivity {
 
                         //自动登录
                         login(phone,email,password);
-                    }
-                });
-
-    }
-
-    /**
-     * 登录
-     */
-    public void login(String phone,String email,String password){
-        User user = new User();
-        user.setPhone(phone);
-        user.setEmail(email);
-        user.setPassword(password);
-
-        //调用登录接口
-        Api.getInstance()
-                .login(user)
-                .subscribe(new HttpObserver<DetailResponse<Session>>() {
-                    @Override
-                    public void onSucceeded(DetailResponse<Session> data) {
-                        LogUtil.d(TAG, "onLoginClick success:" + data.getData());
-
-                        //把登录成功的事件通知到AppContext
-                        AppContext.getInstance().login(sp, data.getData());
-
-                        //关闭当前界面，并且启动主界面
-                        startActivityAfterFinishThis(MainActivity.class);
                     }
                 });
 
