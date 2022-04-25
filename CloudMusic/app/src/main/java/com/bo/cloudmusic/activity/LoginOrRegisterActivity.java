@@ -2,21 +2,29 @@ package com.bo.cloudmusic.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import com.bo.cloudmusic.R;
+import com.bo.cloudmusic.domain.User;
 import com.bo.cloudmusic.domain.event.LoginSuccessEvent;
+import com.bo.cloudmusic.utils.HandlerUtil;
+import com.bo.cloudmusic.utils.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import java.util.HashMap;
+
 import butterknife.OnClick;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.PlatformDb;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.tencent.qq.QQ;
 
 public class LoginOrRegisterActivity extends BaseCommonActivity{
+
+    private static final String TAG = "LoginOrRegisterActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +64,63 @@ public class LoginOrRegisterActivity extends BaseCommonActivity{
     @OnClick(R.id.bt_login)
     public void onLoginClick(){
         startActivity(LoginActivity.class);
+    }
+
+    /**
+     * QQ第三⽅登录
+     */
+    @OnClick(R.id.iv_qq)
+    public void onQQLoginClick() {
+        //初始化具体的平台
+        Platform platform = ShareSDK.getPlatform(QQ.NAME);
+        //设置false表示使⽤SSO授权⽅式
+        platform.SSOSetting(false);
+        //回调信息
+        //可以在这⾥获取基本的授权返回的信息
+        platform.setPlatformActionListener(new PlatformActionListener() {
+            /**
+             * 登录成功了
+             * @param platform
+             * @param i
+             * @param hashMap
+             */
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                //登录成功了
+                //就可以获取到昵称，头像，OpenId
+                //该⽅法回调不是在主线程
+                //从数据库获取信息
+                //也可以通过user参数获取
+                User data = new User();
+                PlatformDb db = platform.getDb();
+                String nickname = db.getUserName();
+                String avatar = db.getUserIcon();
+                String openId = db.getUserId();
+                LogUtil.d(TAG, "other login success:" + nickname + "," + avatar + "," + openId + "," + HandlerUtil.isMainThread());
+            }
+            /**
+             * 登录失败了
+             * @param platform
+             * @param i
+             * @param throwable
+             */
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+                LogUtil.d(TAG, "other login error:" + throwable.getLocalizedMessage() + "," + HandlerUtil.isMainThread());
+            }
+            /**
+             * 取消登录了
+             * @param platform
+             * @param i
+             */
+            @Override
+            public void onCancel(Platform platform, int i) {
+                LogUtil.d(TAG, "other login cancel:" + i + "," + HandlerUtil.isMainThread());
+            }
+        });
+        //authorize与showUser单独调⽤⼀个即可
+        //授权并获取⽤户信息
+        platform.showUser(null);
     }
 
     /**

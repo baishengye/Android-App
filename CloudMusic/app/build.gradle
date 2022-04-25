@@ -124,8 +124,8 @@ android {
 //真实项⽬只需要配置⽤到的平台
 //我们这⾥全写这⾥⽬的是⽅便⼤家参考
 MobSDK {
-    appKey "260604a3dbbea"
-    appSecret "970ca36614ea0aabe7ee0c8defb690f4"
+    appKey "35ca9579e6801"
+    appSecret "70e047f73ab0c17104e32f033e1cc6b0"
 //第三⽅平台配置
     ShareSDK {
         loopShare true
@@ -133,8 +133,8 @@ MobSDK {
             QQ {
                 id 7
                 sortId 7
-                appId "101481482"//需要用自己的
-                appKey "b4304961e7299dde6b7b6964bfbb4a7f"//需要用自己的
+                appId "102003099"//需要用自己的
+                appKey "jpkTyFJ8j6GDxTmr"//需要用自己的
                 shareByAppClient true
                 bypassApproval false
                 enable true

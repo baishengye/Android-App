@@ -98,6 +98,7 @@
 
             <!--qq登录按钮-->
             <ImageView
+                android:id="@+id/iv_qq"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
