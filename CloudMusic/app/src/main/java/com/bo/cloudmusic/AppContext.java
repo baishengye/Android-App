@@ -43,6 +43,12 @@ public class AppContext extends Application {
 
         //初始化SharedSDK
         MobSDK.init(this);
+
+        //为保证您的在集成MobSDK之后，能够满足工信部相关合规要求，
+        // 您应确保在App安装后首次冷启动时，在用户阅读您的《隐私政策》并取得用户授权之后，
+        // 调用提交隐私协议函数MobSDK.submitPolicyGrantResult提交隐私协议。
+        // 反之，如果用户不同意《隐私政策》授权，则不能调用MobSDK.submitPolicyGrantResult提交隐私协议。
+        MobSDK.submitPolicyGrantResult(true,null);
     }
 
     @Override

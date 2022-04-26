@@ -75,6 +75,8 @@ public class LoginOrRegisterActivity extends BaseCommonActivity{
         Platform platform = ShareSDK.getPlatform(QQ.NAME);
         //设置false表示使⽤SSO授权⽅式
         platform.SSOSetting(false);
+
+        //platform.authorize();
         //回调信息
         //可以在这⾥获取基本的授权返回的信息
         platform.setPlatformActionListener(new PlatformActionListener() {
@@ -96,7 +98,7 @@ public class LoginOrRegisterActivity extends BaseCommonActivity{
                 String nickname = db.getUserName();
                 String avatar = db.getUserIcon();
                 String openId = db.getUserId();
-                LogUtil.d(TAG, "other login success:" + nickname + "," + avatar + "," + openId + "," + HandlerUtil.isMainThread());
+                LogUtil.d(TAG, "other login success:nickname:" + nickname + ",avatar:" + avatar + ",openId:" + openId + "," + HandlerUtil.isMainThread());
             }
             /**
              * 登录失败了

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DevInfor>
-<SinaWeibo Enable="false" />
+<SinaWeibo Id="1" SortId="1" AppKey="2485271635" AppSecret="57df1459afb71180f8b214853bfda520" ShareByAppClient="true" Enable="true" RedirectUrl="http://www.ixuea.com" />
 <TencentWeibo Enable="false" />
 <Douban Enable="false" />
 <QZone Enable="false" />

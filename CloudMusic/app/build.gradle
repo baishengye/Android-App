@@ -139,6 +139,16 @@ MobSDK {
                 bypassApproval false
                 enable true
             }
+
+            SinaWeibo {
+                id 1
+                sortId 1
+                appKey "2485271635"
+                appSecret "57df1459afb71180f8b214853bfda520"
+                callbackUri "http://www.ixuea.com"
+                shareByAppClient true
+                enable true
+            }
         }
     }
 }
