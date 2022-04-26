@@ -7,7 +7,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.annotation.Nullable;
+
+import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.PreferencesUtil;
+
+import java.io.Serializable;
 
 import butterknife.ButterKnife;
 
@@ -120,5 +125,15 @@ public class BaseCommonActivity extends BaseActivity{
             window.getDecorView()
                     .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
+    }
+
+
+    /**
+     * 获取用户数据
+     * @return
+     */
+    @Nullable
+    protected Serializable ExtraData() {
+        return getIntent().getSerializableExtra(Constant.DATA);
     }
 }

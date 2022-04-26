@@ -32,4 +32,6 @@
     <string name="error_email_format">邮箱格式错误</string>
     <string name="error_confirm_password_format">确认密码格式错误</string>
     <string name="error_confirm_password">请保持确认密码和密码一致</string>
+    <string name="register2">补充资料</string>
+    <string name="complete_register">完成注册</string>
 </resources>

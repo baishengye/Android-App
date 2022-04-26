@@ -1,11 +1,13 @@
 package com.bo.cloudmusic.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.User;
 import com.bo.cloudmusic.domain.event.LoginSuccessEvent;
+import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.HandlerUtil;
 import com.bo.cloudmusic.utils.LogUtil;
 
@@ -25,6 +27,11 @@ import cn.sharesdk.tencent.qq.QQ;
 public class LoginOrRegisterActivity extends BaseCommonActivity{
 
     private static final String TAG = "LoginOrRegisterActivity";
+
+    /**
+     * 第三方登录后的数据
+     */
+    private User data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,12 +100,20 @@ public class LoginOrRegisterActivity extends BaseCommonActivity{
                 //该⽅法回调不是在主线程
                 //从数据库获取信息
                 //也可以通过user参数获取
-                User data = new User();
+                data = new User();
                 PlatformDb db = platform.getDb();
                 String nickname = db.getUserName();
                 String avatar = db.getUserIcon();
                 String openId = db.getUserId();
-                LogUtil.d(TAG, "other login success:nickname:" + nickname + ",avatar:" + avatar + ",openId:" + openId + "," + HandlerUtil.isMainThread());
+
+                data.setNickname(nickname);
+                data.setAvatar(avatar);
+                data.setQq_id(openId);
+
+                //跳转到注册界面
+                toRegister();
+
+                //LogUtil.d(TAG, "other login success:nickname:" + nickname + ",avatar:" + avatar + ",openId:" + openId + "," + HandlerUtil.isMainThread());
             }
             /**
              * 登录失败了
@@ -131,7 +146,19 @@ public class LoginOrRegisterActivity extends BaseCommonActivity{
     @SuppressLint("NonConstantResourceId")
     @OnClick(R.id.bt_register)
     public void onRegisterClick(){
-        startActivity(RegisterActivity.class);
+        //把data重置成null
+        data=null;
+
+        toRegister();
+    }
+
+    private void toRegister() {
+        Intent intent=new Intent(this,RegisterActivity.class);
+
+        //传递用户数据
+        intent.putExtra(Constant.DATA,data);
+
+        startActivity(intent);
     }
 
     /**

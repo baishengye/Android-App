@@ -36,4 +36,9 @@ public class Constant {
      * 服务端用户查询昵称的id，，使用这个表达想要查询通过用户昵称查询
      */
     public static final String NICKNAME = "nickname";
+
+    /**
+     * 传递data 的key
+     */
+    public static final String DATA = "DATA";
 }

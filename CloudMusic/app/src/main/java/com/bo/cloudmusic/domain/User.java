@@ -11,9 +11,25 @@ public class User extends BaseModel{
     private String nickname;
 
     /**
+     * 头像
+     */
+    private String avatar;
+
+    /**
+     * QQ的id
+     */
+    private String qq_id;
+
+    /**
+     * 微博的id
+     */
+    private String weibo_id;
+
+    /**
      * ⼿机号
      */
     private String phone;
+
     /**
      * 邮件
      */
@@ -55,4 +71,31 @@ public class User extends BaseModel{
     public void setPassword(String password) {
         this.password = password;
     }
+
+
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getQq_id() {
+        return qq_id;
+    }
+
+    public void setQq_id(String qq_id) {
+        this.qq_id = qq_id;
+    }
+
+    public String getWeibo_id() {
+        return weibo_id;
+    }
+
+    public void setWeibo_id(String weibo_id) {
+        this.weibo_id = weibo_id;
+    }
+
 }
