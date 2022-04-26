@@ -4,9 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.bo.cloudmusic.AppContext;
+import com.bo.cloudmusic.MainActivity;
 import com.bo.cloudmusic.R;
+import com.bo.cloudmusic.api.Api;
+import com.bo.cloudmusic.domain.Session;
 import com.bo.cloudmusic.domain.User;
 import com.bo.cloudmusic.domain.event.LoginSuccessEvent;
+import com.bo.cloudmusic.domain.response.DetailResponse;
+import com.bo.cloudmusic.listener.HttpObserver;
 import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.HandlerUtil;
 import com.bo.cloudmusic.utils.LogUtil;
@@ -108,10 +114,13 @@ public class LoginOrRegisterActivity extends BaseCommonActivity{
 
                 data.setNickname(nickname);
                 data.setAvatar(avatar);
-                data.setQq_id(openId);
+                data.setQq_id(openId);//服务端可以通过这个openId来判断是否注册了
 
                 //跳转到注册界面
-                toRegister();
+                //toRegister();
+
+                //继续登录
+                continueLogin();
 
                 //LogUtil.d(TAG, "other login success:nickname:" + nickname + ",avatar:" + avatar + ",openId:" + openId + "," + HandlerUtil.isMainThread());
             }
@@ -124,6 +133,7 @@ public class LoginOrRegisterActivity extends BaseCommonActivity{
             @Override
             public void onError(Platform platform, int i, Throwable throwable) {
                 LogUtil.d(TAG, "other login error:" + throwable.getLocalizedMessage() + "," + HandlerUtil.isMainThread());
+
             }
             /**
              * 取消登录了
@@ -138,6 +148,53 @@ public class LoginOrRegisterActivity extends BaseCommonActivity{
         //authorize与showUser单独调⽤⼀个即可
         //授权并获取⽤户信息
         platform.showUser(null);
+    }
+
+    /**
+     * 继续登录
+     */
+    private void continueLogin() {
+        Api.getInstance().login(data)
+                .subscribe(new HttpObserver<DetailResponse<Session>>() {
+                    /**
+                     *登录成功
+                     */
+                    @Override
+                    public void onSucceeded(DetailResponse<Session> data) {
+                        LogUtil.d(TAG, "onLoginClick success:" + data.getData());
+
+                        //把登录成功的事件通知到AppContext
+                        AppContext.getInstance().login(sp, data.getData());
+
+                        //关闭当前界面，并且启动主界面
+                        startActivityAfterFinishThis(MainActivity.class);
+                    }
+
+                    /**
+                     * 登录失败
+                     */
+                    @Override
+                    public boolean onFailed(DetailResponse<Session> data, Throwable e) {
+                        if(data!=null){
+                            //向服务器请求成功了
+                            //并且服务器返回了错误信息
+
+                            //判断错误码
+                            if(1010==data.getStatus()){
+                                //用户未注册
+
+                                //跳转到补充用户资料界面
+                                toRegister();
+
+                                //返回true表示开发者手动处理了错误
+                                return true;
+                            }
+                        }
+
+                        //其他得错误让父类处理
+                        return super.onFailed(data,e);
+                    }
+                });
     }
 
     /**

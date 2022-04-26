@@ -1,5 +1,7 @@
 package com.bo.cloudmusic.activity;
 
+import androidx.annotation.NonNull;
+
 import com.bo.cloudmusic.AppContext;
 import com.bo.cloudmusic.MainActivity;
 import com.bo.cloudmusic.api.Api;
@@ -30,15 +32,19 @@ public class BaseLoginActivity extends BaseTitleActivity{
                 .subscribe(new HttpObserver<DetailResponse<Session>>() {
                     @Override
                     public void onSucceeded(DetailResponse<Session> data) {
-                        LogUtil.d(TAG, "onLoginClick success:" + data.getData());
-
-                        //把登录成功的事件通知到AppContext
-                        AppContext.getInstance().login(sp, data.getData());
-
-                        //关闭当前界面，并且启动主界面
-                        startActivityAfterFinishThis(MainActivity.class);
+                        onLogin(data.getData());
                     }
                 });
 
+    }
+
+    private void onLogin(@NonNull Session data) {
+        LogUtil.d(TAG, "onLoginClick success:" + data);
+
+        //把登录成功的事件通知到AppContext
+        AppContext.getInstance().login(sp, data);
+
+        //关闭当前界面，并且启动主界面
+        startActivityAfterFinishThis(MainActivity.class);
     }
 }
