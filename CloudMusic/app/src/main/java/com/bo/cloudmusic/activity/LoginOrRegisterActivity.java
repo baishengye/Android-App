@@ -23,11 +23,14 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.PlatformDb;
+import cn.sharesdk.framework.ReflectablePlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
 
 public class LoginOrRegisterActivity extends BaseCommonActivity{
@@ -147,6 +150,42 @@ public class LoginOrRegisterActivity extends BaseCommonActivity{
         });
         //authorize与showUser单独调⽤⼀个即可
         //授权并获取⽤户信息
+        platform.showUser(null);
+    }
+
+    @OnClick(R.id.iv_weibo)
+    public void onWeiboLoginClick(){
+        //初始化平台
+        Platform platform = ShareSDK.getPlatform(SinaWeibo.NAME);
+
+        //设置false表示SSO授权方式
+        platform.SSOSetting(false);
+
+        //回调信息
+        //在这里获取基本的授权的信息
+        platform.setPlatformActionListener(new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                //登录成功
+                PlatformDb db = platform.getDb();
+                String nickname = db.getUserName();
+                String avatar = db.getUserIcon();
+                String openId = db.getUserId();
+
+                LogUtil.d(TAG, "other login success:nickname:" + nickname + ",avatar:" + avatar + ",openId:" + openId + "," + HandlerUtil.isMainThread());
+            }
+
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+
+            }
+        });
+
         platform.showUser(null);
     }
 
