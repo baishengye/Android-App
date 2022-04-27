@@ -120,7 +120,7 @@ public class LoginOrRegisterActivity extends BaseCommonActivity{
                 data.setQq_id(openId);//服务端可以通过这个openId来判断是否注册了
 
                 //跳转到注册界面
-                //toRegister();
+                toRegister();
 
                 //继续登录
                 continueLogin();
@@ -167,12 +167,28 @@ public class LoginOrRegisterActivity extends BaseCommonActivity{
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
                 //登录成功
+                /*PlatformDb db = platform.getDb();
+                String nickname = db.getUserName();
+                String avatar = db.getUserIcon();
+                String openId = db.getUserId();
+
+                LogUtil.d(TAG, "other login success:nickname:" + nickname + ",avatar:" + avatar + ",openId:" + openId + "," + HandlerUtil.isMainThread());*/
+
+                data = new User();
                 PlatformDb db = platform.getDb();
                 String nickname = db.getUserName();
                 String avatar = db.getUserIcon();
                 String openId = db.getUserId();
 
-                LogUtil.d(TAG, "other login success:nickname:" + nickname + ",avatar:" + avatar + ",openId:" + openId + "," + HandlerUtil.isMainThread());
+                data.setNickname(nickname);
+                data.setAvatar(avatar);
+                data.setWeibo_id(openId);//服务端可以通过这个openId来判断是否注册了
+
+                //跳转到注册界面
+                //toRegister();
+
+                //继续登录
+                continueLogin();
             }
 
             @Override

@@ -89,7 +89,7 @@ public class RegisterActivity extends BaseLoginActivity {
         //把第三方登录传递过来的信息接受
         data = (User) ExtraData();
 
-        if(data!=null&&StringUtils.isNotBlank(data.getQq_id())){
+        if(data!=null&&(StringUtils.isNotBlank(data.getQq_id())||StringUtils.isNotBlank(data.getWeibo_id()))){
             //第三方登录过来的
 
             //设置界面的标题
