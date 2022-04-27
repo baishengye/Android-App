@@ -87,122 +87,12 @@ public class LoginOrRegisterActivity extends BaseCommonActivity{
      */
     @OnClick(R.id.iv_qq)
     public void onQQLoginClick() {
-        //初始化具体的平台
-        Platform platform = ShareSDK.getPlatform(QQ.NAME);
-        //设置false表示使⽤SSO授权⽅式
-        platform.SSOSetting(false);
-
-        //platform.authorize();
-        //回调信息
-        //可以在这⾥获取基本的授权返回的信息
-        platform.setPlatformActionListener(new PlatformActionListener() {
-            /**
-             * 登录成功了
-             * @param platform
-             * @param i
-             * @param hashMap
-             */
-            @Override
-            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                //登录成功了
-                //就可以获取到昵称，头像，OpenId
-                //该⽅法回调不是在主线程
-                //从数据库获取信息
-                //也可以通过user参数获取
-                data = new User();
-                PlatformDb db = platform.getDb();
-                String nickname = db.getUserName();
-                String avatar = db.getUserIcon();
-                String openId = db.getUserId();
-
-                data.setNickname(nickname);
-                data.setAvatar(avatar);
-                data.setQq_id(openId);//服务端可以通过这个openId来判断是否注册了
-
-                //跳转到注册界面
-                toRegister();
-
-                //继续登录
-                continueLogin();
-
-                //LogUtil.d(TAG, "other login success:nickname:" + nickname + ",avatar:" + avatar + ",openId:" + openId + "," + HandlerUtil.isMainThread());
-            }
-            /**
-             * 登录失败了
-             * @param platform
-             * @param i
-             * @param throwable
-             */
-            @Override
-            public void onError(Platform platform, int i, Throwable throwable) {
-                LogUtil.d(TAG, "other login error:" + throwable.getLocalizedMessage() + "," + HandlerUtil.isMainThread());
-
-            }
-            /**
-             * 取消登录了
-             * @param platform
-             * @param i
-             */
-            @Override
-            public void onCancel(Platform platform, int i) {
-                LogUtil.d(TAG, "other login cancel:" + i + "," + HandlerUtil.isMainThread());
-            }
-        });
-        //authorize与showUser单独调⽤⼀个即可
-        //授权并获取⽤户信息
-        platform.showUser(null);
+        otherLogin(QQ.NAME);//第三方登录通用方法
     }
 
     @OnClick(R.id.iv_weibo)
     public void onWeiboLoginClick(){
-        //初始化平台
-        Platform platform = ShareSDK.getPlatform(SinaWeibo.NAME);
-
-        //设置false表示SSO授权方式
-        platform.SSOSetting(false);
-
-        //回调信息
-        //在这里获取基本的授权的信息
-        platform.setPlatformActionListener(new PlatformActionListener() {
-            @Override
-            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                //登录成功
-                /*PlatformDb db = platform.getDb();
-                String nickname = db.getUserName();
-                String avatar = db.getUserIcon();
-                String openId = db.getUserId();
-
-                LogUtil.d(TAG, "other login success:nickname:" + nickname + ",avatar:" + avatar + ",openId:" + openId + "," + HandlerUtil.isMainThread());*/
-
-                data = new User();
-                PlatformDb db = platform.getDb();
-                String nickname = db.getUserName();
-                String avatar = db.getUserIcon();
-                String openId = db.getUserId();
-
-                data.setNickname(nickname);
-                data.setAvatar(avatar);
-                data.setWeibo_id(openId);//服务端可以通过这个openId来判断是否注册了
-
-                //跳转到注册界面
-                //toRegister();
-
-                //继续登录
-                continueLogin();
-            }
-
-            @Override
-            public void onError(Platform platform, int i, Throwable throwable) {
-
-            }
-
-            @Override
-            public void onCancel(Platform platform, int i) {
-
-            }
-        });
-
-        platform.showUser(null);
+        otherLogin(SinaWeibo.NAME);//第三方登录通用方法
     }
 
     /**
@@ -280,5 +170,81 @@ public class LoginOrRegisterActivity extends BaseCommonActivity{
     @Subscribe(threadMode = ThreadMode.MAIN)//这个函数在哪种线程中响应(运行)
     public void onLoginSuccessEvent(LoginSuccessEvent loginSuccessEvent){
         finish();
+    }
+
+    /**
+     * 第三方登录通用方法
+     * @param name
+     */
+    private void otherLogin(String name) {
+        //初始化具体的平台
+        Platform platform = ShareSDK.getPlatform(name);
+        //设置false表示使⽤SSO授权⽅式
+        platform.SSOSetting(false);
+
+        //platform.authorize();
+        //回调信息
+        //可以在这⾥获取基本的授权返回的信息
+        platform.setPlatformActionListener(new PlatformActionListener() {
+            /**
+             * 登录成功了
+             * @param platform
+             * @param i
+             * @param hashMap
+             */
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                //登录成功了
+                //就可以获取到昵称，头像，OpenId
+                //该⽅法回调不是在主线程
+                //从数据库获取信息
+                //也可以通过user参数获取
+                data = new User();
+                PlatformDb db = platform.getDb();
+                String nickname = db.getUserName();
+                String avatar = db.getUserIcon();
+                String openId = db.getUserId();
+
+                data.setNickname(nickname);
+                data.setAvatar(avatar);
+
+                if(QQ.NAME.equals(name)){
+                    data.setQq_id(openId);//服务端可以通过这个openId来判断是否注册了
+                }else{
+                    data.setWeibo_id(openId);//服务端可以通过这个openId来判断是否注册了
+                }
+
+                //跳转到注册界面
+                //toRegister();
+
+                //继续登录
+                continueLogin();
+
+                //LogUtil.d(TAG, "other login success:nickname:" + nickname + ",avatar:" + avatar + ",openId:" + openId + "," + HandlerUtil.isMainThread());
+            }
+            /**
+             * 登录失败了
+             * @param platform
+             * @param i
+             * @param throwable
+             */
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+                LogUtil.d(TAG, "other login error:" + throwable.getLocalizedMessage() + "," + HandlerUtil.isMainThread());
+
+            }
+            /**
+             * 取消登录了
+             * @param platform
+             * @param i
+             */
+            @Override
+            public void onCancel(Platform platform, int i) {
+                LogUtil.d(TAG, "other login cancel:" + i + "," + HandlerUtil.isMainThread());
+            }
+        });
+        //authorize与showUser单独调⽤⼀个即可
+        //授权并获取⽤户信息
+        platform.showUser(null);
     }
 }
