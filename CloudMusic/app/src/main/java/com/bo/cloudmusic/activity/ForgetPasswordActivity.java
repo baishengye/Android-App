@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -31,6 +32,8 @@ public class ForgetPasswordActivity extends BaseLoginActivity {
 
     private String phone;
     private String email;
+
+    private CountDownTimer countDownTimer;
     /**
      * ⽤户名输⼊框
      */
@@ -63,12 +66,27 @@ public class ForgetPasswordActivity extends BaseLoginActivity {
         setContentView(R.layout.activity_forget_password);
     }
 
+    @Override
+    protected void onDestroy() {
+
+        //销毁定时器
+        if(countDownTimer!=null){
+            countDownTimer.cancel();
+            countDownTimer=null;
+        }
+
+        super.onDestroy();
+    }
+
     /**
      * 发送验证码按钮点击
      */
     @OnClick(R.id.bt_send_code)
     public void onSendCodeClick() {
-        LogUtil.d(TAG, "onSendCodeClick");
+        //LogUtil.d(TAG, "onSendCodeClick");
+
+        //开始倒计时
+        startCountDown();
     }
 
     /**
@@ -159,5 +177,42 @@ public class ForgetPasswordActivity extends BaseLoginActivity {
                     }
                 });
 
+    }
+
+    /**
+     * 开始倒计时
+     * 现在没有保存退出的状态
+     * 也就说，返回在进来就可以点击了
+     */
+    private void startCountDown() {
+        //倒计时的总时间间隔
+        //单位是毫秒
+        countDownTimer = new CountDownTimer(60000, 1000) {
+            /**
+             * 间隔时间调用
+             * @param millisUntilFinished
+             */
+            @Override
+            public void onTick(long millisUntilFinished) {
+                bt_send_code.setText(getString(R.string.count_second,millisUntilFinished/1000));
+
+                //禁用发送验证码的按钮
+                bt_send_code.setEnabled(false);
+            }
+
+            /**
+             * 倒计时完成
+             */
+            @Override
+            public void onFinish() {
+                bt_send_code.setText(R.string.send_code);
+
+                //启用发送验证码的按钮
+                bt_send_code.setEnabled(true);
+            }
+        };
+
+        //启动
+        countDownTimer.start();
     }
 }

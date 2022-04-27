@@ -7,7 +7,7 @@
     <!--activity标题-->
     <string name="activity_forget_password">找回密码</string>
 
-    <!--登录注册-->
+    <!--登录/注册/忘记密码-->
     <string name="login_or_register">登录/注册</string>
     <string name="immediate_experience">立即体验</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -33,6 +33,7 @@
     <string name="send_code">发送验证码</string>
     <string name="enter_code">请输入验证码</string>
     <string name="error_code_format">验证码格式错误</string>
+    <string name="count_second">%1$ds</string>
 
     <!--网络相关-->
     <string name="error_network_unknown_host">找不到服务器，请稍后再试！</string>
