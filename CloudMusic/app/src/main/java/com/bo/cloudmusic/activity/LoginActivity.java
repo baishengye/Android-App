@@ -382,5 +382,8 @@ public class LoginActivity extends BaseLoginActivity {
     @OnClick(R.id.bt_forget_password)
     public void onForgetPasswordClick(Button view){
         LogUtil.d(TAG,"点击登录");
+
+        //跳转到找到密码界面
+        startActivity(ForgetPasswordActivity.class);
     }
 }
