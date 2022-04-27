@@ -39,7 +39,7 @@ public class HttpUtil {
                     ToastUtil.errorShortToast(R.string.error_network_not_found);
                 } else if (code >= 500) {
                     ToastUtil.errorShortToast(R.string.error_network_server);
-                } else {
+                } else{
                     ToastUtil.errorShortToast(R.string.error_network_unknown);
                 }
             } else {
@@ -54,7 +54,7 @@ public class HttpUtil {
                     //没有错误提示信息
                     ToastUtil.errorShortToast(R.string.error_network_unknown);
                 } else {
-
+                    ToastUtil.errorShortToast(baseResponse.getMessage());
                 }
             }
         }

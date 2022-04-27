@@ -31,4 +31,8 @@ public class StringUtil {
     public static boolean isNickname(String value) {
         return value.length()>=2&&value.length()<=10;
     }
+
+    public static boolean isCode(String value) {
+        return value.length()==4;
+    }
 }
