@@ -6,6 +6,7 @@ import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.SheetDetailWrapper;
 import com.bo.cloudmusic.domain.SheetListWrapper;
 import com.bo.cloudmusic.domain.User;
+import com.bo.cloudmusic.domain.response.BaseResponse;
 import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.domain.response.ListResponse;
 
@@ -68,8 +69,19 @@ public interface Service {
     Observable<DetailResponse<Session>> login(@Body User data);
 
     /**
+     * 重置密码,BaseResponse就只会接受返回的错误信息,成功其实不会返回信息
+     */
+    @POST("v1/users/reset_password")
+    Observable<BaseResponse> resetPassword(@Body User user);
+
+
+    /**
      * 用户详情
      */
     @GET("v1/users/{id}")
     Observable<DetailResponse<User>> UserDetail(@Path("id") String id, @QueryMap Map<String,String> data);
+
+
+
+
 }

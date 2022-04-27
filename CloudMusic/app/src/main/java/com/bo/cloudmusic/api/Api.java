@@ -5,6 +5,7 @@ import com.bo.cloudmusic.domain.BaseModel;
 import com.bo.cloudmusic.domain.Session;
 import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.User;
+import com.bo.cloudmusic.domain.response.BaseResponse;
 import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.domain.response.ListResponse;
 import com.bo.cloudmusic.utils.Constant;
@@ -115,6 +116,15 @@ public class Api {
     public Observable<DetailResponse<Session>> login(User data){
         return service.login(data)
                 .subscribeOn(Schedulers.io())//设置网络请求在子线程中使用
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 重置密码
+     */
+    public Observable<BaseResponse> resetPassword(User data){
+        return service.resetPassword(data)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

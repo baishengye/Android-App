@@ -26,6 +26,11 @@ public class User extends BaseModel{
     private String weibo_id;
 
     /**
+     * 验证码，只有找回密码的时候会用到
+     */
+    private String code;
+
+    /**
      * ⼿机号
      */
     private String phone;
@@ -98,4 +103,11 @@ public class User extends BaseModel{
         this.weibo_id = weibo_id;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 }
