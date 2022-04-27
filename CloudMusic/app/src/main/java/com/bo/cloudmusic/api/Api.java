@@ -129,6 +129,25 @@ public class Api {
     }
 
     /**
+     * 发送信息要求服务器发送短信验证码
+     */
+    public Observable<DetailResponse<BaseModel>> sendSMSCode(User data){
+        return service.sendSMSCode(data)
+                .subscribeOn(Schedulers.io())//网络请求在子线程中
+                .observeOn(AndroidSchedulers.mainThread());//请求回来的信息回调在android主线程中
+
+    }
+
+    /**
+     * 发送信息要求服务器发送邮箱验证码
+     */
+    public Observable<DetailResponse<BaseModel>> sendEmailCode(User data){
+        return service.sendEmailCode(data)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
      * 用户详情
      */
     public Observable<DetailResponse<User>> userDetail(String id,String nickname){

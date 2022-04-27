@@ -10,8 +10,10 @@ import android.widget.EditText;
 
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.api.Api;
+import com.bo.cloudmusic.domain.BaseModel;
 import com.bo.cloudmusic.domain.User;
 import com.bo.cloudmusic.domain.response.BaseResponse;
+import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.listener.HttpObserver;
 import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.StringUtil;
@@ -83,10 +85,70 @@ public class ForgetPasswordActivity extends BaseLoginActivity {
      */
     @OnClick(R.id.bt_send_code)
     public void onSendCodeClick() {
-        //LogUtil.d(TAG, "onSendCodeClick");
+        LogUtil.d(TAG, "onSendCodeClick");
 
         //开始倒计时
-        startCountDown();
+        //startCountDown();
+
+        //获取用户名
+        String username = et_username.getText().toString().trim();
+        if (StringUtils.isBlank(username)) {
+            ToastUtil.errorShortToast(R.string.enter_username);
+            return;
+        }
+
+        //如果⽤户名
+        //不是⼿机号也不是邮箱
+        //就是格式错误
+        if(StringUtil.isPhone(username)){
+            sendSMSCode(username);//是手机号就发送短信
+        }else if(StringUtil.isEmail(username)){
+            sendEmailCode(username);//是邮箱号就发送邮件
+        }else{
+            ToastUtil.errorShortToast(R.string.error_username_format);
+            return;
+        }
+    }
+
+    /**
+     * 发邮件
+     * @param username
+     */
+    private void sendEmailCode(String username) {
+        User data = new User();
+        data.setEmail(username);
+
+        Api.getInstance().sendEmailCode(data)
+                .subscribe(new HttpObserver<DetailResponse<BaseModel>>() {
+                    @Override
+                    public void onSucceeded(DetailResponse<BaseModel> data) {
+                        //成功发送
+
+                        //开启倒计时
+                        startCountDown();
+                    }
+                });
+
+    }
+
+    /**
+     * 发信息
+     * @param username
+     */
+    private void sendSMSCode(String username) {
+        User data = new User();
+        data.setPhone(username);
+
+        //调用接口
+        Api.getInstance().sendSMSCode(data)
+                .subscribe(new HttpObserver<DetailResponse<BaseModel>>() {
+                    @Override
+                    public void onSucceeded(DetailResponse<BaseModel> data) {
+                        //发送成功
+                        //开始倒计时
+                        startCountDown();
+                    }
+                });
     }
 
     /**
