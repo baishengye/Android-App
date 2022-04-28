@@ -15,9 +15,12 @@
         android:theme="@style/Theme.随波云音乐"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activity.ForgetPasswordActivity"
-            android:label="@string/activity_forget_password"
+            android:name=".activity.AdActivity"
             android:exported="false" />
+        <activity
+            android:name=".activity.ForgetPasswordActivity"
+            android:exported="false"
+            android:label="@string/activity_forget_password" />
         <activity
             android:name=".activity.RegisterActivity"
             android:exported="false" />

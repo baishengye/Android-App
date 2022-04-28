@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".activity.AdActivity">
+
+    <!--顶部-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!--背景-->
+        <ImageView
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/splash_ad"/>
+
+        <!--广告图片banner-->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/splash_ad_banner"
+            android:layout_centerInParent="true"/>
+
+        <!--⼴告按钮-->
+        <Button
+            android:id="@+id/bt_ad"
+            android:background="@color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!--跳过广告按钮-->
+        <Button
+            android:id="@+id/bt_skip_ad"
+            android:layout_marginRight="@dimen/padding_large"
+            android:layout_marginBottom="@dimen/padding_large"
+            android:layout_width="@dimen/button_width_small"
+            android:layout_height="@dimen/button_height_small"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:text="5s"
+            android:textColor="@color/white"
+            android:background="@drawable/shape_button_translucent"/>
+    </RelativeLayout>
+
+    <!--logo-->
+    <ImageView
+        android:layout_marginBottom="@dimen/padding_large"
+        android:layout_marginTop="@dimen/padding_large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/splash_logo"/>
+
+
+    <!--版权-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextSmall"
+        android:text="@string/copyright"
+        android:layout_marginBottom="@dimen/padding_large"/>
+</LinearLayout>
