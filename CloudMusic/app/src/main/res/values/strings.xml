@@ -34,6 +34,7 @@
     <string name="enter_code">请输入验证码</string>
     <string name="error_code_format">验证码格式错误</string>
     <string name="count_second">%1$ds</string>
+    <string name="hint_agreement">注册即同意用户协议</string>
 
     <!--网络相关-->
     <string name="error_network_unknown_host">找不到服务器，请稍后再试！</string>

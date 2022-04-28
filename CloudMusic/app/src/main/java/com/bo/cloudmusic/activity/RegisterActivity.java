@@ -198,7 +198,12 @@ public class RegisterActivity extends BaseLoginActivity {
                         login(phone,email,password);
                     }
                 });
+    }
 
+    @OnClick(R.id.bt_agreement)
+    public void onAgreementClick(){
+        //在WebView中显示用户协议
+        WebViewActivity.start(getMainActivity(),"用户协议","http://www.ixuea.com/posts/1");
     }
 
     /**

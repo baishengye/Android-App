@@ -63,6 +63,17 @@
             android:textColor="@drawable/selector_text_color_primary"
             android:background="@drawable/selector_color_primary"
             android:text="@string/register"/>
+
+        <!--⽤户协议按钮-->
+        <Button
+            android:id="@+id/bt_agreement"
+            android:background="@color/transparent"
+            style="?android:attr/borderlessButtonStyle"
+            android:textColor="@color/light_grey"
+            android:text="@string/hint_agreement"
+            android:layout_marginTop="@dimen/padding_large"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_large"/>
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
