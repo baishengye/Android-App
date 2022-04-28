@@ -2,12 +2,14 @@ package com.bo.cloudmusic.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.Button;
 
 import com.bo.cloudmusic.MainActivity;
 import com.bo.cloudmusic.R;
+import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.LogUtil;
 
 import butterknife.BindView;
@@ -88,8 +90,7 @@ public class AdActivity extends BaseCommonActivity {
     }
 
     private void next() {
-        //startActivityAfterFinishThis(MainActivity.class);
-        WebViewActivity.start(getMainActivity(),"标题","http://www.ixuea.com");
+        startActivityAfterFinishThis(MainActivity.class);
     }
 
     /**
@@ -98,6 +99,22 @@ public class AdActivity extends BaseCommonActivity {
     @OnClick(R.id.bt_ad)
     public void onAdClick(){
         LogUtil.d(TAG,"onAdClick");
+
+        //创建意图
+        /*为了使用户退出广告的时候直接退回到主页面所以可以先到MainActivity中，然后从MainActivity跳转到广告界面*/
+        Intent intent = new Intent(getMainActivity(), MainActivity.class);
+
+        //添加广告地址,正式项目中广告地址应该需要从服务端请求回来
+        intent.putExtra(Constant.URL,"http://www.ixuea.com");
+
+        //给intent加一个Action，便于在MainActivity判断需不需要跳转到广告
+        intent.setAction(Constant.ACTION_AD);
+
+        //启动界面
+        startActivity(intent);
+
+        //关闭当前界面
+        finish();
     }
 
     /**

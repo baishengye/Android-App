@@ -51,4 +51,9 @@ public class Constant {
      * Url
      */
     public static final String URL = "URL";
+
+    /**
+     * 广告点击了Action
+     */
+    public static final String ACTION_AD = "com.bo.cloudmusic.ACTION_AD";
 }
