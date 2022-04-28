@@ -136,4 +136,14 @@ public class BaseCommonActivity extends BaseActivity{
     protected Serializable ExtraData() {
         return getIntent().getSerializableExtra(Constant.DATA);
     }
+
+
+    /**
+     *获取字符串
+     *
+     */
+    protected String extraString(String key) {
+        return getIntent().getStringExtra(key);
+    }
+
 }

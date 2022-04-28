@@ -41,4 +41,14 @@ public class Constant {
      * 传递data 的key
      */
     public static final String DATA = "DATA";
+
+    /**
+     * 标题
+     */
+    public static final String TITLE = "TITLE";
+
+    /**
+     * Url
+     */
+    public static final String URL = "URL";
 }

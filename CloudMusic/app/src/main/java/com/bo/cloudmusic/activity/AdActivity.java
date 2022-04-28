@@ -88,7 +88,8 @@ public class AdActivity extends BaseCommonActivity {
     }
 
     private void next() {
-        startActivityAfterFinishThis(MainActivity.class);
+        //startActivityAfterFinishThis(MainActivity.class);
+        WebViewActivity.start(getMainActivity(),"标题","http://www.ixuea.com");
     }
 
     /**
