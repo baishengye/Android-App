@@ -7,6 +7,7 @@ tools:openDrawer:预览的时候开启⽅向
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/dl"
     tools:context=".MainActivity"
     tools:openDrawer="start">
     <!--tools:openDrawer="start"窗口从左边出现-->
