@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources >
+
+    <!--状态栏透明的主题-->
+    <style name="Theme.随波云音乐.NoActionBar.StatusBarTransparent" parent="Theme.随波云音乐.NoActionBar">
+        <!--21以及以上版本可以设置状态栏颜⾊
+        如果设置为透明
+        同时如果侧滑设置android:fitsSystemWindows="true"
+        就能看到侧滑显示到状态栏上⾯
+        根布局和要显示到状态栏的内容都要设置fitsSystemWindows="true"-->
+        <item name="android:statusBarColor" >@color/transparent</item>
+    </style>
+</resources>

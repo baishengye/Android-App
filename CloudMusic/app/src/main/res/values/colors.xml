@@ -17,4 +17,10 @@
     <!--常用颜色-->
     <color name="white">@android:color/white</color>
     <color name="transparent">@android:color/transparent</color>
+
+    <!--分割线颜色-->
+    <color name="divider_color">#e7e9e9</color>
+
+    <!--文本颜色-->
+    <color name="text">#333</color>
 </resources>

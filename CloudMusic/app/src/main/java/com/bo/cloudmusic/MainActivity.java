@@ -6,6 +6,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.bo.cloudmusic.activity.BaseCommonActivity;
 import com.bo.cloudmusic.activity.BaseTitleActivity;
@@ -13,15 +14,26 @@ import com.bo.cloudmusic.activity.WebViewActivity;
 import com.bo.cloudmusic.databinding.ActivityMainBinding;
 import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.LogUtil;
+import com.bo.cloudmusic.utils.ToastUtil;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseTitleActivity {
 
     private static final String TAG = "MainActivity";
 
+    /*侧滑布局*/
     @BindView(R.id.dl)
     DrawerLayout dl;
+
+    /*昵称*/
+    @BindView(R.id.tv_nickname)
+    TextView tv_nickname;
+
+    /*描述*/
+    @BindView(R.id.tv_description)
+    TextView tv_description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,5 +85,10 @@ public class MainActivity extends BaseTitleActivity {
         LogUtil.d(TAG, "onNewIntent");
         //处理动作
         processIntent(intent);
+    }
+
+    @OnClick(R.id.ll_user)
+    public void onUserClick(){
+        /*ToastUtil.errorShortToast("onUserClick");*/
     }
 }

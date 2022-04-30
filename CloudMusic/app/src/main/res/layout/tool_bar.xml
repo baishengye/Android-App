@@ -7,7 +7,8 @@ elevation：阴影⾼度-->
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:theme="@style/Theme.随波云音乐.AppBarOverlay"
-    android:elevation="0dp">
+    android:elevation="0dp"
+    android:fitsSystemWindows="true">
 
     <!--ToolBar控件-->
     <androidx.appcompat.widget.Toolbar

@@ -12,6 +12,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <!--状态栏透明的主题-->
+    <style name="Theme.随波云音乐.NoActionBar.StatusBarTransparent" parent="Theme.随波云音乐.NoActionBar"/>
+
     <!--toolbar样式-->
     <style name="Theme.随波云音乐.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
