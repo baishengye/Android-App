@@ -1,5 +1,7 @@
 package com.bo.cloudmusic.domain;
 
+import android.text.TextUtils;
+
 /**
  * 用户模型
  */
@@ -9,6 +11,11 @@ public class User extends BaseModel{
      * 昵称
      */
     private String nickname;
+
+    /**
+     * 描述
+     */
+    private String description;
 
     /**
      * 头像
@@ -77,8 +84,6 @@ public class User extends BaseModel{
         this.password = password;
     }
 
-
-
     public String getAvatar() {
         return avatar;
     }
@@ -109,5 +114,20 @@ public class User extends BaseModel{
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescriptionFormat(){
+        if(TextUtils.isEmpty(description)){
+            return "这个人很蓝，没有填写个人介绍!";
+        }
+        return description;
     }
 }

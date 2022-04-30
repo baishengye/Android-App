@@ -23,6 +23,7 @@
         android:textColor="@color/text"/>
 
     <TextView
+        android:layout_marginTop="@dimen/padding_meddle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_description"

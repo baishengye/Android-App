@@ -6,12 +6,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.bo.cloudmusic.activity.BaseCommonActivity;
 import com.bo.cloudmusic.activity.BaseTitleActivity;
 import com.bo.cloudmusic.activity.WebViewActivity;
+import com.bo.cloudmusic.api.Api;
 import com.bo.cloudmusic.databinding.ActivityMainBinding;
+import com.bo.cloudmusic.domain.User;
+import com.bo.cloudmusic.domain.response.DetailResponse;
+import com.bo.cloudmusic.listener.HttpObserver;
 import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
@@ -53,13 +58,29 @@ public class MainActivity extends BaseTitleActivity {
                 dl,
                 toolbar,
                 R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close);
+                R.string.navigation_drawer_close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+
+                //获取⽤户信息
+                //当然可以在⽤户要显示侧滑的时候
+                //才获取⽤户信息
+                //这样可以减少请求
+                fetchData();
+            }
+        };
 
         //添加侧滑监听器
         dl.addDrawerListener(actionBarDrawerToggle);
 
         //同步状态
         actionBarDrawerToggle.syncState();
+    }
+
+    @Override
+    protected void initDatum() {
+        super.initDatum();
     }
 
     /**
@@ -87,6 +108,34 @@ public class MainActivity extends BaseTitleActivity {
         processIntent(intent);
     }
 
+    /**
+     * 请求数据
+     */
+    private void fetchData() {
+        Api.getInstance().userDetail(sp.getUserId())
+                .subscribe(new HttpObserver<DetailResponse<User>>() {
+                    @Override
+                    public void onSucceeded(DetailResponse<User> data) {
+                        next(data.getData());
+                    }
+                });
+    }
+
+    private void next(User data) {
+
+        //todo 显示头像
+
+        //显示昵称
+        tv_nickname.setText(data.getNickname());
+
+        //显示描述
+        tv_description.setText(data.getDescriptionFormat());
+    }
+
+
+    /**
+     * 点击显示用户详情
+     */
     @OnClick(R.id.ll_user)
     public void onUserClick(){
         /*ToastUtil.errorShortToast("onUserClick");*/

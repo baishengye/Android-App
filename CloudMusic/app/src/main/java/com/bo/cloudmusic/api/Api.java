@@ -164,6 +164,13 @@ public class Api {
     }
 
     /**
+     * 无昵称获取用户详情
+     */
+    public Observable<DetailResponse<User>> userDetail(String id){
+        return userDetail(id,null);
+    }
+
+    /**
      * 歌单列表
      */
     public Observable<ListResponse<Sheet>> sheets() {
