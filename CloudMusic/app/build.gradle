@@ -109,12 +109,14 @@ android {
         dev {
             //API端点
             buildConfigField('String',"ENDPOINT",'"http://dev-my-cloud-music-api-rails.ixuea.com/"')
+            buildConfigField('String',"RESOURCE_ENDPOINT",'"http://dev-courses-misuc.ixuea.com/%s"')
             dimension = minSdkVersion
         }
         //正式环境
         prod {
             //API端点
             buildConfigField 'String','ENDPOINT','"http://api-courses-misuc.ixuea.com/"'
+            buildConfigField('String',"RESOURCE_ENDPOINT",'"http://dev-courses-misuc.ixuea.com/%s"')
             dimension = minSdkVersion
         }
     }
@@ -198,8 +200,8 @@ dependencies {
 
     //图⽚加载框架
     //https://github.com/bumptech/glide
-    implementation 'com.github.bumptech.glide:glide:4.10.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 
     //============================请求⽹络相关=======================================
     //okhttp

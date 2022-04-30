@@ -8,10 +8,16 @@ import com.bo.cloudmusic.BuildConfig;
 public class Constant {
 
     /**
-     * 资源端点
+     * 端点
      * BuildConfig.ENDPOINT要运行app一下才能配置出来
      */
     public static final String ENDPOINT= BuildConfig.ENDPOINT;
+
+    /**
+     * 资源端点
+     * BuildConfig.ENDPOINT要运行app一下才能配置出来
+     */
+    public static final String RESOURCE_ENDPOINT= BuildConfig.RESOURCE_ENDPOINT;
 
     /**
      * ID常量
