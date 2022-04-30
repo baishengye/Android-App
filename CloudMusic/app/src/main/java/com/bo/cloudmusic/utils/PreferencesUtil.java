@@ -1,5 +1,6 @@
 package com.bo.cloudmusic.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
@@ -145,8 +146,9 @@ public class PreferencesUtil {
      * 删除内容
      * @param key
      */
+    @SuppressLint("CommitPrefEdits")
     public void delete(String key){
-        preference.edit().remove(key);
+        preference.edit().remove(key).apply();
     }
 
 }

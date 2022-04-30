@@ -180,6 +180,10 @@ dependencies {
     //https://github.com/ongakuer/CircleIndicator
     implementation 'me.relex:circleindicator:2.1.6'
 
+    //指示器
+    //https://github.com/hackware1993/MagicIndicator
+    implementation 'com.github.hackware1993:MagicIndicator:1.6.0'
+
     //提供通过注解的⽅式找控件
     //绑定⽅法
     //https://github.com/JakeWharton/butterknife
