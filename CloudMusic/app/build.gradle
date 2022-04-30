@@ -196,6 +196,11 @@ dependencies {
     //MultiDex
     implementation "androidx.multidex:multidex:2.0.0"
 
+    //图⽚加载框架
+    //https://github.com/bumptech/glide
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+
     //============================请求⽹络相关=======================================
     //okhttp
     //https://github.com/square/okhttp
