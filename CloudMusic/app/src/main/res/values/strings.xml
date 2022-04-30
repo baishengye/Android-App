@@ -10,7 +10,6 @@
     <!--登录/注册/忘记密码-->
     <string name="login_or_register">登录/注册</string>
     <string name="immediate_experience">立即体验</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login">登 录</string>
     <string name="register">注 册</string>
     <string name="other_login">其他登录方式</string>

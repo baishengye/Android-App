@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bo.cloudmusic.Adapter.MainAdapter;
 import com.bo.cloudmusic.activity.BaseCommonActivity;
 import com.bo.cloudmusic.activity.BaseTitleActivity;
 import com.bo.cloudmusic.activity.SettingActivity;
@@ -27,6 +29,9 @@ import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -37,6 +42,10 @@ public class MainActivity extends BaseTitleActivity {
     /*侧滑布局*/
     @BindView(R.id.dl)
     DrawerLayout dl;
+
+    /*滚动视图*/
+    @BindView(R.id.vp)
+    ViewPager vp;
 
     /*昵称*/
     @BindView(R.id.tv_nickname)
@@ -86,6 +95,23 @@ public class MainActivity extends BaseTitleActivity {
 
         //同步状态
         actionBarDrawerToggle.syncState();
+
+        //创建adapter
+        MainAdapter adapter = new MainAdapter(getMainActivity(), getSupportFragmentManager());
+        //把适配器设置到vp中
+        vp.setAdapter(adapter);
+
+        //缓存⻚⾯数量
+        //默认是缓存⼀个
+        vp.setOffscreenPageLimit(4);
+
+        //创建占位数据
+        List<Integer> datum=new ArrayList<>();
+        datum.add(0);
+        datum.add(1);
+        datum.add(2);
+        datum.add(3);
+        adapter.setDatum(datum);
     }
 
     @Override

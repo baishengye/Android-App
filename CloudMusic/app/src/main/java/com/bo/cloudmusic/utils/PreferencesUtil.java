@@ -88,6 +88,14 @@ public class PreferencesUtil {
     }
 
     /**
+     * 退出
+     */
+    public void logout() {
+        delete(USER_ID);
+        delete(SESSION);
+    }
+
+    /**
      * 设置是否显示引导界⾯
      */
     public void setShowGuide(boolean value) {
@@ -131,6 +139,14 @@ public class PreferencesUtil {
 
     private void putBoolean(String key,boolean value){
         preference.edit().putBoolean(key,value).apply();
+    }
+
+    /**
+     * 删除内容
+     * @param key
+     */
+    public void delete(String key){
+        preference.edit().remove(key);
     }
 
 }

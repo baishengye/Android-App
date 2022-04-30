@@ -6,11 +6,12 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
     <!--讲到CoordinatorLayout布局的用法，其中为了能够令活动中的内容能够合理的显示出来，使用了app:layout_behavior属性-->
 
-    <!--主布局-->
-    <TextView
-        android:text="著布局"
-        android:textColor="@color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <!--这⾥⾯写真实的内容-->
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+    </androidx.viewpager.widget.ViewPager>
 
 </LinearLayout>

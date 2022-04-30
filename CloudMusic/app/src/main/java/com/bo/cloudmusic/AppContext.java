@@ -2,9 +2,11 @@ package com.bo.cloudmusic;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 
 import androidx.multidex.MultiDex;
 
+import com.bo.cloudmusic.activity.LoginOrRegisterActivity;
 import com.bo.cloudmusic.domain.Session;
 import com.bo.cloudmusic.domain.event.LoginSuccessEvent;
 import com.bo.cloudmusic.utils.PreferencesUtil;
@@ -14,6 +16,10 @@ import com.mob.MobSDK;
 
 import org.greenrobot.eventbus.EventBus;
 
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qq.QQ;
 import es.dmoral.toasty.Toasty;
 
 /**
@@ -84,7 +90,49 @@ public class AppContext extends Application {
         EventBus.getDefault().post(new LoginSuccessEvent());
     }
 
+    /**
+     * 初始化其他需要登录后初始化的内容
+     */
     private void onLogin() {
     }
 
+    /**
+     * 退出
+     */
+    public void logout() {
+        //清除登录相关信息
+        PreferencesUtil.getInstance(getApplicationContext()).logout();
+
+        //第三方平台退出登录
+        otherLogout(QQ.NAME);
+        otherLogout(SinaWeibo.NAME);
+
+        //退出后跳转到登录注册界面
+        Intent intent = new Intent(getApplicationContext(), LoginOrRegisterActivity.class);
+        //在Activity以外启动界⾯
+        //都要写这个标识
+        //具体的还⽐较复杂
+        //基础课程中讲解
+        //这⾥学会这样⽤就⾏了
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        startActivity(intent);
+
+        //退出了通知
+        onLogout();
+    }
+
+    /**
+     * 解决其他需要退出登录后操作的内容
+     */
+    private void onLogout() {
+    }
+
+    private void otherLogout(String name) {
+        //清楚第三方平台的登录信息
+        Platform platform = ShareSDK.getPlatform(name);
+        if(platform.isAuthValid()){
+            platform.removeAccount(true);
+        }
+    }
 }
