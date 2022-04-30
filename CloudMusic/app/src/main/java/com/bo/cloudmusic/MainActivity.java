@@ -2,6 +2,7 @@ package com.bo.cloudmusic;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.bo.cloudmusic.activity.BaseCommonActivity;
 import com.bo.cloudmusic.activity.BaseTitleActivity;
+import com.bo.cloudmusic.activity.SettingActivity;
 import com.bo.cloudmusic.activity.WebViewActivity;
 import com.bo.cloudmusic.api.Api;
 import com.bo.cloudmusic.databinding.ActivityMainBinding;
@@ -145,6 +147,10 @@ public class MainActivity extends BaseTitleActivity {
         tv_description.setText(data.getDescriptionFormat());
     }
 
+    private void closeDrawer() {
+        dl.closeDrawer(GravityCompat.START);//从出现的方向关闭
+    }
+
 
     /**
      * 点击显示用户详情
@@ -153,4 +159,18 @@ public class MainActivity extends BaseTitleActivity {
     public void onUserClick(){
         /*ToastUtil.errorShortToast("onUserClick");*/
     }
+
+    /**
+     * 点击进入设置
+     */
+    @OnClick(R.id.ll_setting)
+    public void onSettingClick(){
+
+        startActivity(SettingActivity.class);
+
+        //跳转到Setting的时候关闭抽屉
+        closeDrawer();
+    }
+
+
 }

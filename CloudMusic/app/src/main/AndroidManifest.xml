@@ -15,6 +15,9 @@
         android:theme="@style/Theme.随波云音乐"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.SettingActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.WebViewActivity"
             android:exported="false" />
         <activity
@@ -42,6 +45,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -49,7 +53,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.随波云音乐.NoActionBar.StatusBarTransparent"/>
+            android:theme="@style/Theme.随波云音乐.NoActionBar.StatusBarTransparent" />
     </application>
 
 </manifest>
