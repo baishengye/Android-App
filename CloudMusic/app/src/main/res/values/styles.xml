@@ -46,5 +46,45 @@
 
         <item name="android:background">@drawable/selector_edit_text</item>
     </style>
-
+    
+    <!--侧滑界面item容器-->
+    <style name="ItemContainer">
+        <!--可点击-->
+        <item name="android:clickable">true</item>
+        <!--左侧padding-->
+        <item name="android:paddingLeft">@dimen/padding_large</item>
+        <!--右侧padding-->
+        <item name="android:paddingRight">@dimen/padding_large</item>
+        <!--内容垂直居中-->
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/menu_item_height</item>
+        <!--内容⽅向为⽔平-->
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <!--侧滑界⾯Item图标-->
+    <style name="ItemIcon">
+        <!--宽⾼-->
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!--侧滑界⾯Item⽂本-->
+    <style name="ItemText">
+        <!--左侧margin-->
+        <item name="android:layout_marginLeft">@dimen/padding_small</item>
+        <!--⽂本颜⾊-->
+        <item name="android:textColor">@color/text</item>
+        <!--宽⾼-->
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!--侧滑界⾯Item值-->
+    <style name="ItemTextHint">
+        <!--⽂本颜⾊-->
+        <item name="android:textColor">@color/light_grey</item>
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

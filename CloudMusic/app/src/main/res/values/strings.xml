@@ -50,5 +50,21 @@
     <!--侧滑相关-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="my_code">我的二维码</string>
+    <string name="scan">扫一扫</string>
+    <string name="my_message">我的消息</string>
+    <string name="my_friend">我的好友</string>
+    <string name="my_fans">我的粉丝</string>
+    <string name="shop">商城</string>
+    <string name="my_order">我的订单</string>
+    <string name="my_new_order">我的订单（接口签名的加密）</string>
+    <string name="online_music_free">在线听歌免流量</string>
+    <string name="nearby">附近的人</string>
+    <string name="theme">主题</string>
+    <string name="recognition_music">听歌识曲</string>
+    <string name="time_stop">定时停止播放</string>
+    <string name="night_model">夜间模式</string>
+    <string name="setting">设置</string>
+    <string name="logout">退出</string>
 
 </resources>
