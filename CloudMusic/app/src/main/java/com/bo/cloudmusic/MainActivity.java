@@ -20,6 +20,7 @@ import com.bo.cloudmusic.domain.User;
 import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.listener.HttpObserver;
 import com.bo.cloudmusic.utils.Constant;
+import com.bo.cloudmusic.utils.ImageUtil;
 import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
 import com.bumptech.glide.Glide;
@@ -134,33 +135,8 @@ public class MainActivity extends BaseTitleActivity {
     }
 
     private void next(User data) {
-
         //显示头像
-        if(TextUtils.isEmpty(data.getAvatar())){
-            //没有头像
-            //显示默认图像
-            Glide.with(this)
-                    .load(R.drawable.placeholder)
-                    .into(iv_avatar);
-        }else{
-            //有头像
-
-            //判断是不是绝对路径(http开头)
-            if(data.getAvatar().startsWith("http")){
-                Glide.with(this)
-                        .load(data.getAvatar())
-                        .placeholder(R.drawable.placeholder)
-                        .into(iv_avatar);
-            }else{
-                //相对路径
-                //转成绝对路径
-                String uri = String.format(Constant.RESOURCE_ENDPOINT, data.getAvatar());
-                Glide.with(this)
-                        .load(uri)
-                        .placeholder(R.drawable.placeholder)
-                        .into(iv_avatar);
-            }
-        }
+        ImageUtil.showAvatar(getMainActivity(),iv_avatar,data.getAvatar());
 
         //显示昵称
         tv_nickname.setText(data.getNickname());
