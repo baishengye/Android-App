@@ -10,7 +10,9 @@ import androidx.annotation.RawRes;
 
 import com.bo.cloudmusic.R;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.request.RequestOptions;
+import com.facebook.stetho.common.android.ResourcesUtil;
 
 public class ImageUtil {
     /**
@@ -25,17 +27,60 @@ public class ImageUtil {
             //没有头像
             //显示默认头像
             //iv_avatar.setImageResource(R.drawable.placeholder);
-            show(activity, view, R.drawable.placeholder);
+            view.setImageResource(R.drawable.placeholder);
         } else {
             //有头像
             if (uri.startsWith("http")) {
                 //绝对路径
-                showFull(activity, view, uri);
+                showCircleFull(activity, view, uri);
             } else {
                 //相对路径
-                show(activity, view, uri);
+                showCircle(activity, view, uri);
             }
         }
+    }
+
+    /**
+     * 显示圆形相对路径图⽚
+     *
+     * @param activity
+     * @param view
+     * @param uri
+     */
+    public static void showCircle(Activity activity, ImageView view, String uri) {
+        //将图⽚地址转为绝对地址
+        uri= ResourceUtil.resourceUri(uri);
+        //显示图⽚
+        showCircleFull(activity, view, uri);
+    }
+
+    /**
+     * 显示圆形绝对路径图⽚
+     *
+     * @param activity
+     * @param view
+     * @param name
+     */
+    public static void showCircleFull(Activity activity, ImageView view, String name) {
+        //获取圆形图⽚通⽤的配置
+        RequestOptions options = getCircleCommentRequestOptions();
+        //显示图⽚
+        Glide.with(activity)
+                .load(name)
+                .apply(options)
+                .into(view);
+    }
+
+    /**
+     * 获取圆形图⽚通⽤的配置
+     * @return
+     */
+    public static RequestOptions getCircleCommentRequestOptions() {
+        //获取通⽤的配置
+        RequestOptions options = getCommonRequestOptions();
+        //圆形裁剪
+        options.circleCrop();
+        return options;
     }
 
     /**
@@ -65,7 +110,7 @@ public class ImageUtil {
      */
     public static void show(Activity activity, ImageView view, String uri) {
         //将图⽚地址转为绝对路径
-        uri = String.format(Constant.RESOURCE_ENDPOINT, uri);
+        uri = ResourceUtil.resourceUri(uri);;
         showFull(activity, view, uri);
     }
 
