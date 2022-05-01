@@ -11,15 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bo.cloudmusic.Adapter.DiscoveryAdapter;
 import com.bo.cloudmusic.R;
+import com.bo.cloudmusic.api.Api;
 import com.bo.cloudmusic.domain.BaseMultiItemEntity;
 import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.domain.Title;
+import com.bo.cloudmusic.domain.response.ListResponse;
+import com.bo.cloudmusic.listener.HttpObserver;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
 
 
 /**
@@ -64,6 +69,22 @@ public class DiscoveryFragment extends BaseCommonFragment {
         //创建列表的适配器
         adapter = new DiscoveryAdapter();
 
+        //设置列宽度
+        adapter.setSpanSizeLookup(new BaseQuickAdapter.SpanSizeLookup() {
+
+            /**
+             * 占用多少列
+             * @param gridLayoutManager
+             * @param position
+             * @return
+             */
+            @Override
+            public int getSpanSize(GridLayoutManager gridLayoutManager, int position) {
+                //获取模型的宽度
+                return adapter.getItem(position).getSpanSize();
+            }
+        });
+
         //把适配器设置到列表中
         rv.setAdapter(adapter);
 
@@ -105,9 +126,9 @@ public class DiscoveryFragment extends BaseCommonFragment {
         //因为现在还没有请求数据
         //所以添加⼀些测试数据
         //⽬的是让列表显示出来
-        List<BaseMultiItemEntity> datas = new ArrayList<>();
+        //List<BaseMultiItemEntity> datas = new ArrayList<>();
 
-        //添加标题
+        /*//添加标题
         datas.add(new Title("推荐歌单"));
 
         //添加歌单数据
@@ -124,7 +145,22 @@ public class DiscoveryFragment extends BaseCommonFragment {
         }
 
         //把数据设置到适配器
-        adapter.replaceData(datas);
+        adapter.replaceData(datas);*/
+
+        //创建列表
+        List<BaseMultiItemEntity> datum = new ArrayList<>();
+
+        //歌单Api
+        Observable<ListResponse<Sheet>> sheets= Api.getInstance().sheets();
+
+        //请求歌单数据
+        sheets.subscribe(new HttpObserver<ListResponse<Sheet>>() {
+            @Override
+            public void onSucceeded(ListResponse<Sheet> data) {
+                //添加歌单数据
+                datum.addAll(data.getData());
+            }
+        });
     }
 
 }
