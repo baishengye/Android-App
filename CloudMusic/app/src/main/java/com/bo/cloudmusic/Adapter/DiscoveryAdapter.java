@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.BaseMultiItemEntity;
+import com.bo.cloudmusic.domain.Title;
 import com.bo.cloudmusic.utils.Constant;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -45,6 +46,20 @@ public class DiscoveryAdapter extends BaseMultiItemQuickAdapter<BaseMultiItemEnt
      */
     @Override
     protected void convert(@NonNull BaseViewHolder helper, BaseMultiItemEntity item) {
+        switch (helper.getItemViewType()){
+            case Constant.TYPE_TITLE:
+                //标题
+                Title title=(Title) item;
 
+                //设置标题
+                helper.setText(R.id.tv_title,title.getTitle());
+                break;
+            case Constant.TYPE_SHEET:
+                //歌单
+                break;
+            case Constant.TYPE_SONG:
+                //单曲
+                break;
+        }
     }
 }
