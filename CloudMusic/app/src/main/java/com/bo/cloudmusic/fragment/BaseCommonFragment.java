@@ -7,11 +7,23 @@ import androidx.fragment.app.FragmentActivity;
 import com.bo.cloudmusic.activity.BaseCommonActivity;
 import com.bo.cloudmusic.utils.PreferencesUtil;
 
+import butterknife.ButterKnife;
+
 /**
  * 通用公共Fragment
  */
 public abstract class BaseCommonFragment extends BaseFragment {
     protected PreferencesUtil sp;
+
+    @Override
+    protected void initViews() {
+        super.initViews();
+
+        if(isBindView()){
+            bindView();
+        }
+    }
+
     @Override
     protected void initDatum() {
         super.initDatum();
@@ -43,4 +55,15 @@ public abstract class BaseCommonFragment extends BaseFragment {
     protected BaseCommonActivity getMainActivity() {
         return (BaseCommonActivity) getActivity();
     }
+
+
+    protected boolean isBindView() {
+        return true;
+    }
+
+
+    protected void bindView() {
+        ButterKnife.bind(this,getView());
+    }
+
 }

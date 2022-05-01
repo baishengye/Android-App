@@ -5,9 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".fragment.DiscoveryFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="DiscoveryFragment" />
+        android:text="DiscoveryFragment" >
+
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>
