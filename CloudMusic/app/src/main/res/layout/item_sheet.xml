@@ -1,13 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--Grid模式下分割线⽐较复杂
+这⾥就不讲解了：使⽤margin来实现
+但是有个问题就是相邻的Item间距是2倍-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/purple_500">
+    android:layout_marginLeft="@dimen/padding_meddle"
+    android:layout_marginRight="@dimen/padding_meddle">
 
+   <!-- 封面正方形容器-->
+   <com.bo.cloudmusic.view.SquareLinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+           <!--CardView
+            主要是⽤来实现圆⻆和阴影
+            只是这⾥⽤不到阴影
+            所以去掉了
+            cardCornerRadius：圆⻆尺⼨
+            cardElevation：阴影⾼度-->
+           <androidx.cardview.widget.CardView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:foreground="?android:attr/selectableItemBackground"
+               app:cardCornerRadius="@dimen/radius_small"
+               app:cardElevation="0dp">
+
+               <!--封⾯-->
+               <ImageView
+                   android:src="@drawable/placeholder"
+                   android:scaleType="centerCrop"
+                   android:id="@+id/iv_banner"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent" />
+
+           </androidx.cardview.widget.CardView>
+
+           <!--点击数容器-->
+           <LinearLayout
+               android:layout_alignParentRight="true"
+               android:gravity="center_vertical"
+               android:orientation="horizontal"
+               android:padding="@dimen/padding_small"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content">
+
+               <!--图标-->
+               <ImageView
+                   android:src="@drawable/ic_headset"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+
+           </LinearLayout>
+
+       </RelativeLayout>
+
+   </com.bo.cloudmusic.view.SquareLinearLayout>
+
+    <!--歌单标题-->
     <TextView
-        android:text="歌单"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_meddle"
+        android:layout_marginBottom="@dimen/padding_meddle"
+        android:textColor="@color/text"
+        android:text="歌单标题歌单标题歌单标题歌单标题歌单标题歌单标题歌单标题歌单标题歌单标题歌单标题歌单标题歌单标题"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:lineSpacingMultiplier="@dimen/line_spacing_multiplier"/>
+
 
 </LinearLayout>
