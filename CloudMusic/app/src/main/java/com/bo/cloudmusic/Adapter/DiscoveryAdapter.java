@@ -1,5 +1,6 @@
 package com.bo.cloudmusic.Adapter;
 
+import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -8,8 +9,10 @@ import androidx.annotation.NonNull;
 
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.BaseMultiItemEntity;
+import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.Title;
 import com.bo.cloudmusic.utils.Constant;
+import com.bo.cloudmusic.utils.ImageUtil;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -56,6 +59,16 @@ public class DiscoveryAdapter extends BaseMultiItemQuickAdapter<BaseMultiItemEnt
                 break;
             case Constant.TYPE_SHEET:
                 //歌单
+                Sheet sheet=(Sheet) item;
+
+                //显示图片
+                ImageUtil.show((Activity)mContext,helper.getView(R.id.iv_banner),sheet.getBanner());
+
+                //设置歌单标题
+                helper.setText(R.id.tv_title,sheet.getTitle());
+
+                //播放量
+                helper.setText(R.id.tv_info,String.valueOf(sheet.getClicks_count()));
                 break;
             case Constant.TYPE_SONG:
                 //单曲

@@ -96,7 +96,6 @@ public class ImageUtil {
         //显示图⽚
         Glide.with(activity)
                 .load(uri)
-                .load(uri)
                 .apply(options)
                 .into(view);
     }

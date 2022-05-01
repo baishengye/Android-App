@@ -129,7 +129,7 @@ public class DiscoveryFragment extends BaseCommonFragment {
         //因为现在还没有请求数据
         //所以添加⼀些测试数据
         //⽬的是让列表显示出来
-        List<BaseMultiItemEntity> datas = new ArrayList<>();
+        /*List<BaseMultiItemEntity> datas = new ArrayList<>();
 
         //添加标题
         datas.add(new Title("推荐歌单"));
@@ -148,9 +148,9 @@ public class DiscoveryFragment extends BaseCommonFragment {
         }
 
         //把数据设置到适配器
-        adapter.replaceData(datas);
+        adapter.replaceData(datas);*/
 
-        /*//创建列表
+        //创建列表
         List<BaseMultiItemEntity> datum = new ArrayList<>();
 
         //歌单Api
@@ -178,7 +178,7 @@ public class DiscoveryFragment extends BaseCommonFragment {
                             }
                         });
             }
-        });*/
+        });
 
     }
 

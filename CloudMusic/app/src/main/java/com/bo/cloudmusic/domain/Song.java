@@ -15,32 +15,44 @@ public class Song extends BaseMultiItemEntity{
     private String banner;
 
     /**
-     * Uri
+     * 音乐地址
      */
     private String uri;
 
     /**
      * 点击数
      */
-    private String clicks_count;
+    private int clicks_count;
 
     /**
      * 评论数
      */
-    private String comments_count;
+    private int comments_count;
 
     /**
-     * 歌词的风格
+     * 歌词类型
      */
-    private String style;
+    private Integer style;
 
     /**
-     * 歌词
+     * 歌词内容
      */
     private String lyric;
 
+    public int getClicks_count() {
+        return clicks_count;
+    }
+
+    public int getComments_count() {
+        return comments_count;
+    }
+
+    public Integer getStyle() {
+        return style;
+    }
+
     /**
-     * 后台添加数据的人
+     * 创建该音乐的人
      */
     private User user;
 
@@ -49,6 +61,17 @@ public class Song extends BaseMultiItemEntity{
      */
     private User singer;
 
+    public void setClicks_count(int clicks_count) {
+        this.clicks_count = clicks_count;
+    }
+
+    public void setComments_count(int comments_count) {
+        this.comments_count = comments_count;
+    }
+
+    public void setStyle(Integer style) {
+        this.style = style;
+    }
 
     @Override
     public int getItemType() {
@@ -77,30 +100,6 @@ public class Song extends BaseMultiItemEntity{
 
     public void setUri(String uri) {
         this.uri = uri;
-    }
-
-    public String getClicks_count() {
-        return clicks_count;
-    }
-
-    public void setClicks_count(String clicks_count) {
-        this.clicks_count = clicks_count;
-    }
-
-    public String getComments_count() {
-        return comments_count;
-    }
-
-    public void setComments_count(String comments_count) {
-        this.comments_count = comments_count;
-    }
-
-    public String getStyle() {
-        return style;
-    }
-
-    public void setStyle(String style) {
-        this.style = style;
     }
 
     public String getLyric() {
