@@ -7,7 +7,29 @@
     android:fitsSystemWindows="true">
 
     <!--Toolbar相关-->
-    <include layout="@layout/tool_bar" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.随波云音乐.AppBarOverlay"
+        android:elevation="0dp"
+        android:fitsSystemWindows="true">
+
+        <!--ToolBar控件-->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/Theme.随波云音乐.PopupOverlay">
+
+            <!--指示器-->
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:id="@+id/mi"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
 
     <!--主界⾯内容

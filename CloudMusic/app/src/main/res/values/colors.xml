@@ -23,4 +23,5 @@
 
     <!--文本颜色-->
     <color name="text">#333</color>
+    <color name="table_normal">#aaffffff</color>
 </resources>
