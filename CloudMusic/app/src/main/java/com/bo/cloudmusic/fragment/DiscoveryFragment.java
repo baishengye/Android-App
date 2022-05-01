@@ -9,7 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bo.cloudmusic.Adapter.DiscoveryAdapter;
 import com.bo.cloudmusic.R;
+import com.bo.cloudmusic.domain.BaseMultiItemEntity;
+import com.bo.cloudmusic.domain.Sheet;
+import com.bo.cloudmusic.domain.Song;
+import com.bo.cloudmusic.domain.Title;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -22,6 +30,8 @@ public class DiscoveryFragment extends BaseCommonFragment {
     //列表控件用的布局管理器
     private GridLayoutManager layoutManager;
 
+    //列表的适配器
+    private DiscoveryAdapter adapter;
     /**
      * 列表控件
      */
@@ -45,6 +55,20 @@ public class DiscoveryFragment extends BaseCommonFragment {
 
         //把列表布局设置到列表控件中
         rv.setLayoutManager(layoutManager);
+    }
+
+    @Override
+    protected void initDatum() {
+        super.initDatum();
+
+        //创建列表的适配器
+        adapter = new DiscoveryAdapter();
+
+        //把适配器设置到列表中
+        rv.setAdapter(adapter);
+
+        //请求数据
+        fetchData();
     }
 
     /**
@@ -72,4 +96,35 @@ public class DiscoveryFragment extends BaseCommonFragment {
     protected View getLayoutView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_discovery,container,false);
     }
+
+
+    /**
+     * 请求数据方法
+     */
+    private void fetchData() {
+        //因为现在还没有请求数据
+        //所以添加⼀些测试数据
+        //⽬的是让列表显示出来
+        List<BaseMultiItemEntity> datas = new ArrayList<>();
+
+        //添加标题
+        datas.add(new Title("推荐歌单"));
+
+        //添加歌单数据
+        for (int i = 0; i < 9; i++) {
+            datas.add(new Sheet());
+        }
+
+        //添加标题
+        datas.add(new Title("推荐单曲"));
+
+        //添加单曲数据
+        for (int i = 0; i < 9; i++) {
+            datas.add(new Song());
+        }
+
+        //把数据设置到适配器
+        adapter.replaceData(datas);
+    }
+
 }

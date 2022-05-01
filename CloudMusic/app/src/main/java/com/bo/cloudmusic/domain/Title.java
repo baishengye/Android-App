@@ -11,6 +11,13 @@ public class Title extends BaseMultiItemEntity {
      */
     private String title;
 
+    public Title(String title) {
+        this.title = title;
+    }
+    public Title() {
+    }
+
+
     /**
      * 返回item 的类型
      * @return
