@@ -1,5 +1,6 @@
 package com.bo.cloudmusic.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,11 +58,11 @@ public class DiscoveryFragment extends BaseCommonFragment {
 
         //设置显示3列,用布局管理器设置列表布局能装几行
         layoutManager = new GridLayoutManager(getMainActivity(), 3);
-
         //把列表布局设置到列表控件中
         rv.setLayoutManager(layoutManager);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void initDatum() {
         super.initDatum();
@@ -90,6 +91,8 @@ public class DiscoveryFragment extends BaseCommonFragment {
 
         //请求数据
         fetchData();
+
+        adapter.notifyDataSetChanged();
     }
 
     /**
@@ -126,9 +129,9 @@ public class DiscoveryFragment extends BaseCommonFragment {
         //因为现在还没有请求数据
         //所以添加⼀些测试数据
         //⽬的是让列表显示出来
-        //List<BaseMultiItemEntity> datas = new ArrayList<>();
+        List<BaseMultiItemEntity> datas = new ArrayList<>();
 
-        /*//添加标题
+        //添加标题
         datas.add(new Title("推荐歌单"));
 
         //添加歌单数据
@@ -145,22 +148,38 @@ public class DiscoveryFragment extends BaseCommonFragment {
         }
 
         //把数据设置到适配器
-        adapter.replaceData(datas);*/
+        adapter.replaceData(datas);
 
-        //创建列表
+        /*//创建列表
         List<BaseMultiItemEntity> datum = new ArrayList<>();
 
         //歌单Api
         Observable<ListResponse<Sheet>> sheets= Api.getInstance().sheets();
+        //单曲Api
+        Observable<ListResponse<Song>> songs = Api.getInstance().songs();
 
         //请求歌单数据
         sheets.subscribe(new HttpObserver<ListResponse<Sheet>>() {
             @Override
             public void onSucceeded(ListResponse<Sheet> data) {
+                datum.add(new Title("推荐歌单"));
+
                 //添加歌单数据
                 datum.addAll(data.getData());
+
+                songs.subscribe(new HttpObserver<ListResponse<Song>>() {
+                            @Override
+                            public void onSucceeded(ListResponse<Song> data) {
+                                datum.add(new Title("推荐单曲"));
+
+                                datum.addAll(data.getData());
+
+                                adapter.replaceData(datum);
+                            }
+                        });
             }
-        });
+        });*/
+
     }
 
 }

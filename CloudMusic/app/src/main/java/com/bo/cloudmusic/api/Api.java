@@ -4,6 +4,7 @@ import com.bo.cloudmusic.AppContext;
 import com.bo.cloudmusic.domain.BaseModel;
 import com.bo.cloudmusic.domain.Session;
 import com.bo.cloudmusic.domain.Sheet;
+import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.domain.User;
 import com.bo.cloudmusic.domain.response.BaseResponse;
 import com.bo.cloudmusic.domain.response.DetailResponse;
@@ -158,7 +159,7 @@ public class Api {
             data.put(Constant.NICKNAME,nickname);
         }
 
-        return service.UserDetail(id,data)
+        return service.userDetail(id,data)
                 .subscribeOn(Schedulers.io())//设置网络请求在子线程中使用
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -176,6 +177,15 @@ public class Api {
     public Observable<ListResponse<Sheet>> sheets() {
         return service.sheets()
                 .subscribeOn(Schedulers.io())//设置网络请求在子线程中使用
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 所有单曲
+     */
+    public Observable<ListResponse<Song>> songs(){
+        return service.songs()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 }

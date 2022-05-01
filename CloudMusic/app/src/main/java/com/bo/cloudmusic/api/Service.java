@@ -5,6 +5,7 @@ import com.bo.cloudmusic.domain.Session;
 import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.SheetDetailWrapper;
 import com.bo.cloudmusic.domain.SheetListWrapper;
+import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.domain.User;
 import com.bo.cloudmusic.domain.response.BaseResponse;
 import com.bo.cloudmusic.domain.response.DetailResponse;
@@ -90,9 +91,13 @@ public interface Service {
      * 用户详情
      */
     @GET("v1/users/{id}")
-    Observable<DetailResponse<User>> UserDetail(@Path("id") String id, @QueryMap Map<String,String> data);
+    Observable<DetailResponse<User>> userDetail(@Path("id") String id, @QueryMap Map<String,String> data);
 
-
+    /**
+     * 单曲列表
+     */
+    @GET("v1/songs")
+    Observable<ListResponse<Song>> songs();
 
 
 }
