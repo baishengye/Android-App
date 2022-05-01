@@ -209,6 +209,13 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 
+    //recyclerview控件
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    //封装了recyclerview控件的第三方库
+    //https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
+
     //============================请求⽹络相关=======================================
     //okhttp
     //https://github.com/square/okhttp
