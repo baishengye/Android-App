@@ -1,10 +1,12 @@
 package com.bo.cloudmusic.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,8 +23,11 @@ import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.domain.Title;
 import com.bo.cloudmusic.domain.response.ListResponse;
 import com.bo.cloudmusic.listener.HttpObserver;
+import com.bo.cloudmusic.utils.ImageUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.youth.banner.Banner;
+import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,11 +47,48 @@ public class DiscoveryFragment extends BaseCommonFragment {
 
     //列表的适配器
     private DiscoveryAdapter adapter;
+
+    //轮播图数据
+    private List<Ad> bannerData;
+
     /**
      * 列表控件
      */
     @BindView(R.id.rv)
     RecyclerView rv;
+
+    /**
+     * banner
+     */
+    private Banner banner;
+
+    /**
+     * 每日推荐
+     */
+    private TextView tv_day;
+
+    /**
+     * 当界⾯显示了执⾏
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        //开始轮播图滚动
+        if (bannerData!=null){
+            startBannerScroll();
+        }
+    }
+    /**
+     * 当界⾯看不⻅了执⾏
+     *
+     * 包括开启新界⾯，弹窗，后台
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        //结束轮播图滚动
+        banner.stopAutoPlay();
+    }
 
     @Override
     protected void initViews() {
@@ -199,8 +241,14 @@ public class DiscoveryFragment extends BaseCommonFragment {
         //从xml创建view
         View view = getLayoutInflater().inflate(R.layout.header_discovery, (ViewGroup) rv.getParent(), false);
 
-        //找到⽇期⽂本控件
-        TextView tv_day = view.findViewById(R.id.tv_day);
+        //找轮播图控件
+        banner = view.findViewById(R.id.banner);
+
+        //找每日推荐
+        tv_day = view.findViewById(R.id.tv_day);
+
+        //设置图片加载器
+        banner.setImageLoader(new GlideImageLoader());
 
         //设置⽇期
         //由于项⽬中没有其他位置使⽤到
@@ -235,7 +283,50 @@ public class DiscoveryFragment extends BaseCommonFragment {
      * @param data
      */
     private void showBanner(List<Ad> data) {
+        this.bannerData=data;
 
+
+
+        //设置数据到轮播图组件
+        banner.setImages(bannerData);
+
+        //加载图片并且显示数据
+        banner.start();
+
+        //第一次要滚动banner
+        startBannerScroll();
+    }
+
+    /**
+     * 第一次要滚动banner
+     */
+    private void startBannerScroll() {
+        banner.startAutoPlay();
+    }
+
+    /**
+     * Banner框架显示图⽚的实现类
+     *
+     * 如果有其他位置⽤到
+     * 可以放到单独的⽂件中
+     */
+    class GlideImageLoader extends ImageLoader{
+
+        /**
+         * 加载图⽚的⽅法
+         *
+         * @param context
+         * @param path
+         * @param imageView
+         */
+        @Override
+        public void displayImage(Context context, Object path, ImageView imageView) {
+            //将对象转为⼴告对象
+            Ad banner = (Ad) path;
+
+            //使⽤⼯具类⽅法显示图⽚
+            ImageUtil.show(getMainActivity(), imageView, banner.getBanner());
+        }
     }
 
 }
