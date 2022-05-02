@@ -3,6 +3,7 @@ package com.bo.cloudmusic.Adapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.Song;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -25,10 +26,17 @@ public class SongAdapter extends BaseQuickAdapter<Song, BaseViewHolder> {
     /**
      * 显示数据
      * @param helper
-     * @param item
+     * @param data
      */
     @Override
-    protected void convert(@NonNull BaseViewHolder helper, Song item) {
+    protected void convert(@NonNull BaseViewHolder helper, Song data) {
+        //显示位置(helper.getAdapterPosition()是从0开始的,但是rv中显示事情从1开始)
+        helper.setText(R.id.tv_position, String.valueOf(helper.getAdapterPosition()+1));
 
+        //显示标题
+        helper.setText(R.id.tv_title,data.getTitle());
+
+        //显示信息
+        helper.setText(R.id.tv_info,data.getSinger().getNickname());
     }
 }

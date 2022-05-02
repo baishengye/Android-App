@@ -1,12 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background">
 
-    <TextView
-        android:text="这是标题"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <!--内容-->
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <!--位置-->
+        <TextView
+            android:id="@+id/tv_position"
+            android:textColor="@color/text"
+            android:gravity="center"
+            tools:text="12"
+            android:layout_width="@dimen/item_song_width"
+            android:layout_height="@dimen/item_song_height"/>
+
+        <!--音乐信息容器-->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!--名称-->
+            <TextView
+                tools:text="歌曲名称"
+                android:textColor="@color/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_title"/>
+
+            <!--信息-->
+            <TextView
+                android:layout_marginTop="@dimen/padding_small"
+                tools:text="歌手信息"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/light_grey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_info"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <!--更多按钮-->
+        <ImageButton
+            android:layout_width="@dimen/item_song_width"
+            android:layout_height="@dimen/item_song_height"
+            android:src="@drawable/ic_more_grey"
+            android:background="@null"
+            android:scaleType="center"
+            android:id="@+id/ib_more"/>
+    </LinearLayout>
+
+    <!--分割线-->
+    <include layout="@layout/divider_small"/>
 </LinearLayout>
