@@ -1,6 +1,7 @@
 package com.bo.cloudmusic.api;
 
 import com.bo.cloudmusic.AppContext;
+import com.bo.cloudmusic.domain.Ad;
 import com.bo.cloudmusic.domain.BaseModel;
 import com.bo.cloudmusic.domain.Session;
 import com.bo.cloudmusic.domain.Sheet;
@@ -185,6 +186,15 @@ public class Api {
      */
     public Observable<ListResponse<Song>> songs(){
         return service.songs()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 广告单曲
+     */
+    public Observable<ListResponse<Ad>> ads(){
+        return service.ads()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

@@ -1,5 +1,6 @@
 package com.bo.cloudmusic.api;
 
+import com.bo.cloudmusic.domain.Ad;
 import com.bo.cloudmusic.domain.BaseModel;
 import com.bo.cloudmusic.domain.Session;
 import com.bo.cloudmusic.domain.Sheet;
@@ -99,5 +100,9 @@ public interface Service {
     @GET("v1/songs")
     Observable<ListResponse<Song>> songs();
 
-
+    /**
+     * 广告列表
+     */
+    @GET("v1/ads")
+    Observable<ListResponse<Ad>> ads();
 }

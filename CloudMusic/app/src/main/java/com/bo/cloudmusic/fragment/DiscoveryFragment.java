@@ -14,12 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bo.cloudmusic.Adapter.DiscoveryAdapter;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.api.Api;
+import com.bo.cloudmusic.domain.Ad;
 import com.bo.cloudmusic.domain.BaseMultiItemEntity;
 import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.domain.Title;
 import com.bo.cloudmusic.domain.response.ListResponse;
 import com.bo.cloudmusic.listener.HttpObserver;
+import com.bo.cloudmusic.utils.ToastUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
@@ -96,6 +98,9 @@ public class DiscoveryFragment extends BaseCommonFragment {
 
         //请求数据
         fetchData();
+
+        //请求轮播图数据
+        fetchBannerData();
 
         adapter.notifyDataSetChanged();
     }
@@ -210,4 +215,27 @@ public class DiscoveryFragment extends BaseCommonFragment {
 
         return view;
     }
+
+
+    /**
+     * 请求轮播图数据
+     */
+    private void fetchBannerData() {
+        Api.getInstance().ads()
+                .subscribe(new HttpObserver<ListResponse<Ad>>() {
+                    @Override
+                    public void onSucceeded(ListResponse<Ad> data) {
+                        showBanner(data.getData());
+                    }
+                });
+    }
+
+    /**
+     * 显示轮播图数据
+     * @param data
+     */
+    private void showBanner(List<Ad> data) {
+
+    }
+
 }
