@@ -71,4 +71,8 @@
     <string name="discovery">发现</string>
     <string name="friend">好友</string>
     <string name="video">视频</string>
+    <string name="person_fm">私人FM</string>
+    <string name="day_recommend">每日推荐</string>
+    <string name="sheet">歌单</string>
+    <string name="rank">排行榜</string>
 </resources>

@@ -1,8 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:background="@color/purple_500">
+    android:layout_height="wrap_content">
+
+    <!--头部背景-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/discovery_header_background_height"
+        android:background="@color/colorPrimary"/>
+
+    <!--内容容器-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_meddle"
+        android:layout_marginRight="@dimen/padding_meddle"
+        android:orientation="vertical">
+
+        <!--轮播图容器-->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="@dimen/radius_small"
+            app:cardElevation="0dp">
+
+            <!--轮播图-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/banner_height"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_meddle"
+            android:orientation="horizontal">
+
+            <include layout="@layout/fill_0_5"/>
+
+            <!--私人FM-->
+            <!--按钮容器-->
+            <LinearLayout
+                android:id="@+id/ll_fm"
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!--图标-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/selector_fm" />
+
+                <!--文本-->
+                <TextView
+                    android:layout_marginTop="@dimen/padding_meddle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/person_fm"
+                    android:textColor="@color/text" />
+
+            </LinearLayout>
+
+            <include layout="@layout/fill"/>
+
+            <!--每日推荐-->
+            <!--按钮容器-->
+            <LinearLayout
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!--图标-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/selector_day" />
+
+                <!--文本-->
+                <TextView
+                    android:layout_marginTop="@dimen/padding_meddle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/day_recommend"
+                    android:textColor="@color/text" />
+
+            </LinearLayout>
+
+            <include layout="@layout/fill"/>
+
+            <!--歌单-->
+            <!--按钮容器-->
+            <LinearLayout
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!--图标-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/selector_sheet" />
+
+                <!--文本-->
+                <TextView
+                    android:layout_marginTop="@dimen/padding_meddle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sheet"
+                    android:textColor="@color/text" />
+
+            </LinearLayout>
+
+            <include layout="@layout/fill"/>
+
+            <!--排行榜-->
+            <!--按钮容器-->
+            <LinearLayout
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!--图标-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/selector_rank" />
+
+                <!--文本-->
+                <TextView
+                    android:layout_marginTop="@dimen/padding_meddle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rank"
+                    android:textColor="@color/text" />
+
+            </LinearLayout>
+
+            <include layout="@layout/fill_0_5"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
