@@ -8,70 +8,38 @@ public class Song extends BaseMultiItemEntity{
      * 标题
      */
     private String title;
-
     /**
-     * 封面
+     * 封⾯图
      */
     private String banner;
-
     /**
-     * 音乐地址
+     * ⾳乐地址
      */
     private String uri;
-
     /**
      * 点击数
      */
-    private int clicks_count;
-
+    private Integer clicks_count = 0;
     /**
      * 评论数
      */
-    private int comments_count;
-
+    private Integer comments_count = 0;
     /**
      * 歌词类型
      */
     private Integer style;
-
     /**
      * 歌词内容
      */
     private String lyric;
-
-    public int getClicks_count() {
-        return clicks_count;
-    }
-
-    public int getComments_count() {
-        return comments_count;
-    }
-
-    public Integer getStyle() {
-        return style;
-    }
-
     /**
-     * 创建该音乐的人
+     * 创建该⾳乐的⼈
      */
     private User user;
-
     /**
-     * 歌手
+     * 歌⼿
      */
     private User singer;
-
-    public void setClicks_count(int clicks_count) {
-        this.clicks_count = clicks_count;
-    }
-
-    public void setComments_count(int comments_count) {
-        this.comments_count = comments_count;
-    }
-
-    public void setStyle(Integer style) {
-        this.style = style;
-    }
 
     @Override
     public int getItemType() {
@@ -100,6 +68,30 @@ public class Song extends BaseMultiItemEntity{
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    public Integer getClicks_count() {
+        return clicks_count;
+    }
+
+    public void setClicks_count(Integer clicks_count) {
+        this.clicks_count = clicks_count;
+    }
+
+    public Integer getComments_count() {
+        return comments_count;
+    }
+
+    public void setComments_count(Integer comments_count) {
+        this.comments_count = comments_count;
+    }
+
+    public Integer getStyle() {
+        return style;
+    }
+
+    public void setStyle(Integer style) {
+        this.style = style;
     }
 
     public String getLyric() {

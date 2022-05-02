@@ -8,51 +8,48 @@ import java.util.List;
  * 歌单对象
  */
 public class Sheet extends BaseMultiItemEntity{
+
     /**
-     * 歌单标题
+     * 标题
      */
     private String title;
-
     /**
-     * 歌单封面
+     * 封⾯
      */
     private String banner;
-
     /**
-     * 歌单描述
+     * 描述
      */
     private String description;
-
     /**
-     * 歌单点击数
+     * 点击数
      */
-    private String clicks_count;
-
+    private Integer clicks_count = 0;
     /**
-     * 歌单收藏数
+     * 收藏数
      */
-    private String collections_count;
-
+    private Integer collections_count = 0;
     /**
-     * 歌单评论数
+     * 评论数
      */
-    private String comment_count;
-
+    private Integer comments_count = 0;
     /**
-     * 音乐数量
+     * ⾳乐数
      */
-    private int songs_count;
-
+    private Integer songs_count = 0;
     /**
      * 歌单创建者
      */
     private User user;
-
     /**
-     * 歌单中的歌曲
+     * 歌曲
      */
     private List<Song> songs;
-
+    /**
+     * 是否收藏
+     * 有值就表示收藏了
+     */
+    private Integer collection_id;
 
     @Override
     public int getItemType() {
@@ -92,35 +89,35 @@ public class Sheet extends BaseMultiItemEntity{
         this.description = description;
     }
 
-    public String getClicks_count() {
+    public Integer getClicks_count() {
         return clicks_count;
     }
 
-    public void setClicks_count(String clicks_count) {
+    public void setClicks_count(Integer clicks_count) {
         this.clicks_count = clicks_count;
     }
 
-    public String getCollections_count() {
+    public Integer getCollections_count() {
         return collections_count;
     }
 
-    public void setCollections_count(String collections_count) {
+    public void setCollections_count(Integer collections_count) {
         this.collections_count = collections_count;
     }
 
-    public String getComment_count() {
-        return comment_count;
+    public Integer getComments_count() {
+        return comments_count;
     }
 
-    public void setComment_count(String comment_count) {
-        this.comment_count = comment_count;
+    public void setComments_count(Integer comments_count) {
+        this.comments_count = comments_count;
     }
 
-    public int getSongs_count() {
+    public Integer getSongs_count() {
         return songs_count;
     }
 
-    public void setSongs_count(int songs_count) {
+    public void setSongs_count(Integer songs_count) {
         this.songs_count = songs_count;
     }
 
@@ -138,5 +135,13 @@ public class Sheet extends BaseMultiItemEntity{
 
     public void setSongs(List<Song> songs) {
         this.songs = songs;
+    }
+
+    public Integer getCollection_id() {
+        return collection_id;
+    }
+
+    public void setCollection_id(Integer collection_id) {
+        this.collection_id = collection_id;
     }
 }
