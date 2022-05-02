@@ -13,6 +13,19 @@ public class Ad extends BaseModel{
      */
     private String banner;
 
+    /**
+     * Uri
+     */
+    private String uri;
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
     public String getTitle() {
         return title;
     }

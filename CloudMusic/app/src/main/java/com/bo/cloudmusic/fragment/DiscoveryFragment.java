@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bo.cloudmusic.Adapter.DiscoveryAdapter;
 import com.bo.cloudmusic.R;
+import com.bo.cloudmusic.activity.WebViewActivity;
 import com.bo.cloudmusic.api.Api;
 import com.bo.cloudmusic.domain.Ad;
 import com.bo.cloudmusic.domain.BaseMultiItemEntity;
@@ -27,6 +28,8 @@ import com.bo.cloudmusic.utils.ImageUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerClickListener;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
@@ -40,7 +43,7 @@ import io.reactivex.Observable;
 /**
  * 首页-我的界面
  */
-public class DiscoveryFragment extends BaseCommonFragment {
+public class DiscoveryFragment extends BaseCommonFragment implements OnBannerListener {
 
     //列表控件用的布局管理器
     private GridLayoutManager layoutManager;
@@ -247,6 +250,9 @@ public class DiscoveryFragment extends BaseCommonFragment {
         //找每日推荐
         tv_day = view.findViewById(R.id.tv_day);
 
+        //设置banner的点击监听
+        banner.setOnBannerListener(this);
+
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
 
@@ -285,8 +291,6 @@ public class DiscoveryFragment extends BaseCommonFragment {
     private void showBanner(List<Ad> data) {
         this.bannerData=data;
 
-
-
         //设置数据到轮播图组件
         banner.setImages(bannerData);
 
@@ -302,6 +306,15 @@ public class DiscoveryFragment extends BaseCommonFragment {
      */
     private void startBannerScroll() {
         banner.startAutoPlay();
+    }
+
+    @Override
+    public void OnBannerClick(int position) {
+        //获取到广告
+        Ad ad = bannerData.get(position);
+
+        //使用通用WebView显示广告界面
+        WebViewActivity.start(getMainActivity(),ad.getTitle(),ad.getUri());
     }
 
     /**
