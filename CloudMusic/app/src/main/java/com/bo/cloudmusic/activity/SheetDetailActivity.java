@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.bo.cloudmusic.Adapter.SongAdapter;
 import com.bo.cloudmusic.R;
@@ -83,10 +85,25 @@ public class SheetDetailActivity extends BaseTitleActivity {
         //new 出适配器
         adapter = new SongAdapter(R.layout.item_song_detail);
 
+        //添加头部
+        adapter.addHeaderView(createHeaderView());
+
         //把适配器添加到rv中
         rv.setAdapter(adapter);
 
         fetchData();
+    }
+
+    /**
+     * 创建头部
+     * @return
+     */
+    private View createHeaderView(){
+        //从xml填充布局
+        View view=getLayoutInflater().inflate(R.layout.header_sheet_detail, (ViewGroup) rv.getParent(),false);
+
+        //返回view
+        return view;
     }
 
     /**

@@ -31,7 +31,7 @@ public class SongAdapter extends BaseQuickAdapter<Song, BaseViewHolder> {
     @Override
     protected void convert(@NonNull BaseViewHolder helper, Song data) {
         //显示位置(helper.getAdapterPosition()是从0开始的,但是rv中显示事情从1开始)
-        helper.setText(R.id.tv_position, String.valueOf(helper.getAdapterPosition()+1));
+        helper.setText(R.id.tv_position, String.valueOf(helper.getAdapterPosition()));
 
         //显示标题
         helper.setText(R.id.tv_title,data.getTitle());
