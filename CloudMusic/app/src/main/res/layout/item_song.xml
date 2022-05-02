@@ -7,7 +7,8 @@
     android:layout_marginTop="@dimen/padding_small"
     android:layout_marginBottom="@dimen/padding_small"
     android:layout_marginLeft="@dimen/padding_meddle"
-    android:layout_marginRight="@dimen/padding_meddle">
+    android:layout_marginRight="@dimen/padding_meddle"
+    android:clickable="true">
     <!--封⾯容器-->
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"

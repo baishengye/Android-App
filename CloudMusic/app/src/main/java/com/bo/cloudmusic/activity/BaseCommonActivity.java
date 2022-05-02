@@ -3,12 +3,14 @@ package com.bo.cloudmusic.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 
+import com.bo.cloudmusic.fragment.BaseCommonFragment;
 import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.PreferencesUtil;
 
@@ -65,6 +67,19 @@ public class BaseCommonActivity extends BaseActivity{
     protected void startActivity(Class<?> clazz) {
         startActivity(new Intent(getMainActivity(), clazz));
     }
+
+    /**
+     * 加上id启动Activity
+     */
+    protected void startActivityExtraId(Class<?> clazz,String id) {
+        Intent intent = new Intent(getMainActivity(), clazz);
+
+        if(!TextUtils.isEmpty(id))
+            intent.putExtra(Constant.ID,id);
+
+        startActivity(intent);
+    }
+
     /**
      * 启动界⾯并关闭当前界⾯
      */

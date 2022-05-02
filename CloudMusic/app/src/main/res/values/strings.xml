@@ -75,4 +75,5 @@
     <string name="day_recommend">每日推荐</string>
     <string name="sheet">歌单</string>
     <string name="rank">排行榜</string>
+    <string name="sheet_detail_activity">歌单详情</string>
 </resources>

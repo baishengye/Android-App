@@ -2,6 +2,7 @@ package com.bo.cloudmusic.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bo.cloudmusic.Adapter.DiscoveryAdapter;
 import com.bo.cloudmusic.R;
+import com.bo.cloudmusic.activity.SheetDetailActivity;
 import com.bo.cloudmusic.activity.WebViewActivity;
 import com.bo.cloudmusic.api.Api;
 import com.bo.cloudmusic.domain.Ad;
@@ -24,6 +26,7 @@ import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.domain.Title;
 import com.bo.cloudmusic.domain.response.ListResponse;
 import com.bo.cloudmusic.listener.HttpObserver;
+import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.ImageUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -148,6 +151,37 @@ public class DiscoveryFragment extends BaseCommonFragment implements OnBannerLis
         fetchBannerData();
 
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void initListeners() {
+        super.initListeners();
+
+        //设置item点击事件
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                //获取点击的item
+                Object item = adapter.getItem(position);
+
+                //判断类型
+                if(item instanceof Sheet){
+                    //歌单
+                    Sheet sheet=(Sheet)item;
+
+                    /*//创建intent
+                    Intent intent = new Intent(getMainActivity(), SheetDetailActivity.class);
+
+                    //传递id
+                    intent.putExtra(Constant.ID,sheet.getId());
+
+                    //启动界面
+                    startActivity(intent);*/
+
+                    startActivityExtraId(SheetDetailActivity.class,sheet.getId());
+                }
+            }
+        });
     }
 
     /**

@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.bo.cloudmusic">
     <!-- 添加网络权限 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!--请求手机数据的权限-->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 请求手机数据的权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -18,9 +16,13 @@
         android:theme="@style/Theme.随波云音乐"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.SheetDetailActivity"
+            android:exported="false"
+            android:label="@string/sheet_detail_activity"/>
+        <activity
             android:name=".activity.SettingActivity"
             android:exported="false"
-            android:label="Setting"/>
+            android:label="Setting" />
         <activity
             android:name=".activity.WebViewActivity"
             android:exported="false" />

@@ -1,10 +1,12 @@
 package com.bo.cloudmusic.fragment;
 
 import android.content.Intent;
+import android.text.TextUtils;
 
 import androidx.fragment.app.FragmentActivity;
 
 import com.bo.cloudmusic.activity.BaseCommonActivity;
+import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.PreferencesUtil;
 
 import butterknife.ButterKnife;
@@ -37,6 +39,18 @@ public abstract class BaseCommonFragment extends BaseFragment {
      */
     protected void startActivity(Class<?> clazz) {
         Intent intent = new Intent(getActivity(), clazz);
+        startActivity(intent);
+    }
+
+    /**
+     * 加上id启动Activity
+     */
+    protected void startActivityExtraId(Class<?> clazz,String id) {
+        Intent intent = new Intent(getMainActivity(), clazz);
+
+        if(!TextUtils.isEmpty(id))
+            intent.putExtra(Constant.ID,id);
+
         startActivity(intent);
     }
 
