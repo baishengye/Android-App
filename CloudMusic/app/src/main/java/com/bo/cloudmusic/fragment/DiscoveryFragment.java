@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -22,6 +23,7 @@ import com.bo.cloudmusic.listener.HttpObserver;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -190,6 +192,22 @@ public class DiscoveryFragment extends BaseCommonFragment {
      */
     private View createHeaderView() {
         //从xml创建view
-       return getLayoutInflater().inflate(R.layout.header_discovery, (ViewGroup) rv.getParent(),false);
+        View view = getLayoutInflater().inflate(R.layout.header_discovery, (ViewGroup) rv.getParent(), false);
+
+        //找到⽇期⽂本控件
+        TextView tv_day = view.findViewById(R.id.tv_day);
+
+        //设置⽇期
+        //由于项⽬中没有其他位置使⽤到
+        //所以可以不⽤重构
+        //获取⽇历对象
+        Calendar calendar=Calendar.getInstance();
+
+        //获取当月的天
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        tv_day.setText(String.valueOf(day));
+
+        return view;
     }
 }

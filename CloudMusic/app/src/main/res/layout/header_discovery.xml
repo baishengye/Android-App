@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -83,10 +84,28 @@
                 android:orientation="vertical">
 
                 <!--图标-->
-                <ImageView
+                <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/selector_day" />
+                    android:layout_height="wrap_content">
+
+                    <!--图标-->
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/selector_day"/>
+
+                    <!--日期-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_day"
+                        tools:text="28"
+                        android:layout_marginTop="18dp"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@drawable/selector_text_color_primary_reverse"/>
+
+                </RelativeLayout>
+
 
                 <!--文本-->
                 <TextView
