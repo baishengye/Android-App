@@ -217,6 +217,10 @@ dependencies {
     //https://github.com/CymChad/BaseRecyclerViewAdapterHelper
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
 
+    //轮播图
+    //https://github.com/youth5201314/banner
+    implementation 'com.youth.banner:banner:1.4.10'
+
     //============================请求⽹络相关=======================================
     //okhttp
     //https://github.com/square/okhttp

@@ -24,7 +24,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-
+        jcenter()//想要到入jitpack.io里面的第三方工具还是得添加这个
         maven {
             url "https://jitpack.io"
         }

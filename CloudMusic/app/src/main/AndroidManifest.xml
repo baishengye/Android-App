@@ -5,6 +5,9 @@
     <!-- 添加网络权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!--请求手机数据的权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".AppContext"
         android:allowBackup="true"
