@@ -1,16 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/header_container"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimary"
+    android:id="@+id/ll_header"
     android:orientation="vertical">
 
-    <TextView
+    <!--垂直方向上容器-->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="歌单详情头部"/>
+        android:layout_margin="@dimen/activity_margin"
+        android:orientation="vertical">
 
+        <!--水平容器-->
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <!--CardView的详细使用
+            请学习我们的其他课程-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="@dimen/song_detail_banner_width"
+                android:layout_height="@dimen/song_detail_banner_width"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="@dimen/radius_small"
+                app:cardElevation="@dimen/elevation">
+
+                <!--封面图-->
+                <ImageView
+                    android:id="@+id/iv_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/placeholder" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!--右侧容器-->
+            <LinearLayout
+                android:layout_marginLeft="@dimen/padding_large"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--标题-->
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_large"
+                    tools:text="这是歌单名称，这是歌单名称这是歌单名称这是歌单名称这是歌单名称这是歌单名称这是歌单名称"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!--作者容器-->
+                <LinearLayout
+                    android:id="@+id/ll_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_meddle"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <!--头像-->
+                    <ImageView
+                        android:id="@+id/iv_avatar"
+                        android:layout_width="@dimen/avatar_width_meddle"
+                        android:layout_height="@dimen/avatar_width_meddle"
+                        android:scaleType="centerCrop"
+                        tools:src="@drawable/placeholder" />
+
+                    <!--昵称-->
+                    <TextView
+                        android:id="@+id/tv_nickname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/padding_meddle"
+                        android:textColor="@color/tab_normal"
+                        tools:text="这是昵称这是昵称" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--水平容器-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--按钮容器-->
+            <LinearLayout
+                android:id="@+id/ll_comment_container"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <!--图标-->
+                <ImageView
+                    android:src="@drawable/ic_comment_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <!--文本-->
+                <TextView
+                    android:id="@+id/tv_comment_count"
+                    android:textColor="@color/white"
+                    android:text="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!--按钮容器-->
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <!--图标-->
+                <ImageView
+                    android:src="@drawable/ic_comment_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <!--文本-->
+                <TextView
+                    android:textColor="@color/white"
+                    android:text="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!--按钮容器-->
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <!--图标-->
+                <ImageView
+                    android:src="@drawable/ic_comment_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <!--文本-->
+                <TextView
+                    android:textColor="@color/white"
+                    android:text="@string/download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!--按钮容器-->
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <!--图标-->
+                <ImageView
+                    android:src="@drawable/ic_comment_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <!--文本-->
+                <TextView
+                    android:text="@string/select"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--水平容器-->
+    <LinearLayout
+        android:id="@+id/ll_play_all_container"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_song_height">
+
+        <!--图标-->
+        <ImageView
+            android:layout_marginLeft="@dimen/padding_meddle"
+            android:src="@drawable/ic_play_grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!--播放全部按钮-->
+        <TextView
+            android:layout_marginLeft="@dimen/padding_meddle"
+            android:textColor="@color/text"
+            android:text="@string/play_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!--音乐数量-->
+        <TextView
+            android:id="@+id/tv_count"
+            tools:text="@string/music_count"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <!--收藏按钮-->
+        <Button
+            android:id="@+id/bt_collection"
+            android:background="@null"
+            android:layout_marginRight="@dimen/padding_meddle"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height_small" />
+    </LinearLayout>
+
+    <!--分割线-->
+    <include layout="@layout/divider_small" />
 </LinearLayout>
