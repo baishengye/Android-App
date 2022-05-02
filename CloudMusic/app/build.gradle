@@ -109,6 +109,7 @@ android {
         dev {
             //API端点
             buildConfigField('String',"ENDPOINT",'"http://dev-my-cloud-music-api-rails.ixuea.com/"')
+            //资源端点
             buildConfigField('String',"RESOURCE_ENDPOINT",'"http://dev-courses-misuc.ixuea.com/%s"')
             dimension = minSdkVersion
         }

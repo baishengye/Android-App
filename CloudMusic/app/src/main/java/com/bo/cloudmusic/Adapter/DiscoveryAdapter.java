@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.BaseMultiItemEntity;
 import com.bo.cloudmusic.domain.Sheet;
+import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.domain.Title;
 import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.ImageUtil;
@@ -72,6 +73,17 @@ public class DiscoveryAdapter extends BaseMultiItemQuickAdapter<BaseMultiItemEnt
                 break;
             case Constant.TYPE_SONG:
                 //单曲
+                Song song = (Song) item;
+                //显示封⾯
+                ImageUtil.show((Activity) mContext, helper.getView(R.id.iv_banner), song.getBanner());
+                //设置标题
+                helper.setText(R.id.tv_title, song.getTitle());
+                //播放量
+                helper.setText(R.id.tv_info, String.valueOf(song.getClicks_count()));
+                //歌⼿头像
+                ImageUtil.showAvatar((Activity) mContext, helper.getView(R.id.iv_avatar), song.getSinger().getAvatar());
+                //歌⼿昵称
+                helper.setText(R.id.tv_nickname, song.getSinger().getNickname());
                 break;
         }
     }

@@ -86,6 +86,9 @@ public class DiscoveryFragment extends BaseCommonFragment {
             }
         });
 
+        //添加头部(addHeaderView是第三方框架的方法)
+        adapter.addHeaderView(createHeaderView());
+
         //把适配器设置到列表中
         rv.setAdapter(adapter);
 
@@ -179,7 +182,14 @@ public class DiscoveryFragment extends BaseCommonFragment {
                         });
             }
         });
-
     }
 
+    /**
+     * 创建头部布局
+     * @return
+     */
+    private View createHeaderView() {
+        //从xml创建view
+       return getLayoutInflater().inflate(R.layout.header_discovery, (ViewGroup) rv.getParent(),false);
+    }
 }
