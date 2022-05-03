@@ -226,6 +226,13 @@ dependencies {
     //https://github.com/youth5201314/banner
     implementation 'com.youth.banner:banner:1.4.10'
 
+    //palette(调色板)
+    //implementation 'androidx.palette:palette:1.0.0'
+
+    //第三方框架方便的使⽤glide和palette
+    //https://github.com/florent37/GlidePalette
+    implementation 'com.github.florent37:glidepalette:2.1.2'
+
     //============================请求⽹络相关=======================================
     //okhttp
     //https://github.com/square/okhttp

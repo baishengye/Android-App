@@ -1,15 +1,22 @@
 package com.bo.cloudmusic.activity;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,9 +33,18 @@ import com.bo.cloudmusic.listener.HttpObserver;
 import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.ImageUtil;
 import com.bo.cloudmusic.utils.LogUtil;
+import com.bo.cloudmusic.utils.ResourceUtil;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.github.florent37.glidepalette.BitmapPalette;
+import com.github.florent37.glidepalette.GlidePalette;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -198,24 +214,179 @@ public class SheetDetailActivity extends BaseTitleActivity {
                 });
     }
 
+    @SuppressLint("CheckResult")
     private void next(Sheet data) {
         this.data=data;
        // LogUtil.d(TAG,data.toString());
 
         //设置数据
-        List<Song> songs=data.getSongs();
+        List<Song> songs= data.getSongs();
         if(songs!=null&&songs.size()>0){
             adapter.replaceData(songs);
         }
 
-        //显示封面
+       /* //显示封面
         if(StringUtils.isBlank(data.getBanner())){
             //空的就显示默认图片
             iv_banner.setImageResource(R.drawable.placeholder);
         }else{
             //有图片
             ImageUtil.show(getMainActivity(),iv_banner,data.getBanner());
+        }*/
+
+        //原生palette
+        /*//使⽤Palette获取封⾯颜⾊
+        if(StringUtils.isBlank(data.getBanner())){
+            //空显示默认图片
+            iv_banner.setImageResource(R.drawable.placeholder);
+        }else{
+            //有图片
+            //这是⼀个典型的构建者模式
+            Glide.with(this)
+                    .asBitmap()
+                    .load(ResourceUtil.resourceUri(data.getBanner()))
+                    .into(new CustomTarget<Bitmap>() {//将网络上的图片加载成bitmap，并且加载到自定义容器里面
+                        //加载图⽚到⾃定义⽬标
+                        //为什么是⾃定义⽬标
+                        //是因为我们要获取Bitmap
+                        //然后获取Bitmap的⼀些颜⾊
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            //资源加载完完成
+
+                            //把位图设置到iv_banner中
+                            iv_banner.setImageBitmap(resource);
+
+                            //在Material Design(MD，材料设计，是Google的⼀⻔设计语⾔)的设计中
+                            //所谓的设计语⾔就是⼀些设计规范
+                            //⽬前Google已经应⽤到Android，Gmail等产品
+                            //推荐我们将应⽤的状态栏
+                            //标题栏的颜⾊和当前⻚⾯的内容融合
+                            //也就说当前⻚⾯显示⼀张红⾊的图⽚
+                            //那么最好状态栏，标题栏的颜⾊也和红⾊差不多
+                            //实现这种效果可以借助的Palette类。
+                            //Palette:可以翻译为调⾊板
+                            //功能是可以从图⽚中获取⼀些颜⾊
+                            //详细的可以学习《详解Material Design，http://www.ixuea.com/courses/9》课程
+
+                            //让背景颜色和图片颜色趋近
+                            Palette.from(resource)
+                                    .generate(new Palette.PaletteAsyncListener() {//在子线程中进行计算出palette
+
+                                        *//**
+                                         * 颜色计算完成了回调到主线程中
+                                         * @param palette
+                                         *//*
+                                        @Override
+                                        public void onGenerated(@Nullable Palette palette) {
+                                            //获取有活力的颜色
+                                            Palette.Swatch swatch = palette.getVibrantSwatch();//当图片是整体是比较暗的颜色时可能获取不到有活力的颜色
+
+                                            if(swatch!=null){
+                                                //获取颜色的rgb
+                                                int rgb=swatch.getRgb();
+
+                                                //设置标题栏的颜色
+                                                toolbar.setBackgroundColor(rgb);
+
+                                                *//*设置头部容器的颜色*//*
+                                                ll_header.setBackgroundColor(rgb);
+
+                                                //判断api版本,有些api只能在大于21的环境中使用
+                                                if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+                                                    Window window = getWindow();
+
+                                                    //状态栏颜色
+                                                    window.setStatusBarColor(rgb);
+
+                                                    //导航栏颜色
+                                                    window.setNavigationBarColor(rgb);
+                                                }
+                                            }
+                                        }
+                                    });
+
+                        }
+
+                        *//**
+                         * 加载任务取消了
+                         * 释放次元
+                         * @param placeholder
+                         *//*
+                        @Override
+                        public void onLoadCleared(@Nullable Drawable placeholder) {
+                        }
+                    });
+        }*/
+
+        //第三方框架glide+palette
+        if(StringUtils.isBlank(data.getBanner())){
+            //网络没请求过来图片
+            //默认图片
+            iv_banner.setImageResource(R.drawable.placeholder);
+        }else{
+            //有图片
+            //获取图片路径
+            String uri = ResourceUtil.resourceUri(data.getBanner());
+
+            GlidePalette<Drawable> glidePalette = GlidePalette.with(uri)
+                    //使⽤VIBRANT颜色样板(活性样板)
+                    .use(BitmapPalette.Profile.VIBRANT)
+                    //设置到控件背景
+                    .intoBackground(toolbar, BitmapPalette.Swatch.RGB)
+                    .intoBackground(ll_header, BitmapPalette.Swatch.RGB)
+                    //设置回调
+                    //⽤回调的⽬的是
+                    //要设置状态栏和导航栏
+                    .intoCallBack(new BitmapPalette.CallBack() {
+                        @Override
+                        public void onPaletteLoaded(@Nullable Palette palette) {
+                            //获取有活力的颜色
+                            Palette.Swatch swatch = palette.getVibrantSwatch();//当图片是整体是比较暗的颜色时可能获取不到有活力的颜色
+
+                            if (swatch != null) {
+                                //获取颜色的rgb
+                                int rgb = swatch.getRgb();
+
+                                //设置标题栏的颜色
+                                toolbar.setBackgroundColor(rgb);
+
+                                /*设置头部容器的颜色*/
+                                ll_header.setBackgroundColor(rgb);
+
+                                //判断api版本,有些api只能在大于21的环境中使用
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                    Window window = getWindow();
+
+                                    //状态栏颜色
+                                    window.setStatusBarColor(rgb);
+
+                                    //导航栏颜色
+                                    window.setNavigationBarColor(rgb);
+                                }
+                            }
+                        }
+                    })
+                    //淡⼊
+                    //只有第⼀次效果很明显
+                    //由于这⾥是项⽬课程
+                    //所以就不在深⼊查看是为什么了
+                    //如果⼤家感兴趣可以深⼊查看
+                    //搞懂了也可以在群⾥分享给⼤家
+                    .crossfade(true);
+
+            //使⽤Glide
+            Glide.with(getMainActivity())
+                    //加载图⽚
+                    .load(uri)
+                    //加载完成监听器
+                    .listener(glidePalette)
+                    //将图⽚设置到图⽚控件
+                    .into(iv_banner);
         }
+
+
+
 
         //显示标题
         tv_title.setText(data.getTitle());
