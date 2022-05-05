@@ -16,6 +16,7 @@ import java.net.UnknownHostException;
 
 import io.reactivex.disposables.Disposable;
 import retrofit2.HttpException;
+import retrofit2.Response;
 
 public abstract class HttpObserver<T> extends ObserverAdapter<T> {
     private static final String TAG = "HttpObserver";
@@ -115,7 +116,20 @@ public abstract class HttpObserver<T> extends ObserverAdapter<T> {
      * @return
      */
     private boolean isSucceeded(T t) {
-        if (t instanceof BaseResponse) {
+        if(t instanceof Response){
+            //retrofit中的响应对象
+            //获取响应对象
+            Response response = (Response) t;
+
+            //获取响应码
+            int code=response.code();
+
+            //判断响应码
+            if(code>=200&&code<=299){
+                //网络请求正常
+                return true;
+            }
+        }else if (t instanceof BaseResponse) {
             //判断具体的业务请求
             BaseResponse baseResponse = (BaseResponse) t;
             //没有状态码表示请求成功

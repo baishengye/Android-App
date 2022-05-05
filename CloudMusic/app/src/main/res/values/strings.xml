@@ -86,4 +86,6 @@
     $d表示int类型-->
     <string name="cancel_collection">取消(%1$d)</string>
     <string name="collection">收藏(%1$d)</string>
+    <string name="cancel_success">取消成功</string>
+    <string name="collectionl_success">收藏成功</string>
 </resources>

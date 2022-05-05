@@ -37,5 +37,10 @@ public class ToastUtil {
     public static void errorLongToast(int id) {
         Toasty.error(context, id, Toast.LENGTH_LONG).show();
     }
-
+    /**
+     * 短间间成功土司
+     */
+    public static void successShortToast(int id) {
+        Toasty.success(context, id, Toast.LENGTH_LONG).show();
+    }
 }
