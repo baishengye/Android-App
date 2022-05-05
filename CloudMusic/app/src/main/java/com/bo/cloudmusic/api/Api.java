@@ -1,5 +1,9 @@
 package com.bo.cloudmusic.api;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import com.bo.cloudmusic.AppContext;
 import com.bo.cloudmusic.domain.Ad;
 import com.bo.cloudmusic.domain.BaseModel;
@@ -12,18 +16,23 @@ import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.domain.response.ListResponse;
 import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.LogUtil;
+import com.bo.cloudmusic.utils.PreferencesUtil;
 import com.chuckerteam.chucker.api.ChuckerInterceptor;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -34,6 +43,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * 对外部提供⼀个和框架⽆关的接⼝
  */
 public class Api {
+    private static final String TAG = "Api";
     /**
      * Api单例字段
      */
@@ -61,6 +71,51 @@ public class Api {
     public Api() {
         //初始化一个okhHttp
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
+
+
+        //请求公共参数
+        okHttpClientBuilder.addNetworkInterceptor(new Interceptor() {
+            //使用拦截器
+
+            /**
+             * 请求返回数据的时候调用
+             * @param chain
+             * @return
+             * @throws IOException
+             */
+            @NonNull
+            @Override
+            public Response intercept(@NonNull Chain chain) throws IOException {
+                /*okHttp去网络请求是一层一层的进行的,而Chain就是这一层一层连起来的链路
+                 * 叫做拦截器链*/
+
+                //获取到偏好数据工具类
+                PreferencesUtil sp = PreferencesUtil.getInstance(AppContext.getInstance());
+
+                //获取到request
+                Request request = chain.request();
+
+                if(sp.isLogin()){
+                    //已经登录了
+
+                    //获取出用户的id和token
+                    String user=sp.getUserId();
+                    String session=sp.getSession();
+
+                    //打印日志方便调试
+                    LogUtil.d(TAG,"user:"+user+" \n session:"+session);
+
+                    //将用户userid和session设置到请求头
+                    request = request.newBuilder()
+                            .addHeader("User", user)
+                            .addHeader("Authorization", session)
+                            .build();
+                }
+
+                //继续进行请求
+                return chain.proceed(request);
+            }
+        });
 
         if(LogUtil.isDebug){
             //只有在调试模式下进行
