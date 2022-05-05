@@ -472,12 +472,19 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
             Api.getInstance().deleteCollect(data.getId())
                     .subscribe(new HttpObserver<Response<Void>>() {
                         @Override
-                        public void onSucceeded(Response<Void> data) {
+                        public void onSucceeded(Response<Void> responseData) {
                             //弹出提示框
                             ToastUtil.successShortToast(R.string.cancel_success);
 
                             //重新加载数据，显示新的数据状态
-                            fetchData();
+                            //fetchData();
+                            /*由于收藏数不是很紧要的数字,所以可以不用去远程请求数据(远程请求的时候还会请求其他很多数据，消耗很多资源，很没必要)*/
+                            //所以可以直接本地数据加减即可
+                            data.setCollection_id(null);//Collection_id是空就是没有收藏
+                            data.setCollections_count(data.getCollections_count()-1);
+
+                            //刷新状态
+                            showCollectionStatus();
                         }
                     });
         }else{
@@ -486,12 +493,19 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
             Api.getInstance().collect(id)
                     .subscribe(new HttpObserver<Response<Void>>() {
                         @Override
-                        public void onSucceeded(Response<Void> data) {
+                        public void onSucceeded(Response<Void> responseData) {
                             //弹出提示框
                             ToastUtil.successShortToast(R.string.collectionl_success);
 
                             //重新加载数据，显示新的数据状态
-                            fetchData();
+                            //fetchData();
+                            /*由于收藏数不是很紧要的数字,所以可以不用去远程请求数据(远程请求的时候还会请求其他很多数据，消耗很多资源，很没必要)*/
+                            //所以可以直接本地数据加减即可
+                            data.setCollection_id(1);//Collection_id是空就是没有收藏
+                            data.setCollections_count(data.getCollections_count()+1);
+
+                            //刷新状态
+                            showCollectionStatus();;
                         }
                     });
         }
