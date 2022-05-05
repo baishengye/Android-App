@@ -1,7 +1,5 @@
 package com.bo.cloudmusic.api;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.bo.cloudmusic.AppContext;
@@ -250,6 +248,28 @@ public class Api {
      */
     public Observable<ListResponse<Ad>> ads(){
         return service.ads()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 收藏歌单
+     * @param id  歌单id
+     * @return 成功就是null
+     */
+    public Observable<retrofit2.Response<Void>> collect(String id){
+        return service.collect(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 取消收藏歌单
+     * @param id
+     * @return
+     */
+    public Observable<retrofit2.Response<Void>> deleteCollect(String id){
+        return service.deleteCollect(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
