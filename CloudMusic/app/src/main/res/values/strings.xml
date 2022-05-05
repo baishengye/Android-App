@@ -87,5 +87,8 @@
     <string name="cancel_collection">取消(%1$d)</string>
     <string name="collection">收藏(%1$d)</string>
     <string name="cancel_success">取消成功</string>
-    <string name="collectionl_success">收藏成功</string>
+    <string name="collection_success">收藏成功</string>
+
+    <!--评论相关-->
+    <string name="comment_activity">评论</string>
 </resources>

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -166,6 +167,9 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
 
         //添加监听
         bt_collection.setOnClickListener(this);
+
+        //监听评论容器
+        ll_comment_container.setOnClickListener(this);
     }
 
     /**
@@ -456,6 +460,12 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
                 //收藏按钮被点击了
                 processCollectionClick();
                 break;
+            case R.id.ll_comment_container:
+                //评论容器被点击了
+                Intent intent = new Intent(getMainActivity(), CommentActivity.class);
+                intent.putExtra(Constant.SHEET_ID,id);
+                startActivity(intent);
+                break;
         }
     }
 
@@ -495,7 +505,7 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
                         @Override
                         public void onSucceeded(Response<Void> responseData) {
                             //弹出提示框
-                            ToastUtil.successShortToast(R.string.collectionl_success);
+                            ToastUtil.successShortToast(R.string.collection_success);
 
                             //重新加载数据，显示新的数据状态
                             //fetchData();

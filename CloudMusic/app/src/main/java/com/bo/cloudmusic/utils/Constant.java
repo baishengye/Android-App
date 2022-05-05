@@ -49,14 +49,19 @@ public class Constant {
     public static final String DATA = "DATA";
 
     /**
-     * 标题
+     * 标题 key
      */
     public static final String TITLE = "TITLE";
 
     /**
-     * Url
+     * Url key
      */
     public static final String URL = "URL";
+
+    /**
+     * 歌单的id key
+     */
+    public static final String SHEET_ID = "SHEET_ID";
 
     /**
      * 广告点击了Action
