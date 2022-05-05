@@ -52,7 +52,7 @@ import butterknife.BindView;
 /**
  * 歌单详情界面
  */
-public class SheetDetailActivity extends BaseTitleActivity {
+public class SheetDetailActivity extends BaseTitleActivity implements View.OnClickListener {
 
     private static final String TAG = "SheetDetailActivity";
     /**
@@ -156,6 +156,14 @@ public class SheetDetailActivity extends BaseTitleActivity {
         rv.setAdapter(adapter);
 
         fetchData();
+    }
+
+    @Override
+    protected void initListeners() {
+        super.initListeners();
+
+        //添加监听
+        bt_collection.setOnClickListener(this);
     }
 
     /**
@@ -386,8 +394,6 @@ public class SheetDetailActivity extends BaseTitleActivity {
         }
 
 
-
-
         //显示标题
         tv_title.setText(data.getTitle());
 
@@ -403,6 +409,59 @@ public class SheetDetailActivity extends BaseTitleActivity {
         //音乐数
         tv_count.setText(String.valueOf(data.getSongs_count()));
 
+        //显示收藏状态
+        showCollectionStatus();
+    }
+
+    /**
+     * 显示收藏状态
+     */
+    @SuppressLint("ResourceType")
+    private void showCollectionStatus(){
+        if(data.isCollection()){
+            //如果已经收藏
+
+            //把按钮文字改成取消收藏
+            bt_collection.setText(getResources().getString(R.string.cancel_collection,data.getCollections_count()));
+
+            //弱化收藏按钮
+            //想要用户收藏而不是取消
+            bt_collection.setBackground(null);
+
+            //设置按钮文字颜色弱化
+            bt_collection.setTextColor(getResources().getColor(R.color.light_grey));
+        }else{
+            //没收藏
+
+            //按钮文字收藏
+            bt_collection.setText(getResources().getString(R.string.collection,data.getCollections_count()));
+
+            //高显收藏按钮
+            bt_collection.setBackgroundResource(R.drawable.selector_color_primary);
+
+            //文字高显白色
+            bt_collection.setTextColor(getResources().getColor(R.drawable.selector_text_color_primary));
+        }
+    }
+
+    /**
+     * 按钮点击回调方法
+     */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.bt_collection:
+                //收藏按钮被点击了
+                processCollectionClick();
+                break;
+        }
+    }
+
+    /**
+     * 处理收藏和取消的逻辑
+     */
+    private void processCollectionClick() {
+        LogUtil.d(TAG,"processCollectionClick");
     }
 
     /**
@@ -412,4 +471,6 @@ public class SheetDetailActivity extends BaseTitleActivity {
     private String extraId() {
         return getIntent().getStringExtra(Constant.ID);
     }
+
+
 }

@@ -75,9 +75,15 @@
     <string name="day_recommend">每日推荐</string>
     <string name="sheet">歌单</string>
     <string name="rank">排行榜</string>
+
+    <!--歌单详情-->
     <string name="sheet_detail_activity">歌单详情</string>
     <string name="play_all">播放全部</string>
     <string name="music_count">(共%l$d首)</string>
     <string name="download">下载量</string>
     <string name="select">多选</string>
+    <!--%1表示第一个参数
+    $d表示int类型-->
+    <string name="cancel_collection">取消(%1$d)</string>
+    <string name="collection">收藏(%1$d)</string>
 </resources>

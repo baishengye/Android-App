@@ -147,6 +147,15 @@ public class Sheet extends BaseMultiItemEntity{
         this.collection_id = collection_id;
     }
 
+    /**
+     * 是否收藏
+     *
+     * @return true:收藏；false:没有收藏
+     */
+    public boolean isCollection() {
+        return collection_id != null;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
