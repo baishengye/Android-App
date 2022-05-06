@@ -69,7 +69,7 @@ public class BaseCommonActivity extends BaseActivity{
     }
 
     /**
-     * 加上id启动Activity
+     * 加上用户id启动Activity
      */
     protected void startActivityExtraId(Class<?> clazz,String id) {
         Intent intent = new Intent(getMainActivity(), clazz);

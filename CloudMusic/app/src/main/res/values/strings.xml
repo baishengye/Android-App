@@ -91,4 +91,7 @@
 
     <!--评论相关-->
     <string name="comment_activity">评论</string>
+
+    <!--用户详情相关-->
+    <string name="user_detail_Activity">用户详情</string>
 </resources>

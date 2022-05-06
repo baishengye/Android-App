@@ -16,9 +16,13 @@
         android:theme="@style/Theme.随波云音乐"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.UserDetailActivity"
+            android:label="@string/user_detail_Activity"
+            android:exported="false" />
+        <activity
             android:name=".activity.CommentActivity"
             android:exported="false"
-            android:label="@string/comment_activity"/>
+            android:label="@string/comment_activity" />
         <activity
             android:name=".activity.SheetDetailActivity"
             android:exported="false"

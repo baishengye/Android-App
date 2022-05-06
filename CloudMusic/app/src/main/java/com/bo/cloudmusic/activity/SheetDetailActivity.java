@@ -118,6 +118,11 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
      */
     private TextView tv_count;
 
+    /**
+     * 用户容器
+     */
+    private LinearLayout ll_user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,6 +171,9 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
     protected void initListeners() {
         super.initListeners();
 
+        //用户容器监听
+        ll_user.setOnClickListener(this);
+
         //添加监听
         bt_collection.setOnClickListener(this);
 
@@ -183,6 +191,9 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
 
         //头部容器
         ll_header = view.findViewById(R.id.ll_header);
+
+        //歌单创建者容器
+        ll_user=view.findViewById(R.id.ll_user);
         
         //封⾯图
         iv_banner = view.findViewById(R.id.iv_banner);
@@ -463,7 +474,10 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
                 break;
             case R.id.ll_comment_container:
                 //评论容器被点击了
-                CommentActivity.start(getMainActivity(),id);
+                CommentActivity.start(getMainActivity(),data.getId());
+                break;
+            case R.id.ll_user:
+                startActivityExtraId(UserDetailActivity.class,data.getUser().getId());
                 break;
         }
     }
