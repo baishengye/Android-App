@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -462,9 +463,7 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
                 break;
             case R.id.ll_comment_container:
                 //评论容器被点击了
-                Intent intent = new Intent(getMainActivity(), CommentActivity.class);
-                intent.putExtra(Constant.SHEET_ID,id);
-                startActivity(intent);
+                CommentActivity.start(getMainActivity(),id);
                 break;
         }
     }
