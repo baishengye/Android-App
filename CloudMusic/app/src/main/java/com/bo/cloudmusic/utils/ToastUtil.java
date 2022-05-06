@@ -43,4 +43,10 @@ public class ToastUtil {
     public static void successShortToast(int id) {
         Toasty.success(context, id, Toast.LENGTH_LONG).show();
     }
+    /**
+     * 短间间成功土司
+     */
+    public static void successShortToast(String message) {
+        Toasty.success(context, message, Toast.LENGTH_LONG).show();
+    }
 }

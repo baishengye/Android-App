@@ -94,4 +94,7 @@
 
     <!--用户详情相关-->
     <string name="user_detail_Activity">用户详情</string>
+    <string name="search">搜索</string>
+    <string name="sort">排序</string>
+    <string name="report">报告错误</string>
 </resources>

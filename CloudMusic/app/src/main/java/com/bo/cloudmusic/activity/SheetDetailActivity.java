@@ -16,6 +16,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -127,6 +129,41 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sheet_detail);
+    }
+
+    /**
+     * 创建菜单方法
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //加载按钮布局
+        getMenuInflater().inflate(R.menu.menu_sheet_detail,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    /**
+     * 菜单点击回调
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_search:
+                ToastUtil.successShortToast("搜索");
+                return true;
+            case R.id.action_report:
+                ToastUtil.successShortToast("报告");
+                return true;
+            case R.id.action_sort:
+                ToastUtil.successShortToast("排序");
+                return true;
+        }
+        /*true表示该方法执行完毕后，点击事件不会再向下一个事件处理方法传递了。
+        false表示执行完该方法后，点击事件继续向下传递。*/
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
