@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.app.Notification;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -20,6 +21,7 @@ import com.bo.cloudmusic.service.MusicPlayerService;
 import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.NotificationUtil;
 import com.bo.cloudmusic.utils.ServiceUtil;
+import com.bo.cloudmusic.utils.TimeUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -249,6 +251,28 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
     public void onPlaying(Song song) {
         showPauseStatus();
         LogUtil.d(TAG,"onPlaying");
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mp, Song data) {
+        LogUtil.d(TAG,"onPrepared:" + data.getProgress()+" ,"+data.getDuration());
+
+        //显示时长
+        showDuration();
+    }
+
+    /**
+     * 显示时长
+     */
+    private void showDuration() {
+        //获取正在播放音乐的时长
+        long end = musicPlayerManager.getData().getDuration();
+
+        //将毫秒格式化成分钟:秒
+        tv_end.setText(TimeUtil.formatMinuteSecond((int)end));
+
+        //设置到进度条
+        sb_progress.setMax((int)end);
     }
     //播放管理监听器
 

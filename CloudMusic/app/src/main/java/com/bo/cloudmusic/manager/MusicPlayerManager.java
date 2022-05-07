@@ -41,4 +41,9 @@ public interface MusicPlayerManager {
      * 添加播放监听器
      */
     void addMusicPlayerListener(MusicPlayerListener listener);
+
+    /**
+     * 获取当前播放的音乐
+     */
+    Song getData();
 }
