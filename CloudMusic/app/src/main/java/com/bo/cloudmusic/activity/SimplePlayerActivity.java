@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.Song;
+import com.bo.cloudmusic.listener.MusicPlayerListener;
 import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.manager.impl.MusicPlayerManagerImpl;
 import com.bo.cloudmusic.service.MusicPlayerService;
@@ -32,7 +33,7 @@ import butterknife.OnClick;
  * 从而把播放器相关逻辑实现完成
  * 然后在对接的黑胶唱片，就相对来说简单一点
  */
-public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.OnSeekBarChangeListener {
+public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.OnSeekBarChangeListener,MusicPlayerListener {
 
     private static final String TAG = "SimplePlayerActivity";
 
@@ -94,6 +95,29 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         setContentView(R.layout.activity_simple_player);
 
     }
+
+    /**
+     * 界面可见，准备和用户交互的时候
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //设置播放监听器
+        musicPlayerManager.addMusicPlayerListener((MusicPlayerListener) this);
+    }
+
+    /**
+     * 界面不再栈顶了(可见但是在对话框下面，或者不可见)
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        //移除监听播放器
+        musicPlayerManager.removeMusicPlayerListener((MusicPlayerListener) this);
+    }
+
 
     @Override
     protected void initDatum() {
@@ -203,7 +227,6 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         LogUtil.d(TAG,"onStopTrackingTouch");
     }
 
-
     /**
      * 播放或暂停
      */
@@ -212,6 +235,39 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
             musicPlayerManager.pause();
         }else{
             musicPlayerManager.resume();
+        }
+    }
+
+    //播放管理监听器
+    @Override
+    public void onPaused(Song song) {
+        LogUtil.d(TAG,"onPaused");
+        showPlayStatus();
+    }
+
+    @Override
+    public void onPlaying(Song song) {
+        showPauseStatus();
+        LogUtil.d(TAG,"onPlaying");
+    }
+    //播放管理监听器
+
+    private void showPlayStatus() {
+        showMusicPlayStatus();
+    }
+
+    private void showPauseStatus() {
+        showMusicPlayStatus();
+    }
+
+    /**
+     * 显示音乐播放状态
+     */
+    private void showMusicPlayStatus(){
+        if(musicPlayerManager.isPlaying()){
+            bt_play.setText("播放");
+        }else{
+            bt_play.setText("暂停");
         }
     }
 }

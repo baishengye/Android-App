@@ -5,8 +5,10 @@ import android.media.MediaPlayer;
 import android.provider.MediaStore;
 
 import com.bo.cloudmusic.domain.Song;
+import com.bo.cloudmusic.listener.Consumer;
 import com.bo.cloudmusic.listener.MusicPlayerListener;
 import com.bo.cloudmusic.manager.MusicPlayerManager;
+import com.bo.cloudmusic.utils.ListUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,9 +110,11 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager {
         if(isPlaying()){
             player.pause();
 
-            for (MusicPlayerListener listener: listeners) {
+            /*for (MusicPlayerListener listener: listeners) {
                 listener.onPaused(data);
-            }
+            }*/
+            //使用listUtil工具类
+            ListUtil.eachListener(listeners, listener -> listener.onPaused(data));
         }
     }
 
@@ -123,9 +127,29 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager {
         }
     }
 
-    private void publishPlayingStatus(Song data) {
-        for (MusicPlayerListener listener : listeners) {
-            listener.onPlaying(data);
+    @Override
+    public void removeMusicPlayerListener(MusicPlayerListener listener) {
+        listeners.remove(listener);
+    }
+
+    @Override
+    public void addMusicPlayerListener(MusicPlayerListener listener) {
+        if(!listeners.contains(listener)){
+            listeners.add(listener);
         }
+    }
+
+    private void publishPlayingStatus(Song data) {
+        /*for (MusicPlayerListener listener : listeners) {
+            listener.onPlaying(data);
+        }*/
+
+        //使用listUtil工具类
+        ListUtil.eachListener(listeners, new Consumer<MusicPlayerListener>() {
+            @Override
+            public void accept(MusicPlayerListener listener) {
+               listener.onPlaying(data);
+            }
+        });
     }
 }
