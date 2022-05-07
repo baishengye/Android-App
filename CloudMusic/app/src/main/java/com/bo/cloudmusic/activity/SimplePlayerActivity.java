@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.manager.impl.MusicPlayerManagerImpl;
 import com.bo.cloudmusic.service.MusicPlayerService;
 import com.bo.cloudmusic.utils.LogUtil;
+import com.bo.cloudmusic.utils.NotificationUtil;
 import com.bo.cloudmusic.utils.ServiceUtil;
 
 import butterknife.BindView;
@@ -131,6 +133,11 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
     @OnClick(R.id.bt_play)
     public void onPlayClick(){
         LogUtil.d(TAG,"onPlayClick");
+
+        //获取通知
+        Notification notification = NotificationUtil.getServiceForeground(getApplicationContext());
+
+        NotificationUtil.showNotification(100,notification);
     }
 
     /**
