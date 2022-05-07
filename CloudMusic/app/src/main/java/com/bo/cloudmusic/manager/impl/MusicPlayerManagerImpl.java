@@ -1,7 +1,10 @@
 package com.bo.cloudmusic.manager.impl;
 
 import android.content.Context;
+import android.media.MediaPlayer;
+import android.provider.MediaStore;
 
+import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.manager.MusicPlayerManager;
 
 /**
@@ -19,6 +22,16 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager {
      */
     private final Context context;
 
+    /**
+     * 当前播放的音乐对象
+     */
+    private Song data;
+
+    /**
+     * 播放器
+     */
+    private  MediaPlayer player;
+
     private MusicPlayerManagerImpl(Context context){
        /* context是活动的上下文
        *context.getApplicationContext()是整个程序的上下文
@@ -26,6 +39,9 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager {
        * 也就是说那个内存空间里面的内容无了，但是this.context还保存着那个内存地址，使jvm无法释放掉没用的内存，就会造成内存泄漏 */
 
         this.context=context.getApplicationContext();
+
+        //初始化播放器
+        player = new MediaPlayer();
     }
 
     /**
@@ -42,5 +58,50 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager {
             }
         }
         return instance;
+    }
+
+    @Override
+    public void play(String uri, Song data) {
+        try{
+            //保存音乐对象
+            this.data=data;
+
+            //释放原来的播放器
+            player.reset();
+
+            //设置数据源
+            player.setDataSource(uri);
+
+            //同步准备
+            //应该要使用异步
+            player.prepare();
+
+            //开始播放
+            player.start();
+        }catch ( Exception e){
+            e.printStackTrace();
+            //todo 处理错误
+        }finally {
+            //todo 释放资源
+        }
+    }
+
+    @Override
+    public boolean isPlaying() {
+        return player.isPlaying();
+    }
+
+    @Override
+    public void pause() {
+        if(isPlaying()){
+            player.pause();
+        }
+    }
+
+    @Override
+    public void resume() {
+        if(!player.isPlaying()){
+            player.start();
+        }
     }
 }

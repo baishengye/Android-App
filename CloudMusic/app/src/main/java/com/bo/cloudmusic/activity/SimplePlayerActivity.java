@@ -135,9 +135,9 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         LogUtil.d(TAG,"onPlayClick");
 
         //获取通知
-        Notification notification = NotificationUtil.getServiceForeground(getApplicationContext());
+       /* Notification notification = NotificationUtil.getServiceForeground(getApplicationContext());
 
-        NotificationUtil.showNotification(100,notification);
+        NotificationUtil.showNotification(100,notification);*/
     }
 
     /**
