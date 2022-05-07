@@ -13,7 +13,9 @@ import android.widget.TextView;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.manager.impl.MusicPlayerManagerImpl;
+import com.bo.cloudmusic.service.MusicPlayerService;
 import com.bo.cloudmusic.utils.LogUtil;
+import com.bo.cloudmusic.utils.ServiceUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -77,6 +79,7 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_player);
+
     }
 
     @Override
@@ -86,9 +89,14 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         //测试单例模式
         //可以发现他们两次的内存地址都是⼀样
         //说明单例模式⽣效了
-        MusicPlayerManager o1= MusicPlayerManagerImpl.getInstance(getApplicationContext());
+        /*MusicPlayerManager o1= MusicPlayerManagerImpl.getInstance(getApplicationContext());
         MusicPlayerManager o2= MusicPlayerManagerImpl.getInstance(getApplicationContext());
-        LogUtil.d(TAG,"initDatum test single:"+(o1==o2));
+        LogUtil.d(TAG,"initDatum test single:"+(o1==o2));*/
+
+        //使用MusicPlayerService获取播放管理器
+        MusicPlayerManager o1 = MusicPlayerService.getMusicPlayerManager(getMainActivity());
+        MusicPlayerManager o2 = MusicPlayerService.getMusicPlayerManager(getMainActivity());
+        LogUtil.d(TAG, "initDatum test single:" + (o1 == o2));
     }
 
     @Override

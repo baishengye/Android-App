@@ -34,6 +34,7 @@ import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.domain.response.ListResponse;
 import com.bo.cloudmusic.listener.HttpObserver;
+import com.bo.cloudmusic.service.MusicPlayerService;
 import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.ImageUtil;
 import com.bo.cloudmusic.utils.LogUtil;
