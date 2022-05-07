@@ -97,4 +97,5 @@
     <string name="search">搜索</string>
     <string name="sort">排序</string>
     <string name="report">报告错误</string>
+    <string name="simple_player_activity">简单播放器</string>
 </resources>

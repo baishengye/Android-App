@@ -216,6 +216,9 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
 
         //监听评论容器
         ll_comment_container.setOnClickListener(this);
+
+        //监听播放容器
+        ll_play_all_container.setOnClickListener(this);
     }
 
     /**
@@ -515,6 +518,9 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
                 break;
             case R.id.ll_user:
                 startActivityExtraId(UserDetailActivity.class,data.getUser().getId());
+                break;
+            case R.id.ll_play_all_container:
+                SimplePlayerActivity.start(getMainActivity());
                 break;
         }
     }
