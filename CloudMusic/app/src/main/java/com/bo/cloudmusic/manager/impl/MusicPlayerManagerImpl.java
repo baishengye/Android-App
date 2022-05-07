@@ -5,7 +5,11 @@ import android.media.MediaPlayer;
 import android.provider.MediaStore;
 
 import com.bo.cloudmusic.domain.Song;
+import com.bo.cloudmusic.listener.MusicPlayerListener;
 import com.bo.cloudmusic.manager.MusicPlayerManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 音乐播放器的具体实现
@@ -31,6 +35,11 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager {
      * 播放器
      */
     private  MediaPlayer player;
+
+    /**
+     * 播放监听器的集合
+     */
+    List<MusicPlayerListener> listeners=new ArrayList<>();
 
     private MusicPlayerManagerImpl(Context context){
        /* context是活动的上下文
@@ -76,6 +85,9 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager {
             //应该要使用异步
             player.prepare();
 
+            //回调监听器
+            publishPlayingStatus(data);
+
             //开始播放
             player.start();
         }catch ( Exception e){
@@ -95,6 +107,10 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager {
     public void pause() {
         if(isPlaying()){
             player.pause();
+
+            for (MusicPlayerListener listener: listeners) {
+                listener.onPaused(data);
+            }
         }
     }
 
@@ -102,6 +118,14 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager {
     public void resume() {
         if(!player.isPlaying()){
             player.start();
+
+            publishPlayingStatus(data);
+        }
+    }
+
+    private void publishPlayingStatus(Song data) {
+        for (MusicPlayerListener listener : listeners) {
+            listener.onPlaying(data);
         }
     }
 }
