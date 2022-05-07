@@ -8,12 +8,117 @@
 
     <include layout="@layout/tool_bar"/>
 
+    <!--内容容器-->
     <LinearLayout
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent">
 
+        <!--列表控件-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2" />
 
+        <!--控制容器-->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <!--标题-->
+            <TextView
+                android:id="@+id/tv_title"
+                android:gravity="center"
+                android:text="这是歌曲名称"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <!--进度容器-->
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginLeft="@dimen/padding_meddle"
+                android:layout_marginRight="@dimen/padding_meddle"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <!--开始时间-->
+                <TextView
+                    android:id="@+id/tv_start"
+                    android:text="00:00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <!--拖拽进度控件-->
+                <SeekBar
+                    android:id="@+id/sb_progress"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+
+                <!--结束时间-->
+                <TextView
+                    android:id="@+id/tv_end"
+                    android:text="00:00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!--按钮容器-->
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginLeft="@dimen/padding_meddle"
+                android:layout_marginRight="@dimen/padding_meddle"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <!--上一曲按钮-->
+                <Button
+                    android:text="上一曲"
+                    android:id="@+id/bt_previous"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+
+                <!--播放按钮-->
+                <Button
+                    android:text="播放"
+                    android:id="@+id/bt_play"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+
+                <!--下一曲按钮-->
+                <Button
+                    android:id="@+id/bt_next"
+                    android:text="下一曲"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!--其他按钮容器-->
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <!--循环模式-->
+                <Button
+                    android:id="@+id/bt_loop_model"
+                    android:text="列表循环"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

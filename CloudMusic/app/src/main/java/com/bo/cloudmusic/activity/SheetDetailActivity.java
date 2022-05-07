@@ -43,6 +43,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.florent37.glidepalette.BitmapPalette;
 import com.github.florent37.glidepalette.GlidePalette;
 
@@ -219,6 +220,14 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
 
         //监听播放容器
         ll_play_all_container.setOnClickListener(this);
+
+        //监听单曲容器
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                SimplePlayerActivity.start(getMainActivity());
+            }
+        });
     }
 
     /**
