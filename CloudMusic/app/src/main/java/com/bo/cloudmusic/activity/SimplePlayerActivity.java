@@ -12,6 +12,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.bo.cloudmusic.R;
+import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.manager.impl.MusicPlayerManagerImpl;
 import com.bo.cloudmusic.service.MusicPlayerService;
@@ -34,6 +35,16 @@ import butterknife.OnClick;
 public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.OnSeekBarChangeListener {
 
     private static final String TAG = "SimplePlayerActivity";
+
+    /**
+     * MusicPlayerManager的实例
+     */
+    private MusicPlayerManager musicPlayerManager;
+
+    /**
+     * 长在播放的音乐
+     */
+    private Song song;
     /**
      * 列表
      */
@@ -96,9 +107,20 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         LogUtil.d(TAG,"initDatum test single:"+(o1==o2));*/
 
         //使用MusicPlayerService获取播放管理器
-        MusicPlayerManager o1 = MusicPlayerService.getMusicPlayerManager(getMainActivity());
+        /*MusicPlayerManager o1 = MusicPlayerService.getMusicPlayerManager(getMainActivity());
         MusicPlayerManager o2 = MusicPlayerService.getMusicPlayerManager(getMainActivity());
-        LogUtil.d(TAG, "initDatum test single:" + (o1 == o2));
+        LogUtil.d(TAG, "initDatum test single:" + (o1 == o2));*/
+
+        //获取音乐播放管理器
+        musicPlayerManager = MusicPlayerService.getMusicPlayerManager(getApplicationContext());
+
+        //测试音乐播放
+        String songUrl="http://dev-courses-misuc.ixuea.com/assets/s1.mp3";
+        song=new Song();
+        song.setUri(songUrl);
+
+        //播放音乐
+        musicPlayerManager.play(songUrl,song);
     }
 
     @Override
@@ -138,7 +160,10 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
        /* Notification notification = NotificationUtil.getServiceForeground(getApplicationContext());
 
         NotificationUtil.showNotification(100,notification);*/
+
+        playOrPause();
     }
+
 
     /**
      * 下一曲按钮
@@ -176,5 +201,17 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         LogUtil.d(TAG,"onStopTrackingTouch");
+    }
+
+
+    /**
+     * 播放或暂停
+     */
+    private void playOrPause() {
+        if(musicPlayerManager.isPlaying()){
+            musicPlayerManager.pause();
+        }else{
+            musicPlayerManager.resume();
+        }
     }
 }
