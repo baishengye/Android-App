@@ -34,5 +34,5 @@ public interface MusicPlayerListener {
     /**
      * 播放完毕回调
      */
-    void onCompletion(MediaPlayer mp);
+    default void onCompletion(MediaPlayer mp){};
 }

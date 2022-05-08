@@ -370,10 +370,10 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         showProgress();
     }
 
-    @Override
+    /*@Override
     public void onCompletion(MediaPlayer mp) {
         LogUtil.d(TAG, "onCompletion");
-    }
+    }*/
     //end接口方法
 
     /**
