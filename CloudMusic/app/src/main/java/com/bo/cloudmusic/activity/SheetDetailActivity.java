@@ -777,6 +777,9 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
     @OnClick(R.id.ll_play_small_control)
     public void onPlayControlSmallClick() {
         LogUtil.d(TAG, "onPlayControlSmallClick");
+
+        //跳转到简单播放界面
+        SimplePlayerActivity.start(getMainActivity());
     }
     /**
      * 迷你播放控制器 播放暂停按钮点击
@@ -784,6 +787,13 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
     @OnClick(R.id.iv_play_small_control)
     public void onPlaySmallClick() {
         LogUtil.d(TAG, "onPlaySmallClick");
+
+        if(musicPlayerManager.isPlaying()){
+            //是正在播放就暂停
+            listManager.pause();
+        }else{
+            listManager.resume();
+        }
     }
     /**
      * 迷你播放控制器 下⼀曲按钮点击
@@ -791,6 +801,12 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
     @OnClick(R.id.iv_next_small_control)
     public void onNextSmallClick() {
         LogUtil.d(TAG, "onNextSmallClick");
+
+        //获取下一首
+        Song data=listManager.next();
+
+        //播放
+        listManager.play(data);
     }
     /**
      * 迷你播放控制器 播放列表按钮点击
