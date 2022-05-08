@@ -34,6 +34,8 @@ import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.domain.response.ListResponse;
 import com.bo.cloudmusic.listener.HttpObserver;
+import com.bo.cloudmusic.manager.ListManager;
+import com.bo.cloudmusic.manager.impl.ListManagerImpl;
 import com.bo.cloudmusic.service.MusicPlayerService;
 import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.ImageUtil;
@@ -63,6 +65,12 @@ import retrofit2.Response;
 public class SheetDetailActivity extends BaseTitleActivity implements View.OnClickListener {
 
     private static final String TAG = "SheetDetailActivity";
+
+    /**
+     * 列表管理器
+     */
+    private ListManager listManager;
+
     /**
      * 歌单id
      */
@@ -194,6 +202,9 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
         //获取传递的参数
         id = extraId();
 
+        //初始化列表管理器
+        listManager= MusicPlayerService.getListManager(getApplicationContext());
+
         //new 出适配器
         adapter = new SongAdapter(R.layout.item_song_detail);
 
@@ -226,9 +237,31 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                SimplePlayerActivity.start(getMainActivity());
+                //SimplePlayerActivity.start(getMainActivity());
+
+                play(position);
             }
         });
+    }
+
+    /**
+     * 播放当前位置的音乐
+     * @param position
+     */
+    private void play(int position) {
+        //获取到当前位置播放的音乐
+        Song data = adapter.getItem(position);
+
+        //把当前歌单所有⾳乐设置到播放列表
+        //有些应⽤
+        //可能会实现添加到已经播放列表功能
+        listManager.setDatum(adapter.getData());
+
+        //播放当前音乐
+        listManager.play(data);
+
+        //跳转到播放界面
+        SimplePlayerActivity.start(getMainActivity());
     }
 
     /**
