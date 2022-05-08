@@ -218,6 +218,11 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         LogUtil.d(TAG,"onProgressChanged");
+
+        if(fromUser){
+            //跳转到该位置播放
+            musicPlayerManager.seekTo(progress);
+        }
     }
 
     /**

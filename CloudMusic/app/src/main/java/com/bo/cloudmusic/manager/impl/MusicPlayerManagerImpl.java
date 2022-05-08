@@ -209,6 +209,11 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager {
         return data;
     }
 
+    @Override
+    public void seekTo(int progress) {
+        player.seekTo(progress);
+    }
+
     private void publishPlayingStatus(Song data) {
         /*for (MusicPlayerListener listener : listeners) {
             listener.onPlaying(data);

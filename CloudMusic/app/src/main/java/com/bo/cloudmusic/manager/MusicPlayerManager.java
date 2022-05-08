@@ -46,4 +46,10 @@ public interface MusicPlayerManager {
      * 获取当前播放的音乐
      */
     Song getData();
+
+    /**
+     * 从指定位置播放
+     * @param progress  毫秒
+     */
+    void seekTo(int progress);
 }
