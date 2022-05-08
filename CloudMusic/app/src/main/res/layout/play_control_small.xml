@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/ll_play_small_control"
+    android:clickable="true">
+
+    <!--分割线-->
+    <include layout="@layout/divider_small" />
+
+    <!--内容容器-->
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:orientation="horizontal">
+
+        <!--圆角容器-->
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/radius_small"
+            app:cardElevation="0dp">
+
+            <!--封面-->
+            <ImageView
+                android:id="@+id/iv_banner_small_control"
+                android:layout_width="@dimen/button_height_small"
+                android:layout_height="@dimen/button_height_small"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!--标题容器-->
+        <LinearLayout
+            android:layout_marginLeft="@dimen/padding_small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!--标题-->
+            <TextView
+                android:id="@+id/tv_title_small_control"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="歌曲名称"
+                android:textColor="@color/black" />
+
+            <!--歌词-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="歌词内容"
+                android:textColor="@color/light_grey"
+                android:textSize="@dimen/text_small" />
+
+        </LinearLayout>
+
+        <!--播放暂停按钮-->
+        <ImageView
+            android:id="@+id/iv_play_small_control"
+            android:scaleType="centerInside"
+            android:layout_width="@dimen/item_title_height"
+            android:layout_height="@dimen/item_title_height"
+            android:src="@drawable/selector_play_small"
+            android:clickable="true"/>
+
+        <!--下一曲-->
+        <ImageView
+            android:id="@+id/iv_next_small_control"
+            android:scaleType="centerInside"
+            android:layout_width="@dimen/item_title_height"
+            android:layout_height="@dimen/item_title_height"
+            android:src="@drawable/ic_music_next_small"
+            android:clickable="true"/>
+
+        <!--播放列表-->
+        <ImageView
+            android:id="@+id/iv_list_small_control"
+            android:scaleType="centerInside"
+            android:layout_width="@dimen/item_title_height"
+            android:layout_height="@dimen/item_title_height"
+            android:src="@drawable/ic_music_list_small"
+            android:clickable="true"/>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_progress_small_control"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:progressDrawable="@drawable/shape_seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/progress_bar_height_small"/>
+
+</LinearLayout>

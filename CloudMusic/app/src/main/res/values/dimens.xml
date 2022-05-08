@@ -63,7 +63,11 @@
 
     <!--歌单详情封面图高宽-->
     <dimen name="song_detail_banner_width">110dp</dimen>
+    <!--阴影-->
     <dimen name="elevation">2dp</dimen>
+
+    <!--进度条相关-->
+    <dimen name="progress_bar_height_small">2dp</dimen>
 
     <!--行高比例-->
     <item name="line_spacing_multiplier" type="dimen" format="float">1.2</item>

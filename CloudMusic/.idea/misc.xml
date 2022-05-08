@@ -13,6 +13,7 @@
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/drawable/selector_login_qq.xml" value="0.1" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/drawable/selector_login_wechat.xml" value="0.1" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/drawable/selector_login_weibo.xml" value="0.1" />
+        <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/drawable/selector_play_small.xml" value="0.1585" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/drawable/selector_rank.xml" value="0.1" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/drawable/selector_sheet.xml" value="0.1" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/drawable/selector_text_color_primary.xml" value="0.1" />
@@ -25,6 +26,7 @@
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/drawable/shape_color_primary.xml" value="0.1" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/drawable/shape_edit_text.xml" value="0.1" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/drawable/shape_edit_text_selected.xml" value="0.1" />
+        <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/drawable/shape_seek_bar.xml" value="0.1585" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/layout/activity_ad.xml" value="0.1574074074074074" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/layout/activity_comment.xml" value="0.4" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/layout/activity_forget_password.xml" value="0.18631178707224336" />
@@ -63,6 +65,8 @@
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/layout/item_song_detail.xml" value="0.1" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/layout/item_title.xml" value="0.264" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/layout/nav_header_main2.xml" value="0.12310030395136778" />
+        <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/layout/play_control_small.xml" value="0.1" />
+        <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/layout/play_controll_small.xml" value="0.23641304347826086" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/layout/tool_bar.xml" value="0.1" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/layout/user_info.xml" value="0.536" />
         <entry key="..\:/Code/AndroidStudioProjects/Android-App/CloudMusic/app/src/main/res/menu/activity_main_drawer.xml" value="0.2375" />
