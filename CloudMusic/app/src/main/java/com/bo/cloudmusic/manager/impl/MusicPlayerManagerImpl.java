@@ -250,9 +250,17 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager,MediaPlayer.On
         });
     }
 
+    /**
+     * 开始分发当前音乐播放的进度
+     */
     private void startPublishProgress() {
         if(isEmptyListeners()){
             //没有进度回调就不启动
+            return;
+        }
+
+        if(!isPlaying()){
+            //没有播放音乐就不用启动对音乐播放进度的监听
             return;
         }
 

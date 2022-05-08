@@ -55,4 +55,6 @@ public interface ListManager {
      * 获取循环模式
      */
     int getLoopModel();
+
+    Song getData();
 }

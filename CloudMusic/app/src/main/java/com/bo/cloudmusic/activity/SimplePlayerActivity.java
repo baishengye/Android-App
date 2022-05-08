@@ -117,7 +117,10 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         super.onResume();
 
         //设置播放监听器
-        musicPlayerManager.addMusicPlayerListener((MusicPlayerListener) this);
+        musicPlayerManager.addMusicPlayerListener(this);
+
+        //显示初始化数据
+        showInitData();
 
         //显示音乐时长
         showDuration();
@@ -137,7 +140,7 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         super.onPause();
 
         //移除监听播放器
-        musicPlayerManager.removeMusicPlayerListener((MusicPlayerListener) this);
+        musicPlayerManager.removeMusicPlayerListener(this);
     }
 
 
@@ -311,6 +314,9 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
 
         //显示时长
         showDuration();
+
+        //显示初始化标题
+        showInitData();
     }
 
     @Override
@@ -406,5 +412,15 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
                 break;
         }
     }
+
+    /**
+     * 显示初始化显示的数据
+     */
+    private void showInitData() {
+        Song data = listManager.getData();
+
+        tv_title.setText(data.getTitle());
+    }
+
 
 }

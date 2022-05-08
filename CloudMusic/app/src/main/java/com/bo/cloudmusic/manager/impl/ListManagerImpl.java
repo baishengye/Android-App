@@ -2,8 +2,10 @@ package com.bo.cloudmusic.manager.impl;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.media.MediaPlayer;
 
 import com.bo.cloudmusic.domain.Song;
+import com.bo.cloudmusic.listener.MusicPlayerListener;
 import com.bo.cloudmusic.manager.ListManager;
 import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.service.MusicPlayerService;
@@ -18,7 +20,7 @@ import java.util.Random;
 
 import es.dmoral.toasty.Toasty;
 
-public class ListManagerImpl implements ListManager {
+public class ListManagerImpl implements ListManager, MusicPlayerListener {
 
     private static final String TAG = "ListManagerImpl";
 
@@ -63,6 +65,9 @@ public class ListManagerImpl implements ListManager {
 
         //初始化音乐播放管理器
         musicPlayerManager = MusicPlayerService.getMusicPlayerManager(context.getApplicationContext());
+
+        //添加音乐播放监听
+        musicPlayerManager.addMusicPlayerListener(this);
     }
 
     public static ListManager getInstance(Context context) {
@@ -163,6 +168,11 @@ public class ListManagerImpl implements ListManager {
     public int getLoopModel() {
         return model;
     }
+
+    @Override
+    public Song getData() {
+        return data;
+    }
     //end对列表中的歌曲操作
 
 
@@ -204,4 +214,48 @@ public class ListManagerImpl implements ListManager {
         return datum.get(idx);
     }
 
+    //音乐播放管理器接口
+    @Override
+    public void onPaused(Song song) {
+
+    }
+
+    @Override
+    public void onPlaying(Song song) {
+
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mp, Song data) {
+
+    }
+
+    @Override
+    public void onProgress(Song data) {
+
+    }
+
+    /**
+     * 播放完毕回调
+     * @param mp
+     */
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        if(Constant.MODEL_LOOP_ONE==model){
+            //如果是单曲循环
+            //就不会处理了
+            //因为我们使⽤了MediaPlayer的循环模式
+            //如果使⽤的第三⽅框架
+            //如果没有循环模式
+            //那就要在这⾥继续播放当前⾳乐
+        }else{
+            //其他模式
+            //播放下⼀⾸⾳乐
+            Song data = next();
+            if (data != null) {
+                play(data);
+            }
+        }
+    }
+    //end音乐播放管理器接口
 }
