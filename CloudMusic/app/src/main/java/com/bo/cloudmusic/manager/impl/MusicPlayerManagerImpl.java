@@ -225,7 +225,7 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager {
 
     private void startPublishProgress() {
         if(isEmptyListeners()){
-            //灭有进度回调就不启动
+            //没有进度回调就不启动
             return;
         }
 
