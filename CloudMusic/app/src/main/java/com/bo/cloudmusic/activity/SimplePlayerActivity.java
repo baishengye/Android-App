@@ -140,6 +140,9 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
 
         //显示播放状态
         showMusicPlayStatus();
+
+        //选中当前播放的音乐
+        scrollPosition();
     }
 
     /**
@@ -361,6 +364,9 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
 
         //显示初始化标题
         showInitData();
+
+        //选中当前音乐
+        scrollPosition();
     }
 
     @Override
@@ -466,5 +472,33 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         tv_title.setText(data.getTitle());
     }
 
+    /**
+     * 选中当前的音乐
+     */
+    private void scrollPosition() {
+        //选中当前播放的⾳乐
+        //使⽤post⽅法是
+        //将⽅法放到了消息循环
+        //如果不这样做
+        //在onCreate这样的⽅法中滚动⽆效
+        //因为这时候列表的数据还没有显示完成
+        //具体的这部分我们在《详解View》课程中讲解了
+
+        rv.post(new Runnable() {
+            @Override
+            public void run() {
+                //获取当前音乐的位置
+                int idx = listManager.getDatum().indexOf(listManager.getData());
+
+                if(idx!=-1){
+                    //滚动到该位置
+                    rv.smoothScrollToPosition(idx);
+
+                    //选中这个音乐
+                    adapter.setSelectedIndex(idx);
+                }
+            }
+        });
+    }
 
 }
