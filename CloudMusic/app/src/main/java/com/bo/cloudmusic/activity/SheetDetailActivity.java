@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,7 @@ import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.domain.response.ListResponse;
 import com.bo.cloudmusic.listener.HttpObserver;
+import com.bo.cloudmusic.listener.MusicPlayerListener;
 import com.bo.cloudmusic.manager.ListManager;
 import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.manager.impl.ListManagerImpl;
@@ -65,7 +67,7 @@ import retrofit2.Response;
 /**
  * 歌单详情界面
  */
-public class SheetDetailActivity extends BaseTitleActivity implements View.OnClickListener {
+public class SheetDetailActivity extends BaseTitleActivity implements View.OnClickListener, MusicPlayerListener {
 
     private static final String TAG = "SheetDetailActivity";
 
@@ -182,7 +184,19 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
     protected void onResume() {
         super.onResume();
 
+        //添加播放管理器监听
+        musicPlayerManager.addMusicPlayerListener(this);
+
+        //显示播放数据
         showSmallPlayControlData();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        //移除播放管理器的监听器
+        musicPlayerManager.removeMusicPlayerListener(this);
     }
 
     /**
@@ -786,4 +800,25 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
         LogUtil.d(TAG, "onListSmallClick");
     }
 
+    //播放管理监听器的接口
+    @Override
+    public void onPaused(Song song) {
+        showPlayStatus();
+    }
+
+    @Override
+    public void onPlaying(Song song) {
+        showPauseStatus();
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mp, Song data) {
+        showInitData(data);
+    }
+
+    @Override
+    public void onProgress(Song data) {
+        showProgress(data);
+    }
+    //end播放管理监听器的接口
 }
