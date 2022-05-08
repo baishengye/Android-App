@@ -21,6 +21,7 @@ import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.manager.impl.MusicPlayerManagerImpl;
 import com.bo.cloudmusic.service.MusicPlayerService;
 import com.bo.cloudmusic.utils.Constant;
+import com.bo.cloudmusic.utils.ListUtil;
 import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.NotificationUtil;
 import com.bo.cloudmusic.utils.ServiceUtil;
@@ -255,27 +256,7 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
     }
     //end点击事件
 
-    /**
-     * 显示循环模式
-     */
-    private void showLoopModel() {
-        //获取到当前的循环模式
-        int model = listManager.getLoopModel();
-
-        //显示模式
-        switch (model){
-            case Constant.MODEL_LOOP_LIST:
-                bt_loop_model.setText("列表循环");
-                break;
-            case Constant.MODEL_LOOP_ONE:
-                bt_loop_model.setText("单曲循环");
-                break;
-            default:
-                bt_loop_model.setText("随机循环");
-                break;
-        }
-    }
-
+    //接口方法
     /**
      * 进度改变时
      * @param seekBar  进度条
@@ -310,30 +291,6 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         LogUtil.d(TAG,"onStopTrackingTouch");
     }
 
-    /**
-     * 播放或暂停
-     */
-    private void playOrPause() {
-        if(musicPlayerManager.isPlaying()){
-            listManager.pause();
-        }else{
-            listManager.resume();
-        }
-    }
-
-    /**
-     * 显示播放进度
-     */
-    private void showProgress() {
-        //获取播放进度
-        long progress = musicPlayerManager.getData().getProgress();
-
-        //格式化进度
-        tv_start.setText(TimeUtil.formatMinuteSecond((int)progress));
-
-        //设置到进度条
-        sb_progress.setProgress((int) progress);
-    }
 
     //播放管理监听器
     @Override
@@ -361,6 +318,37 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         //LogUtil.d(TAG,"onProgress:" + data.getProgress()+" ,"+data.getDuration());
 
         showProgress();
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        LogUtil.d(TAG, "onCompletion");
+    }
+    //end接口方法
+
+    /**
+     * 播放或暂停
+     */
+    private void playOrPause() {
+        if(musicPlayerManager.isPlaying()){
+            listManager.pause();
+        }else{
+            listManager.resume();
+        }
+    }
+
+    /**
+     * 显示播放进度
+     */
+    private void showProgress() {
+        //获取播放进度
+        long progress = musicPlayerManager.getData().getProgress();
+
+        //格式化进度
+        tv_start.setText(TimeUtil.formatMinuteSecond((int)progress));
+
+        //设置到进度条
+        sb_progress.setProgress((int) progress);
     }
 
     /**
@@ -396,4 +384,27 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
             bt_play.setText("暂停");
         }
     }
+
+
+    /**
+     * 显示循环模式
+     */
+    private void showLoopModel() {
+        //获取到当前的循环模式
+        int model = listManager.getLoopModel();
+
+        //显示模式
+        switch (model){
+            case Constant.MODEL_LOOP_LIST:
+                bt_loop_model.setText("列表循环");
+                break;
+            case Constant.MODEL_LOOP_ONE:
+                bt_loop_model.setText("单曲循环");
+                break;
+            default:
+                bt_loop_model.setText("随机循环");
+                break;
+        }
+    }
+
 }

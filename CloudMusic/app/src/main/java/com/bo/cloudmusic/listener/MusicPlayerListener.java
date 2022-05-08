@@ -30,4 +30,9 @@ public interface MusicPlayerListener {
      * @param data
      */
     void onProgress(Song data);
+
+    /**
+     * 播放完毕回调
+     */
+    void onCompletion(MediaPlayer mp);
 }

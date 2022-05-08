@@ -27,7 +27,7 @@ import java.util.TimerTask;
 /**
  * 音乐播放器的具体实现
  */
-public class MusicPlayerManagerImpl implements MusicPlayerManager {
+public class MusicPlayerManagerImpl implements MusicPlayerManager,MediaPlayer.OnCompletionListener {
 
     private static final String TAG = "MusicPlayerManagerImpl";
 
@@ -105,6 +105,9 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager {
                 ListUtil.eachListener(listeners, listener -> listener.onPrepared(mp, data));
             }
         });
+
+        //设置播放完毕监听器
+        player.setOnCompletionListener((MediaPlayer.OnCompletionListener) this);
     }
 
     /**
@@ -220,6 +223,17 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager {
         player.setLooping(looping);
     }
     //音乐播放管理器的接口方法
+
+    /**
+     * 播放完毕了回调
+     *
+     * @param mp
+     */
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        //回调监听器
+        ListUtil.eachListener(listeners, listener -> listener.onCompletion(mp));
+    }
 
 
     private void publishPlayingStatus(Song data) {
