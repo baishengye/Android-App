@@ -1,6 +1,7 @@
 package com.bo.cloudmusic.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.bo.cloudmusic.Adapter.SimplePlayerAdapter;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.listener.MusicPlayerListener;
@@ -54,6 +56,11 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
      * 列表管理器的实例
      */
     private ListManager listManager;
+
+    /**
+     * 布局管理器
+     */
+    private LinearLayoutManager linearLayoutManager;
 
     /**
      * 长在播放的音乐
@@ -100,6 +107,7 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
      */
     @BindView(R.id.bt_loop_model)
     Button bt_loop_model;
+    private SimplePlayerAdapter adapter;
 
 
     @Override
@@ -143,6 +151,18 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         musicPlayerManager.removeMusicPlayerListener(this);
     }
 
+    @Override
+    protected void initViews() {
+        super.initViews();
+
+        //高度固定
+        rv.setHasFixedSize(true);
+
+        //获取布局管理器
+        linearLayoutManager = new LinearLayoutManager(getMainActivity());
+        rv.setLayoutManager(linearLayoutManager);
+
+    }
 
     @Override
     protected void initDatum() {
@@ -173,6 +193,16 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
 
         //播放音乐
         musicPlayerManager.play(songUrl,song);*/
+
+
+        //创建适配器
+        adapter = new SimplePlayerAdapter(android.R.layout.simple_list_item_1);
+
+        //设置到控件
+        rv.setAdapter(adapter);
+
+        //设置数据
+        adapter.replaceData(listManager.getDatum());
     }
 
     @Override
