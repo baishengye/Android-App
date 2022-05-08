@@ -3,6 +3,7 @@ package com.bo.cloudmusic.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Notification;
 import android.content.Intent;
@@ -19,13 +20,16 @@ import com.bo.cloudmusic.manager.ListManager;
 import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.manager.impl.MusicPlayerManagerImpl;
 import com.bo.cloudmusic.service.MusicPlayerService;
+import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.NotificationUtil;
 import com.bo.cloudmusic.utils.ServiceUtil;
 import com.bo.cloudmusic.utils.TimeUtil;
+import com.bo.cloudmusic.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import es.dmoral.toasty.Toasty;
 
 /**
  * 简单的播放器实现
@@ -158,13 +162,13 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         //获取音乐播放管理器
         musicPlayerManager = MusicPlayerService.getMusicPlayerManager(getApplicationContext());
 
-        //测试音乐播放
+        /*//测试音乐播放
         String songUrl="http://dev-courses-misuc.ixuea.com/assets/s1.mp3";
         song=new Song();
         song.setUri(songUrl);
 
         //播放音乐
-        musicPlayerManager.play(songUrl,song);
+        musicPlayerManager.play(songUrl,song);*/
     }
 
     @Override
@@ -185,12 +189,23 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         activity.startActivity(intent);
     }
 
+    //点击事件
     /**
      * 上一曲按钮
      */
     @OnClick(R.id.bt_previous)
     public void onPreviousClick(){
         LogUtil.d(TAG,"bt_previous");
+
+        //获取下一曲
+        Song data=listManager.previous();
+        if(data==null){
+            //如果列表中没有音乐就土司提醒用户
+            //播放界面只有有数据的时候才会进入
+            ToastUtil.errorShortToast(getString(R.string.not_play_music));
+        }else{
+            listManager.play(data);
+        }
     }
 
     /**
@@ -212,11 +227,54 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
     /**
      * 下一曲按钮
      */
+    @SuppressLint("CheckResult")
     @OnClick(R.id.bt_next)
     public void onNextClick(){
         LogUtil.d(TAG,"bt_next");
+
+        //获取下一曲
+        Song data=listManager.next();
+        if(data==null){
+            //如果列表中没有音乐就土司提醒用户
+            //播放界面只有有数据的时候才会进入
+            ToastUtil.errorShortToast(getString(R.string.not_play_music));
+        }else{
+            listManager.play(data);
+        }
     }
 
+    @OnClick(R.id.bt_loop_model)
+    public void onLoopModelClick(){
+        LogUtil.d(TAG,"onLoopModelClick");
+
+        //改变循环模式
+        listManager.changeLoopModel();
+
+        //显示循环模式
+        showLoopModel();
+    }
+    //end点击事件
+
+    /**
+     * 显示循环模式
+     */
+    private void showLoopModel() {
+        //获取到当前的循环模式
+        int model = listManager.getLoopModel();
+
+        //显示模式
+        switch (model){
+            case Constant.MODEL_LOOP_LIST:
+                bt_loop_model.setText("列表循环");
+                break;
+            case Constant.MODEL_LOOP_ONE:
+                bt_loop_model.setText("单曲循环");
+                break;
+            default:
+                bt_loop_model.setText("随机循环");
+                break;
+        }
+    }
 
     /**
      * 进度改变时
@@ -226,7 +284,7 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
      */
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        LogUtil.d(TAG,"onProgressChanged");
+        //LogUtil.d(TAG,"onProgressChanged");
 
         if(fromUser){
             //跳转到该位置播放
@@ -292,7 +350,7 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
 
     @Override
     public void onPrepared(MediaPlayer mp, Song data) {
-        LogUtil.d(TAG,"onPrepared:" + data.getProgress()+" ,"+data.getDuration());
+        //LogUtil.d(TAG,"onPrepared:" + data.getProgress()+" ,"+data.getDuration());
 
         //显示时长
         showDuration();
@@ -300,7 +358,7 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
 
     @Override
     public void onProgress(Song data) {
-        LogUtil.d(TAG,"onProgress:" + data.getProgress()+" ,"+data.getDuration());
+        //LogUtil.d(TAG,"onProgress:" + data.getProgress()+" ,"+data.getDuration());
 
         showProgress();
     }

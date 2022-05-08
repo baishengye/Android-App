@@ -238,7 +238,7 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 //SimplePlayerActivity.start(getMainActivity());
-
+                //点击了item就会播放对应的音乐
                 play(position);
             }
         });

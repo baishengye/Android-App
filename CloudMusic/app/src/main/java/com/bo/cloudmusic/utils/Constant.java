@@ -94,4 +94,19 @@ public class Constant {
      * 16毫秒通知一次
      */
     public static final long DEFAULT_TIME = 16;
+
+    /**
+     * 列表循环
+     */
+    public static final int MODEL_LOOP_LIST=0;
+
+    /**
+     * 单曲循环
+     */
+    public static final int MODEL_LOOP_ONE=1;
+
+    /**
+     * 随机循环
+     */
+    public static final int MODEL_LOOP_RANDOM=2;
 }

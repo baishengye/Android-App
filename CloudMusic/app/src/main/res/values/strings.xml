@@ -98,4 +98,7 @@
     <string name="sort">排序</string>
     <string name="report">报告错误</string>
     <string name="simple_player_activity">简单播放器</string>
+
+    <!--简单播放界面相关-->
+    <string name="not_play_music">没有可播放的音乐</string>
 </resources>

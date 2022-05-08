@@ -124,6 +124,7 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager {
         return instance;
     }
 
+    //音乐播放管理器的接口方法
     @Override
     public void play(String uri, Song data) {
         try {
@@ -213,6 +214,13 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager {
     public void seekTo(int progress) {
         player.seekTo(progress);
     }
+
+    @Override
+    public void setLooping(boolean looping) {
+        player.setLooping(looping);
+    }
+    //音乐播放管理器的接口方法
+
 
     private void publishPlayingStatus(Song data) {
         /*for (MusicPlayerListener listener : listeners) {
