@@ -261,6 +261,11 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         showDuration();
     }
 
+    @Override
+    public void onProgress(Song data) {
+        LogUtil.d(TAG,"onProgress:" + data.getProgress()+" ,"+data.getDuration());
+    }
+
     /**
      * 显示时长
      */

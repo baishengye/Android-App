@@ -24,4 +24,10 @@ public interface MusicPlayerListener {
      * @param data
      */
     void onPrepared(MediaPlayer mp, Song data);
+
+    /**
+     * 播放进度回调
+     * @param data
+     */
+    void onProgress(Song data);
 }

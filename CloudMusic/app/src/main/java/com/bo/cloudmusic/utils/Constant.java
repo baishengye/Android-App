@@ -1,5 +1,7 @@
 package com.bo.cloudmusic.utils;
 
+import android.os.Message;
+
 import com.bo.cloudmusic.BuildConfig;
 
 /**
@@ -82,4 +84,14 @@ public class Constant {
      * 单曲
      */
     public static final int TYPE_SONG = 2;
+
+    /**
+     * 播放进度通知
+     */
+    public static final int MESSAGE_PROGRESS = 0;
+
+    /**
+     * 16毫秒通知一次
+     */
+    public static final long DEFAULT_TIME = 16;
 }
