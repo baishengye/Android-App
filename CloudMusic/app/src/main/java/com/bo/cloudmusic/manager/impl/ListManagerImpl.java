@@ -96,7 +96,7 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
     @Override
     public List<Song> getDatum() {
         LogUtil.d(TAG,"getDatum");
-        return null;
+        return datum;
     }
 
     @Override

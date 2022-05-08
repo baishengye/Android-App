@@ -7,10 +7,12 @@ import com.bo.cloudmusic.domain.Song;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
+import java.util.ArrayList;
+
 public class SimplePlayerAdapter extends BaseQuickAdapter<Song, BaseViewHolder> {
 
     public SimplePlayerAdapter(int layoutResId) {
-        super(layoutResId);
+        super(layoutResId,new ArrayList<>());
     }
 
     @Override
