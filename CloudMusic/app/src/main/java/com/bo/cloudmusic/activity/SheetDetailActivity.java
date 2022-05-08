@@ -36,6 +36,7 @@ import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.domain.response.ListResponse;
 import com.bo.cloudmusic.listener.HttpObserver;
 import com.bo.cloudmusic.manager.ListManager;
+import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.manager.impl.ListManagerImpl;
 import com.bo.cloudmusic.service.MusicPlayerService;
 import com.bo.cloudmusic.utils.Constant;
@@ -72,6 +73,11 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
      * 列表管理器
      */
     private ListManager listManager;
+
+    /**
+     * 音乐播放管理器
+     */
+    private MusicPlayerManager musicPlayerManager;
 
     /**
      * 歌单id
@@ -172,6 +178,13 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
         setContentView(R.layout.activity_sheet_detail);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        showSmallPlayControlData();
+    }
+
     /**
      * 创建菜单方法
      * @param menu
@@ -235,6 +248,9 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
 
         //初始化列表管理器
         listManager= MusicPlayerService.getListManager(getApplicationContext());
+
+        //获取音乐播放管理器
+        musicPlayerManager = MusicPlayerService.getMusicPlayerManager(getApplicationContext());
 
         //new 出适配器
         adapter = new SongAdapter(R.layout.item_song_detail);
@@ -649,6 +665,87 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
                         }
                     });
         }
+    }
+
+    /**
+     * 显示迷你播放控制器
+     */
+    private void showSmallPlayControlData() {
+        //有音乐
+        if(listManager.getDatum()!=null&&listManager.getDatum().size()>0){
+            //有音乐
+
+            //获取当前播放的音乐
+            Song data=listManager.getData();
+
+            if(data!=null){
+                showInitData(data);
+                showDuration(data);
+                showProgress(data);
+                showMusicPlayStatus();
+            }
+        }
+    }
+
+    /**
+     * 显示播放状态
+     */
+    private void showMusicPlayStatus() {
+        if(musicPlayerManager.isPlaying()){
+            //正在播放
+            //显示播放状态
+            showPauseStatus();
+        }else{
+            showPlayStatus();
+        }
+    }
+
+    /**
+     * 显示播放状态
+     */
+    private void showPlayStatus() {
+        //选择器实现
+        iv_play_small_control.setSelected(false);
+    }
+
+    /**
+     * 显示暂停状态
+     */
+    private void showPauseStatus() {
+        iv_play_small_control.setSelected(true);
+    }
+
+    /**
+     * 显示当前播放进度
+     * @param data
+     */
+    private void showProgress(Song data) {
+        //设置到进度条
+        pb_progress_small_control.setProgress((int) data.getProgress());
+    }
+
+    /**
+     * 显示音乐时长
+     * @param data
+     */
+    private void showDuration(Song data) {
+        //获取总时长
+        int end = (int)data.getDuration();
+
+        //设置总时长到进度条
+        pb_progress_small_control.setMax(end);
+    }
+
+    /**
+     * 显示初始化数据
+     * @param data
+     */
+    private void showInitData(Song data) {
+        //封面
+        ImageUtil.show(getMainActivity(),iv_banner_small_control,data.getBanner());
+
+        //标题
+        tv_title_small_control.setText(data.getTitle());
     }
 
 
