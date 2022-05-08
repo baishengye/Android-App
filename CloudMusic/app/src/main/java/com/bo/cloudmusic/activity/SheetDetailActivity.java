@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -689,6 +690,9 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
         if(listManager.getDatum()!=null&&listManager.getDatum().size()>0){
             //有音乐
 
+            //显示迷你控制栏
+            ll_play_control_small.setVisibility(View.VISIBLE);
+
             //获取当前播放的音乐
             Song data=listManager.getData();
 
@@ -698,6 +702,9 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
                 showProgress(data);
                 showMusicPlayStatus();
             }
+        }else{
+            //隐藏迷你控制器
+            ll_play_control_small.setVisibility(View.GONE);
         }
     }
 

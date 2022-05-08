@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/ll_play_small_control"
-    android:clickable="true">
+    android:clickable="true"
+    android:visibility="gone">
 
     <!--分割线-->
     <include layout="@layout/divider_small" />
