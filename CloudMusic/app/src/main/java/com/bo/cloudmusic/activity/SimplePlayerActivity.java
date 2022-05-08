@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.listener.MusicPlayerListener;
+import com.bo.cloudmusic.manager.ListManager;
 import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.manager.impl.MusicPlayerManagerImpl;
 import com.bo.cloudmusic.service.MusicPlayerService;
@@ -43,6 +44,11 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
      * MusicPlayerManager的实例
      */
     private MusicPlayerManager musicPlayerManager;
+
+    /**
+     * 列表管理器的实例
+     */
+    private ListManager listManager;
 
     /**
      * 长在播放的音乐
@@ -146,6 +152,9 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         MusicPlayerManager o2 = MusicPlayerService.getMusicPlayerManager(getMainActivity());
         LogUtil.d(TAG, "initDatum test single:" + (o1 == o2));*/
 
+        //初始化列表管理器
+        listManager=MusicPlayerService.getListManager(getApplicationContext());
+
         //获取音乐播放管理器
         musicPlayerManager = MusicPlayerService.getMusicPlayerManager(getApplicationContext());
 
@@ -248,9 +257,9 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
      */
     private void playOrPause() {
         if(musicPlayerManager.isPlaying()){
-            musicPlayerManager.pause();
+            listManager.pause();
         }else{
-            musicPlayerManager.resume();
+            listManager.resume();
         }
     }
 
