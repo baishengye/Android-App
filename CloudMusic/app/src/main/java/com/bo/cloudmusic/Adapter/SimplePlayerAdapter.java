@@ -8,21 +8,31 @@ import androidx.annotation.Nullable;
 
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.Song;
+import com.chad.library.adapter.base.BaseItemDraggableAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class SimplePlayerAdapter extends BaseQuickAdapter<Song, BaseViewHolder> {
+public class SimplePlayerAdapter extends BaseItemDraggableAdapter<Song, BaseViewHolder> {
 
     /**
      * 选中索引
      */
     private int selectedIndex=-1;
 
+    /**
+     * 构造方法
+     * @param layoutResId
+     */
     public SimplePlayerAdapter(int layoutResId) {
-        super(layoutResId,new ArrayList<>());
+        super(layoutResId, new ArrayList<>());
     }
+
+    /*public SimplePlayerAdapter(int layoutResId) {
+        super(layoutResId,new ArrayList<>());
+    }*/
 
     @Override
     protected void convert(@NonNull BaseViewHolder helper, Song item) {

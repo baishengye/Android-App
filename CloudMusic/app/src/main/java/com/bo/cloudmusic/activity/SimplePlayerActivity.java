@@ -1,6 +1,8 @@
 package com.bo.cloudmusic.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Notification;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +34,8 @@ import com.bo.cloudmusic.utils.ServiceUtil;
 import com.bo.cloudmusic.utils.TimeUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback;
+import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -208,6 +213,96 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
 
         //设置数据
         adapter.replaceData(listManager.getDatum());
+
+        //列表滑动删除功能
+        //item拖拽和滑动回调
+        ItemDragAndSwipeCallback itemDragAndSwipeCallback = new ItemDragAndSwipeCallback(adapter) {
+
+            /**
+             * 获取移动参数
+             *
+             * 主要就是告诉他是否开启拖拽，滑动
+             * 什么⽅向可以拖拽，滑动
+             */
+            @Override
+            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                //第⼀个参数控制拖拽
+                //第⼆个参数控制滑动
+                //禁⽤了拖拽
+                //开启了从右边滑动到左边
+
+                return isViewCreateByAdapter(viewHolder) ? makeMovementFlags(ItemTouchHelper.ACTION_STATE_IDLE, ItemTouchHelper.ACTION_STATE_IDLE) :
+                        makeMovementFlags(ItemTouchHelper.ACTION_STATE_IDLE, ItemTouchHelper.LEFT);
+
+            }
+        };
+
+        //item触摸帮助类
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemDragAndSwipeCallback);
+
+        //将帮助类附加到RecyclerView上
+        itemTouchHelper.attachToRecyclerView(rv);
+
+        //开启滑动
+        adapter.enableSwipeItem();
+
+        //创建滑动监听器
+        //这⾥不详细讲解
+        //只讲解⽤到的功能
+        //因为他的功能还⽐较多
+        //如果⼤家想深⼊学习请学习《详解RecyclerView》课程
+        OnItemSwipeListener onItemSwipeListener = new OnItemSwipeListener() {
+            /**
+             * 开始滑动的调用
+             * @param viewHolder
+             * @param position
+             */
+            @Override
+            public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int position) {
+
+            }
+
+            /**
+             * 删除UI中的滑动消失的view
+             * @param viewHolder
+             * @param position
+             */
+            @Override
+            public void clearView(RecyclerView.ViewHolder viewHolder, int position) {
+
+            }
+
+            /**
+             * 滑动成功调用
+             * @param viewHolder
+             * @param position
+             */
+            @Override
+            public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int position) {
+
+            }
+
+            /**
+             * 在滑动的时候调用
+             * @param canvas
+             * @param viewHolder
+             * @param v
+             * @param v1
+             * @param b
+             */
+            @Override
+            public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder, float v, float v1, boolean b) {
+
+            }
+        };
+
+        //设置滑动监听器
+        adapter.setOnItemSwipeListener(onItemSwipeListener);
+    }
+
+    private boolean isViewCreateByAdapter(@NonNull RecyclerView.ViewHolder viewHolder) {
+        int type = viewHolder.getItemViewType();
+        return type == 273 || type == 546 || type == 819 || type == 1365;
     }
 
     @Override
