@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bo.cloudmusic.Adapter.MainAdapter;
+import com.bo.cloudmusic.activity.BaseMusicPlayerActivity;
 import com.bo.cloudmusic.activity.BaseTitleActivity;
 import com.bo.cloudmusic.activity.SettingActivity;
 import com.bo.cloudmusic.activity.WebViewActivity;
@@ -40,7 +41,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseTitleActivity {
+public class MainActivity extends BaseMusicPlayerActivity {
 
     private static final String TAG = "MainActivity";
 
