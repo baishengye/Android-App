@@ -68,19 +68,9 @@ import retrofit2.Response;
 /**
  * 歌单详情界面
  */
-public class SheetDetailActivity extends BaseTitleActivity implements View.OnClickListener, MusicPlayerListener {
+public class SheetDetailActivity extends BaseMusicPlayerActivity implements View.OnClickListener {
 
     private static final String TAG = "SheetDetailActivity";
-
-    /**
-     * 列表管理器
-     */
-    private ListManager listManager;
-
-    /**
-     * 音乐播放管理器
-     */
-    private MusicPlayerManager musicPlayerManager;
 
     /**
      * 歌单id
@@ -102,32 +92,6 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
      */
     @BindView(R.id.rv)
     RecyclerView rv;
-
-    /**
-     * 迷你播放控制器 容器
-     */
-    @BindView(R.id.ll_play_small_control)
-    LinearLayout ll_play_control_small;
-    /**
-     * 迷你播放控制器 封⾯
-     */
-    @BindView(R.id.iv_banner_small_control)
-    ImageView iv_banner_small_control;
-    /**
-     * 迷你播放控制器 标题
-     */
-    @BindView(R.id.tv_title_small_control)
-    TextView tv_title_small_control;
-    /**
-     * 迷你播放控制器 播放暂停按钮
-     */
-    @BindView(R.id.iv_play_small_control)
-    ImageView iv_play_small_control;
-    /**
-     * 迷你播放控制器 进度条
-     */
-    @BindView(R.id.pb_progress_small_control)
-    ProgressBar pb_progress_small_control;
 
     /**
      * 头部容器
@@ -185,22 +149,8 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
     protected void onResume() {
         super.onResume();
 
-        //添加播放管理器监听
-        musicPlayerManager.addMusicPlayerListener(this);
-
-        //显示播放数据
-        showSmallPlayControlData();
-
         //滚动到当前位置
         scrollPositionAsync();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        //移除播放管理器的监听器
-        musicPlayerManager.removeMusicPlayerListener(this);
     }
 
     /**
@@ -263,12 +213,6 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
 
         //获取传递的参数
         id = extraId();
-
-        //初始化列表管理器
-        listManager= MusicPlayerService.getListManager(getApplicationContext());
-
-        //获取音乐播放管理器
-        musicPlayerManager = MusicPlayerService.getMusicPlayerManager(getApplicationContext());
 
         //new 出适配器
         adapter = new SongAdapter(R.layout.item_song_detail);
@@ -688,94 +632,6 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
         }
     }
 
-    /**
-     * 显示迷你播放控制器
-     */
-    private void showSmallPlayControlData() {
-        //有音乐
-        if(listManager.getDatum()!=null&&listManager.getDatum().size()>0){
-            //有音乐
-
-            //显示迷你控制栏
-            ll_play_control_small.setVisibility(View.VISIBLE);
-
-            //获取当前播放的音乐
-            Song data=listManager.getData();
-
-            if(data!=null){
-                showInitData(data);
-                showDuration(data);
-                showProgress(data);
-                showMusicPlayStatus();
-            }
-        }else{
-            //隐藏迷你控制器
-            ll_play_control_small.setVisibility(View.GONE);
-        }
-    }
-
-    /**
-     * 显示播放状态
-     */
-    private void showMusicPlayStatus() {
-        if(musicPlayerManager.isPlaying()){
-            //正在播放
-            //显示播放状态
-            showPauseStatus();
-        }else{
-            showPlayStatus();
-        }
-    }
-
-    /**
-     * 显示播放状态
-     */
-    private void showPlayStatus() {
-        //选择器实现
-        iv_play_small_control.setSelected(false);
-    }
-
-    /**
-     * 显示暂停状态
-     */
-    private void showPauseStatus() {
-        iv_play_small_control.setSelected(true);
-    }
-
-    /**
-     * 显示当前播放进度
-     * @param data
-     */
-    private void showProgress(Song data) {
-        //设置到进度条
-        pb_progress_small_control.setProgress((int) data.getProgress());
-    }
-
-    /**
-     * 显示音乐时长
-     * @param data
-     */
-    private void showDuration(Song data) {
-        //获取总时长
-        int end = (int)data.getDuration();
-
-        //设置总时长到进度条
-        pb_progress_small_control.setMax(end);
-    }
-
-    /**
-     * 显示初始化数据
-     * @param data
-     */
-    private void showInitData(Song data) {
-        //封面
-        ImageUtil.show(getMainActivity(),iv_banner_small_control,data.getBanner());
-
-        //标题
-        tv_title_small_control.setText(data.getTitle());
-    }
-
-
 
     /**
      * 异步滚动到当前的音乐
@@ -846,73 +702,13 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
         return getIntent().getStringExtra(Constant.ID);
     }
 
-    /**
-     * 迷你播放控制器 容器点击
-     */
-    @OnClick(R.id.ll_play_small_control)
-    public void onPlayControlSmallClick() {
-        LogUtil.d(TAG, "onPlayControlSmallClick");
-
-        //跳转到简单播放界面
-        SimplePlayerActivity.start(getMainActivity());
-    }
-    /**
-     * 迷你播放控制器 播放暂停按钮点击
-     */
-    @OnClick(R.id.iv_play_small_control)
-    public void onPlaySmallClick() {
-        LogUtil.d(TAG, "onPlaySmallClick");
-
-        if(musicPlayerManager.isPlaying()){
-            //是正在播放就暂停
-            listManager.pause();
-        }else{
-            listManager.resume();
-        }
-    }
-    /**
-     * 迷你播放控制器 下⼀曲按钮点击
-     */
-    @OnClick(R.id.iv_next_small_control)
-    public void onNextSmallClick() {
-        LogUtil.d(TAG, "onNextSmallClick");
-
-        //获取下一首
-        Song data=listManager.next();
-
-        //播放
-        listManager.play(data);
-    }
-    /**
-     * 迷你播放控制器 播放列表按钮点击
-     */
-    @OnClick(R.id.iv_list_small_control)
-    public void onListSmallClick() {
-        LogUtil.d(TAG, "onListSmallClick");
-    }
-
-    //播放管理监听器的接口
-    @Override
-    public void onPaused(Song song) {
-        showPlayStatus();
-    }
-
-    @Override
-    public void onPlaying(Song song) {
-        showPauseStatus();
-    }
-
     @Override
     public void onPrepared(MediaPlayer mp, Song data) {
-        showInitData(data);
+        super.onPrepared(mp, data);
 
         //选中当前播放的音乐
         scrollPositionAsync();
     }
 
-    @Override
-    public void onProgress(Song data) {
-        showProgress(data);
-    }
     //end播放管理监听器的接口
 }
