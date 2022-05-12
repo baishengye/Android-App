@@ -279,7 +279,15 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
              */
             @Override
             public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int position) {
+                //第三方框架已经实现了移除操作
 
+                //从播放列表删除
+                listManager.delete(position);
+
+                //判断是否需要关闭播放界面(列表空了)
+                if(listManager.getData()==null){
+                    finish();//关闭当前界面
+                }
             }
 
             /**

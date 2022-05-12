@@ -173,6 +173,35 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
     public Song getData() {
         return data;
     }
+
+    @Override
+    public void delete(int position) {
+        //获取要删除的音乐
+        Song song = datum.get(position);
+
+        //要删除的音乐正在播放
+        if(song.getId().equals(data.getId())){
+            //停止当前播放
+            pause();
+
+            //并且播放下一首
+            Song nextSong = next();
+            while(nextSong.getId().equals(song.getId())){
+                if(datum.size()==1){
+                    //没有音乐可以播放了
+                    data=null;
+                    break;
+                }
+                nextSong=next();
+            }
+            datum.remove(song);
+            if(!datum.isEmpty()) play(nextSong);
+        }else{
+            //直接删除
+            datum.remove(song);
+        }
+
+    }
     //end对列表中的歌曲操作
 
 

@@ -56,5 +56,15 @@ public interface ListManager {
      */
     int getLoopModel();
 
+    /**
+     * 获取正在播放的音乐
+     * @return
+     */
     Song getData();
+
+    /**
+     * 从列表中删除音乐
+     * @param position
+     */
+    void delete(int position);
 }
