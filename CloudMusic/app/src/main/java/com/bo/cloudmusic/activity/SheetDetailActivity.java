@@ -190,6 +190,9 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
 
         //显示播放数据
         showSmallPlayControlData();
+
+        //滚动到当前位置
+        scrollPositionAsync();
     }
 
     @Override
@@ -574,6 +577,9 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
 
         //显示收藏状态
         showCollectionStatus();
+
+        //选中当前播放的⾳乐
+        scrollPositionAsync();
     }
 
     /**
@@ -770,6 +776,68 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
     }
 
 
+
+    /**
+     * 异步滚动到当前的音乐
+     */
+    private void scrollPositionAsync() {
+        //使用异步执行
+        rv.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollPosition();
+            }
+        });
+
+    }
+
+    /**
+     * 选中当前的音乐
+     */
+    private void scrollPosition() {
+        //判断歌单是否有音乐
+        if(data!=null&&data.getSongs()!=null&&data.getSongs().size()>0){
+            List<Song> datum = data.getSongs();
+
+            //获取当前播放的音乐
+            Song data = listManager.getData();
+
+            if(data!=null){
+                //有播放的音乐
+                int idx=-1;
+
+                Song song;
+                //遍历当前歌单所有音乐
+                //找到正在播放的音乐的索引
+                for (int i = 0; i < datum.size(); i++) {
+                    song = datum.get(i);
+
+                    if(song.getId().equals(data.getId())){
+                        //找到了当前播放的音乐
+                        idx=i;
+
+                        //找到了就可以跳出循环
+                        break;
+                    }
+                }
+
+                if(idx!=-1){
+                    //找到音乐
+
+                    //滚动到当前音乐
+                    rv.smoothScrollToPosition(idx+1);
+
+                    //选中音乐
+                    adapter.setSelectedIndex(idx+1);
+                }else{
+                    //取消选中
+                    adapter.setSelectedIndex(-1);
+                }
+            }
+        }
+    }
+
+
     /**
      * 获取intent中的id
      * @return
@@ -837,6 +905,9 @@ public class SheetDetailActivity extends BaseTitleActivity implements View.OnCli
     @Override
     public void onPrepared(MediaPlayer mp, Song data) {
         showInitData(data);
+
+        //选中当前播放的音乐
+        scrollPositionAsync();
     }
 
     @Override

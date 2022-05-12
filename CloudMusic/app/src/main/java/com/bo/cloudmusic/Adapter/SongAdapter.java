@@ -15,6 +15,12 @@ import java.util.ArrayList;
  */
 public class SongAdapter extends BaseQuickAdapter<Song, BaseViewHolder> {
 
+
+    /**
+     * 索引
+     */
+    private int selectedIndex=-1;
+
     /**
      * 构造方法
      * @param layoutResId
@@ -38,5 +44,29 @@ public class SongAdapter extends BaseQuickAdapter<Song, BaseViewHolder> {
 
         //显示信息
         helper.setText(R.id.tv_info,data.getSinger().getNickname());
+
+        //处理选中状态
+        if(selectedIndex==helper.getAdapterPosition()){
+            helper.setTextColor(R.id.tv_title,mContext.getResources().getColor(R.color.colorPrimary));
+        }else{
+            helper.setTextColor(R.id.tv_title,mContext.getResources().getColor(R.color.black));
+        }
+    }
+
+    public void setSelectedIndex(int selectedIndex) {
+        //先通知原来的位置
+        selectIndex();
+
+        //保存选中索引
+        this.selectedIndex=selectedIndex;
+
+        //刷新状态
+        selectIndex();
+    }
+
+    private void selectIndex() {
+        if (selectedIndex!=-1){
+            notifyItemChanged(selectedIndex);
+        }
     }
 }

@@ -1,7 +1,5 @@
 package com.bo.cloudmusic.Adapter;
 
-import static com.mob.tools.utils.Strings.getString;
-
 import android.content.Context;
 
 import androidx.annotation.NonNull;
