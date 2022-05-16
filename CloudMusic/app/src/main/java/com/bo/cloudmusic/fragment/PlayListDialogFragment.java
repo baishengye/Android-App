@@ -17,17 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bo.cloudmusic.Adapter.PlayListAdapter;
 import com.bo.cloudmusic.R;
-import com.bo.cloudmusic.domain.event.PlayListChangedEvent;
 import com.bo.cloudmusic.manager.ListManager;
 import com.bo.cloudmusic.service.MusicPlayerService;
-import com.bo.cloudmusic.utils.EventBusUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import org.greenrobot.eventbus.EventBus;
-
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * 迷你控制器 播放列表
@@ -57,21 +52,6 @@ public class PlayListDialogFragment extends BaseBottomSheetDialogFragment {
      */
     @BindView(R.id.rv)
     RecyclerView rv;
-
-    /**
-     * 点击删除全部按钮
-     */
-    @OnClick(R.id.ib_delete_all)
-    public void onDeleteAllClick(){
-        //关闭对话框
-        dismiss();
-
-        //删除全部音乐
-        listManager.deleteAll();
-
-        //发送音乐列表改变通知
-        EventBusUtil.post(new PlayListChangedEvent());
-    }
 
     /**
      * 适配器
@@ -141,6 +121,9 @@ public class PlayListDialogFragment extends BaseBottomSheetDialogFragment {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                //关闭弹窗
+                //dismiss();
+
                 //如果点击的删除按钮
                 if(R.id.iv_remove==view.getId()){
                     //删除这个歌
@@ -149,14 +132,6 @@ public class PlayListDialogFragment extends BaseBottomSheetDialogFragment {
                     //并且从adapter中删除数据，实现ui变化
                     playListAdapter.notifyItemRemoved(position);
                     playListAdapter.remove(position);
-                }
-
-                if(listManager.getDatum().size()==0){
-                    //关闭弹窗
-                    dismiss();
-
-                    //发送音乐列表改变通知
-                    EventBusUtil.post(new PlayListChangedEvent());
                 }
             }
         });
@@ -167,7 +142,6 @@ public class PlayListDialogFragment extends BaseBottomSheetDialogFragment {
      * @param inflater
      * @param container
      * @param savedInstanceState
-     *
      * @return
      */
     @Override
