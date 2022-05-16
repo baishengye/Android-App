@@ -80,7 +80,7 @@
     <string name="sheet_detail_activity">歌单详情</string>
     <string name="play_all">播放全部</string>
     <string name="music_count">(共%1$d首)</string>
-    <string name="download">下载量</string>
+    <string name="download">下载</string>
     <string name="select">多选</string>
     <!--%1表示第一个参数
     $d表示int类型-->
@@ -102,4 +102,10 @@
     <!--简单播放界面相关-->
     <string name="not_play_music">没有可播放的音乐</string>
     <string name="collection_all">收藏全部</string>
+    <string name="next_play">下一首播放</string>
+    <string name="collect_to_sheet">收藏到歌单</string>
+    <string name="comment_count">评论(%1$d)</string>
+    <string name="share">分享</string>
+    <string name="singer_name">歌手: (%1$s)</string>
+    <string name="delete_in_sheet">从歌单中删除</string>
 </resources>

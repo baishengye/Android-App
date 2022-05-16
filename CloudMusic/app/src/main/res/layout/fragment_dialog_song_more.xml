@@ -1,12 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/purple_200">
-
-    <TextView
+    android:layout_height="match_parent">
+    <!--内容容器-->
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="更多"/>
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
-</LinearLayout>
+        <!--歌曲信息
+        可以直接拷贝迷你播放器的布局
+        然后就行一些更改-->
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:padding="@dimen/padding_meddle"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--封面容器-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/radius_small"
+                app:cardElevation="0dp">
+
+                <!--封面-->
+                <ImageView
+                    android:id="@+id/iv_banner"
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/placeholder"
+                    android:layout_width="@dimen/button_height_large"
+                    android:layout_height="@dimen/button_height_large" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!--内容容器-->
+            <LinearLayout
+                android:layout_marginLeft="@dimen/padding_meddle"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <!--标题-->
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:textColor="@color/text"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    tools:text="这是歌曲标题这是歌曲标题这是歌曲标题这是歌曲标题这是歌曲标题这是歌曲标题"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!--歌手信息-->
+                <TextView
+                    android:id="@+id/tv_info"
+                    tools:text="这是歌手信息"
+                    android:textColor="@color/light_grey"
+                    android:textSize="@dimen/text_small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--分割线-->
+        <include layout="@layout/divider_small" />
+
+        <!--按钮容器-->
+        <LinearLayout style="@style/ItemContainer">
+            <!--图标-->
+            <ImageView
+                style="@style/ItemIcon"
+                android:src="@drawable/ic_play_grey" />
+
+            <!--标题-->
+            <TextView
+                style="@style/ItemText"
+                android:text="@string/next_play" />
+        </LinearLayout>
+
+        <!--分割线-->
+        <include layout="@layout/divider_small" />
+
+        <!--按钮容器-->
+        <LinearLayout
+            style="@style/ItemContainer"
+            android:id="@+id/ll_collect_song">
+            <!--图标-->
+            <ImageView
+                style="@style/ItemIcon"
+                android:src="@drawable/ic_play_grey" />
+
+            <!--标题-->
+            <TextView
+                style="@style/ItemText"
+                android:text="@string/collect_to_sheet" />
+        </LinearLayout>
+
+        <!--分割线-->
+        <include layout="@layout/divider_small" />
+
+        <!--按钮容器-->
+        <LinearLayout style="@style/ItemContainer">
+            <!--图标-->
+            <ImageView
+                style="@style/ItemIcon"
+                android:src="@drawable/ic_play_grey" />
+
+            <!--标题-->
+            <TextView
+                style="@style/ItemText"
+                android:text="@string/download" />
+        </LinearLayout>
+
+        <!--分割线-->
+        <include layout="@layout/divider_small" />
+
+        <!--按钮容器-->
+        <LinearLayout style="@style/ItemContainer">
+            <!--图标-->
+            <ImageView
+                style="@style/ItemIcon"
+                android:src="@drawable/ic_play_grey" />
+
+            <!--标题-->
+            <TextView
+                android:id="@+id/tv_comment_count"
+                style="@style/ItemText"
+                android:text="@string/comment_count" />
+        </LinearLayout>
+
+        <!--分割线-->
+        <include layout="@layout/divider_small" />
+
+        <!--按钮容器-->
+        <LinearLayout style="@style/ItemContainer">
+            <!--图标-->
+            <ImageView
+                style="@style/ItemIcon"
+                android:src="@drawable/ic_play_grey" />
+
+            <!--标题-->
+            <TextView
+                style="@style/ItemText"
+                android:text="@string/share" />
+        </LinearLayout>
+
+        <!--分割线-->
+        <include layout="@layout/divider_small" />
+
+        <!--按钮容器-->
+        <LinearLayout style="@style/ItemContainer">
+            <!--图标-->
+            <ImageView
+                style="@style/ItemIcon"
+                android:src="@drawable/ic_play_grey" />
+
+            <!--标题-->
+            <TextView
+                android:id="@+id/tv_singer_name"
+                style="@style/ItemText"
+                android:text="@string/singer_name" />
+        </LinearLayout>
+
+        <!--分割线-->
+        <include layout="@layout/divider_small" />
+
+        <!--按钮容器-->
+        <LinearLayout style="@style/ItemContainer">
+            <!--图标-->
+            <ImageView
+                style="@style/ItemIcon"
+                android:src="@drawable/ic_play_grey" />
+
+            <!--标题-->
+            <TextView
+                style="@style/ItemText"
+                android:text="专辑：测试专辑1" />
+        </LinearLayout>
+
+        <!--分割线-->
+        <include layout="@layout/divider_small" />
+
+        <!--按钮容器-->
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_delete_song_in_sheet"
+            style="@style/ItemContainer">
+            <!--图标-->
+            <ImageView
+                style="@style/ItemIcon"
+                android:src="@drawable/ic_play_grey" />
+
+            <!--标题-->
+            <TextView
+                style="@style/ItemText"
+                android:text="@string/delete_in_sheet" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
