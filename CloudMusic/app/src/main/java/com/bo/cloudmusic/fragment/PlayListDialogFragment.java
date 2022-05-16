@@ -1,5 +1,6 @@
 package com.bo.cloudmusic.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,6 +104,7 @@ public class PlayListDialogFragment extends BaseBottomSheetDialogFragment {
     protected void initListener() {
         super.initListener();
 
+        //点击控件播放
         playListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -111,6 +113,26 @@ public class PlayListDialogFragment extends BaseBottomSheetDialogFragment {
 
                 //播放点击的音乐
                 listManager.play(listManager.getDatum().get(position));
+            }
+        });
+
+        //点击子控件播放
+        playListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                //关闭弹窗
+                //dismiss();
+
+                //如果点击的删除按钮
+                if(R.id.iv_remove==view.getId()){
+                    //删除这个歌
+                    listManager.delete(position);
+
+                    //并且从adapter中删除数据，实现ui变化
+                    playListAdapter.notifyItemRemoved(position);
+                    playListAdapter.remove(position);
+                }
             }
         });
     }
