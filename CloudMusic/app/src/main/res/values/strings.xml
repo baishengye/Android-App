@@ -101,4 +101,5 @@
 
     <!--简单播放界面相关-->
     <string name="not_play_music">没有可播放的音乐</string>
+    <string name="collection_all">收藏全部</string>
 </resources>
