@@ -48,6 +48,7 @@
 
         <!--收藏歌单按钮-->
         <Button
+            android:layout_gravity="center_vertical"
             android:id="@+id/bt_collection_all"
             android:text="@string/collection_all"
             android:background="@null"
@@ -61,6 +62,7 @@
 
         <!--删除按钮-->
         <ImageButton
+            android:layout_gravity="center_vertical"
             android:id="@+id/ib_delete_all"
             android:layout_width="@dimen/item_song_height"
             android:background="@null"

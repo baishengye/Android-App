@@ -22,29 +22,18 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
  * 如果使⽤的⽐较多
  * 可以进⼀步封装
  */
-public class PlayListDialogFragment extends BottomSheetDialogFragment {
+public class PlayListDialogFragment extends BaseBottomSheetDialogFragment {
 
     /**
-     * 创建布局，并且返回
+     * 创建布局
      * @param inflater
      * @param container
      * @param savedInstanceState
      * @return
      */
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View getLayoutView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_dialog_play_list,null,false);//null标识没有父布局
-    }
-
-    /**
-     * 布局创建完了
-     * @param view
-     * @param savedInstanceState
-     */
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 
     /**
