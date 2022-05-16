@@ -18,6 +18,7 @@ import com.bo.cloudmusic.Adapter.PlayListAdapter;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.manager.ListManager;
 import com.bo.cloudmusic.service.MusicPlayerService;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import butterknife.BindView;
@@ -90,12 +91,28 @@ public class PlayListDialogFragment extends BaseBottomSheetDialogFragment {
         listManager = MusicPlayerService.getListManager(getMainActivity());
 
         //创建适配器
-        playListAdapter = new PlayListAdapter(R.layout.item_play_list);
+        playListAdapter = new PlayListAdapter(R.layout.item_play_list,listManager);
 
         rv.setAdapter(playListAdapter);
 
         //设置数据
         playListAdapter.replaceData(listManager.getDatum());
+    }
+
+    @Override
+    protected void initListener() {
+        super.initListener();
+
+        playListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                //关闭dialog
+                dismiss();
+
+                //播放点击的音乐
+                listManager.play(listManager.getDatum().get(position));
+            }
+        });
     }
 
     /**
