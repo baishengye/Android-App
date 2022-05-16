@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.Song;
+import com.bo.cloudmusic.fragment.PlayListDialogFragment;
 import com.bo.cloudmusic.listener.MusicPlayerListener;
 import com.bo.cloudmusic.manager.ListManager;
 import com.bo.cloudmusic.manager.MusicPlayerManager;
@@ -95,6 +96,8 @@ public class BaseMusicPlayerActivity extends BaseTitleActivity implements MusicP
     @OnClick(R.id.iv_list_small_control)
     public void onListSmallClick() {
         LogUtil.d(TAG, "onListSmallClick");
+
+        showPlayListDialog();
     }
 
     /**
@@ -215,6 +218,14 @@ public class BaseMusicPlayerActivity extends BaseTitleActivity implements MusicP
         ImageUtil.show(getMainActivity(), iv_banner_small_control, data.getBanner());
         //标题
         tv_title_small_control.setText(data.getTitle());
+    }
+
+
+    /**
+     * 显示对话框
+     */
+    private void showPlayListDialog() {
+        PlayListDialogFragment.show(getSupportFragmentManager());//兼容
     }
 
     @Override

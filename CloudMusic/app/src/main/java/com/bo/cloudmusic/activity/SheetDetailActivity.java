@@ -324,7 +324,7 @@ public class SheetDetailActivity extends BaseMusicPlayerActivity implements View
      */
     private void fetchData(){
         Api.getInstance().sheetDetail(id)
-                .subscribe(new HttpObserver<DetailResponse<Sheet>>() {
+                .subscribe(new HttpObserver<DetailResponse<Sheet>>(getMainActivity(),true) {
                     @Override
                     public void onSucceeded(DetailResponse<Sheet> data) {
                         next(data.getData());
@@ -517,7 +517,7 @@ public class SheetDetailActivity extends BaseMusicPlayerActivity implements View
         tv_comment_count.setText(String.valueOf(data.getComments_count()));
 
         //音乐数
-        tv_count.setText(String.valueOf(data.getSongs_count()));
+        tv_count.setText(String.format(getString(R.string.music_count),data.getSongs_count()));
 
         //显示收藏状态
         showCollectionStatus();
