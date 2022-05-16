@@ -517,7 +517,7 @@ public class SheetDetailActivity extends BaseMusicPlayerActivity implements View
         tv_comment_count.setText(String.valueOf(data.getComments_count()));
 
         //音乐数
-        tv_count.setText(String.format(getString(R.string.music_count),data.getSongs_count()));
+        tv_count.setText(String.format(getString(R.string.music_count),data.getSongs()==null?0:data.getSongs().size()));
 
         //显示收藏状态
         showCollectionStatus();

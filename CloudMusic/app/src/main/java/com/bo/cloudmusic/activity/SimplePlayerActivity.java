@@ -30,6 +30,7 @@ import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.ListUtil;
 import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.NotificationUtil;
+import com.bo.cloudmusic.utils.PlayListUtil;
 import com.bo.cloudmusic.utils.ServiceUtil;
 import com.bo.cloudmusic.utils.TimeUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
@@ -405,7 +406,7 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         listManager.changeLoopModel();
 
         //显示循环模式
-        showLoopModel();
+        PlayListUtil.showLoopModel(listManager,bt_loop_model);
     }
     //end点击事件
 
@@ -541,28 +542,6 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
             bt_play.setText("播放");
         }else{
             bt_play.setText("暂停");
-        }
-    }
-
-
-    /**
-     * 显示循环模式
-     */
-    private void showLoopModel() {
-        //获取到当前的循环模式
-        int model = listManager.getLoopModel();
-
-        //显示模式
-        switch (model){
-            case Constant.MODEL_LOOP_LIST:
-                bt_loop_model.setText("列表循环");
-                break;
-            case Constant.MODEL_LOOP_ONE:
-                bt_loop_model.setText("单曲循环");
-                break;
-            default:
-                bt_loop_model.setText("随机循环");
-                break;
         }
     }
 

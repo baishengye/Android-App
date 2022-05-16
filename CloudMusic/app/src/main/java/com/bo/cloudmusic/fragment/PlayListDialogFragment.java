@@ -19,6 +19,7 @@ import com.bo.cloudmusic.Adapter.PlayListAdapter;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.manager.ListManager;
 import com.bo.cloudmusic.service.MusicPlayerService;
+import com.bo.cloudmusic.utils.PlayListUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -84,6 +85,7 @@ public class PlayListDialogFragment extends BaseBottomSheetDialogFragment {
         rv.addItemDecoration(decoration);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     protected void initDatum() {
         super.initDatum();
@@ -98,6 +100,16 @@ public class PlayListDialogFragment extends BaseBottomSheetDialogFragment {
 
         //设置数据
         playListAdapter.replaceData(listManager.getDatum());
+
+        //显示循环模式
+        PlayListUtil.showLoopModel(listManager,tv_loop_model);
+
+        //显示⾳乐数据
+        //真实项⽬中建议字符串都放到strings.xml⽂件中
+        //因为这样更⽅便复⽤，汉化
+        //这⾥只是给⼤家演示
+        //也可以直接这样写
+        tv_count.setText(String.format("(%d)", listManager.getDatum().size()));
     }
 
     @Override
@@ -118,7 +130,7 @@ public class PlayListDialogFragment extends BaseBottomSheetDialogFragment {
 
         //点击子控件播放
         playListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @SuppressLint("NotifyDataSetChanged")
+            @SuppressLint({"NotifyDataSetChanged", "DefaultLocale"})
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 //关闭弹窗
@@ -132,6 +144,7 @@ public class PlayListDialogFragment extends BaseBottomSheetDialogFragment {
                     //并且从adapter中删除数据，实现ui变化
                     playListAdapter.notifyItemRemoved(position);
                     playListAdapter.remove(position);
+                    tv_count.setText(String.format("(%d)", listManager.getDatum().size()));
                 }
             }
         });

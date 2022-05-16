@@ -35,10 +35,10 @@ public class Sheet extends BaseMultiItemEntity{
      * 评论数
      */
     private Integer comments_count = 0;
-    /**
+   /* *//**
      * ⾳乐数
-     */
-    private Integer songs_count = 0;
+     *//*
+    private Integer songs_count = 0;*/
     /**
      * 歌单创建者
      */
@@ -115,13 +115,13 @@ public class Sheet extends BaseMultiItemEntity{
         this.comments_count = comments_count;
     }
 
-    public Integer getSongs_count() {
+    /*public Integer getSongs_count() {
         return songs_count;
     }
 
     public void setSongs_count(Integer songs_count) {
         this.songs_count = songs_count;
-    }
+    }*/
 
     public User getUser() {
         return user;
@@ -165,7 +165,7 @@ public class Sheet extends BaseMultiItemEntity{
                 .append("clicks_count", clicks_count)
                 .append("collections_count", collections_count)
                 .append("comments_count", comments_count)
-                .append("songs_count", songs_count)
+                /*.append("songs_count", songs_count)*/
                 .append("user", user)
                 .append("songs", songs)
                 .append("collection_id", collection_id)
