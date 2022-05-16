@@ -26,6 +26,18 @@ public class Constant {
      */
     public static final String ID = "ID";
 
+
+    /**
+     * 歌单
+     */
+    public static final String SHEET = "SHEET";
+
+
+    /**
+     * 歌曲
+     */
+    public static final String SONG = "SONG";
+
     /**
      * 手机号正则表达式
      * 移动：134 135 136 137 138 139 147 150 151 152 157 158 159 178 182 183 184 187 188 198
@@ -109,4 +121,5 @@ public class Constant {
      * 随机循环
      */
     public static final int MODEL_LOOP_RANDOM=2;
+
 }

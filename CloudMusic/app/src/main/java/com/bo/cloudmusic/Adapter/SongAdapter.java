@@ -1,5 +1,7 @@
 package com.bo.cloudmusic.Adapter;
 
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -20,6 +22,19 @@ public class SongAdapter extends BaseQuickAdapter<Song, BaseViewHolder> {
      * 索引
      */
     private int selectedIndex=-1;
+
+    /**
+     * 音乐监听接口
+     */
+    private SongListener songListener;
+
+    /**
+     * 设置音乐监听器
+     * @return
+     */
+    public void setSongListener(SongListener songListener) {
+        this.songListener=songListener;
+    }
 
     /**
      * 构造方法
@@ -51,6 +66,14 @@ public class SongAdapter extends BaseQuickAdapter<Song, BaseViewHolder> {
         }else{
             helper.setTextColor(R.id.tv_title,mContext.getResources().getColor(R.color.black));
         }
+
+        //设置更多点击事件
+        //可以像PlayListAdapter中那样的方法实现
+        //这⾥就⽤普通⽅法实现
+        View iv_more = helper.getView(R.id.ib_more);
+
+        //设置点击监听
+        iv_more.setOnClickListener(view->songListener.onMoreClick(data));
     }
 
     public void setSelectedIndex(int selectedIndex) {
@@ -68,5 +91,15 @@ public class SongAdapter extends BaseQuickAdapter<Song, BaseViewHolder> {
         if (selectedIndex!=-1){
             notifyItemChanged(selectedIndex);
         }
+    }
+
+    /**
+     * 监听器
+     */
+    public interface SongListener{
+        /**
+         * 音乐更多点击
+         */
+        void onMoreClick(Song data);
     }
 }

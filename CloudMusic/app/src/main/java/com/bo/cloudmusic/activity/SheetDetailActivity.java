@@ -36,6 +36,7 @@ import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.domain.response.ListResponse;
+import com.bo.cloudmusic.fragment.SongMoreDialogFragment;
 import com.bo.cloudmusic.listener.HttpObserver;
 import com.bo.cloudmusic.listener.MusicPlayerListener;
 import com.bo.cloudmusic.manager.ListManager;
@@ -68,7 +69,7 @@ import retrofit2.Response;
 /**
  * 歌单详情界面
  */
-public class SheetDetailActivity extends BaseMusicPlayerActivity implements View.OnClickListener {
+public class SheetDetailActivity extends BaseMusicPlayerActivity implements View.OnClickListener, SongAdapter.SongListener {
 
     private static final String TAG = "SheetDetailActivity";
 
@@ -251,6 +252,9 @@ public class SheetDetailActivity extends BaseMusicPlayerActivity implements View
                 play(position);
             }
         });
+
+        //设置音乐更多点击事件
+        adapter.setSongListener(this);
     }
 
     /**
@@ -708,6 +712,14 @@ public class SheetDetailActivity extends BaseMusicPlayerActivity implements View
 
         //选中当前播放的音乐
         scrollPositionAsync();
+    }
+
+    @Override
+    public void onMoreClick(Song song) {
+        //ToastUtil.successShortToast("点击更多");
+
+        //显示歌曲对话框
+        SongMoreDialogFragment.show(getSupportFragmentManager(),this.data,song);
     }
 
     //end播放管理监听器的接口
