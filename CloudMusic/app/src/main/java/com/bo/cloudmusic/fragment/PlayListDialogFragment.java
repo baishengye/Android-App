@@ -4,14 +4,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.bo.cloudmusic.Adapter.PlayListAdapter;
 import com.bo.cloudmusic.R;
+import com.bo.cloudmusic.manager.ListManager;
+import com.bo.cloudmusic.service.MusicPlayerService;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import butterknife.BindView;
 
 /**
  * 迷你控制器 播放列表
@@ -23,6 +32,71 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
  * 可以进⼀步封装
  */
 public class PlayListDialogFragment extends BaseBottomSheetDialogFragment {
+
+    /**
+     * 循环模式
+     */
+    @BindView(R.id.tv_loop_model)
+    TextView tv_loop_model;
+
+    /**
+     * 音乐数量
+     */
+    @BindView(R.id.tv_count)
+    TextView tv_count;
+
+    /**
+     * 列表控件
+     */
+    @BindView(R.id.rv)
+    RecyclerView rv;
+
+    /**
+     * 适配器
+     */
+    private PlayListAdapter playListAdapter;
+
+    /**
+     * 布局管理器
+     */
+    private LinearLayoutManager linearLayoutManager;
+
+    /**
+     * 列表管理器
+     */
+    private ListManager listManager;
+
+    @Override
+    protected void initView() {
+        super.initView();
+
+        //固定尺寸
+        rv.setHasFixedSize(true);
+
+        //设置布局管理器
+        linearLayoutManager = new LinearLayoutManager(getMainActivity());
+        rv.setLayoutManager(linearLayoutManager);
+
+        //添加分割线
+        DividerItemDecoration decoration = new DividerItemDecoration(getMainActivity(), RecyclerView.VERTICAL);
+        rv.addItemDecoration(decoration);
+    }
+
+    @Override
+    protected void initDatum() {
+        super.initDatum();
+
+        //创建列表管理器
+        listManager = MusicPlayerService.getListManager(getMainActivity());
+
+        //创建适配器
+        playListAdapter = new PlayListAdapter(R.layout.item_play_list);
+
+        rv.setAdapter(playListAdapter);
+
+        //设置数据
+        playListAdapter.replaceData(listManager.getDatum());
+    }
 
     /**
      * 创建布局

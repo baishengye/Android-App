@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bo.cloudmusic.activity.BaseCommonActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import butterknife.ButterKnife;
@@ -74,4 +75,12 @@ public abstract class BaseBottomSheetDialogFragment extends BottomSheetDialogFra
      * @return
      */
     public abstract View getLayoutView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
+
+    /**
+     * 获取Activity
+     * @return
+     */
+    protected BaseCommonActivity getMainActivity(){
+        return (BaseCommonActivity) getActivity();
+    }
 }
