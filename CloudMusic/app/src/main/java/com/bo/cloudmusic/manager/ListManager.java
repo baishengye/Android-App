@@ -67,4 +67,9 @@ public interface ListManager {
      * @param position
      */
     void delete(int position);
+
+    /**
+     * 删除所有音乐
+     */
+    void deleteAll();
 }

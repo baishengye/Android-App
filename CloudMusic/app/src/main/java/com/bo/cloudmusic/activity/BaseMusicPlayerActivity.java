@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.Song;
+import com.bo.cloudmusic.domain.event.PlayListChangedEvent;
 import com.bo.cloudmusic.fragment.PlayListDialogFragment;
 import com.bo.cloudmusic.listener.MusicPlayerListener;
 import com.bo.cloudmusic.manager.ListManager;
@@ -16,6 +17,10 @@ import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.service.MusicPlayerService;
 import com.bo.cloudmusic.utils.ImageUtil;
 import com.bo.cloudmusic.utils.LogUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -128,6 +133,12 @@ public class BaseMusicPlayerActivity extends BaseTitleActivity implements MusicP
         musicPlayerManager.addMusicPlayerListener(this);
         //显示迷你播放控制器数据
         showSmallPlayControlData();
+
+        //注册播放列表改变了监听
+        //之所以在这⾥注册是因为
+        //只是当前显示的界⾯监听就⾏了
+        //其他界⾯再次显示的时候会执⾏onResume⽅法
+        EventBus.getDefault().register(this);
     }
 
     /**
@@ -138,6 +149,19 @@ public class BaseMusicPlayerActivity extends BaseTitleActivity implements MusicP
         super.onPause();
         //移除播放管理器监听器
         musicPlayerManager.removeMusicPlayerListener(this);
+
+        //离开这个界面后要注销
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * 事件:播放列表改变
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPlayListChangedEvent(PlayListChangedEvent event){
+        //显示迷你播放控制器数据
+        showSmallPlayControlData();
     }
 
     /**

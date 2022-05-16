@@ -44,5 +44,8 @@ public class PlayListAdapter extends BaseQuickAdapter<Song, BaseViewHolder> {
             //颜⾊设置为⿊⾊
             helper.setTextColor(R.id.tv_title, mContext.getResources().getColor(R.color.text));
         }
+
+        //删除点击事件
+        helper.addOnClickListener(R.id.iv_remove);
     }
 }

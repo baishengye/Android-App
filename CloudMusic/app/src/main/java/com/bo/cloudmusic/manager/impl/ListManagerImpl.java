@@ -202,6 +202,18 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
         }
 
     }
+
+    /**
+     * 删除列表中的所有音乐
+     */
+    @Override
+    public void deleteAll() {
+        if(musicPlayerManager.isPlaying()){
+            musicPlayerManager.pause();
+        }
+
+        datum.clear();
+    }
     //end对列表中的歌曲操作
 
 

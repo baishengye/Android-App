@@ -16,6 +16,7 @@
 
     <!--删除按钮-->
     <ImageView
+        android:clickable="true"
         android:id="@+id/iv_remove"
         android:scaleType="center"
         android:layout_width="@dimen/item_title_height"
