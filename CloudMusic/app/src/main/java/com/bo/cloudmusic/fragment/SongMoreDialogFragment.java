@@ -14,13 +14,17 @@ import androidx.fragment.app.FragmentManager;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.Song;
+import com.bo.cloudmusic.domain.event.CollectSongClickEvent;
 import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.ImageUtil;
 import com.bo.cloudmusic.utils.PreferencesUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.Serializable;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class SongMoreDialogFragment extends BaseBottomSheetDialogFragment{
 
@@ -136,5 +140,17 @@ public class SongMoreDialogFragment extends BaseBottomSheetDialogFragment{
 
         //显示
         fragment.show(fragmentManager,"song_more_dialog");
+    }
+
+    /**
+     * 收藏歌曲到歌单按钮点击
+     */
+    @OnClick(R.id.ll_collect_song)
+    public void onCollectSongClick(){
+        //关闭对话框
+        dismiss();
+
+        //事件回调到activity中
+        EventBus.getDefault().post(new CollectSongClickEvent(song));
     }
 }

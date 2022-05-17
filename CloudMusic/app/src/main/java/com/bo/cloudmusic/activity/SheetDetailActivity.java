@@ -34,6 +34,7 @@ import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.api.Api;
 import com.bo.cloudmusic.domain.Sheet;
 import com.bo.cloudmusic.domain.Song;
+import com.bo.cloudmusic.domain.event.CollectSongClickEvent;
 import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.domain.response.ListResponse;
 import com.bo.cloudmusic.fragment.SongMoreDialogFragment;
@@ -57,6 +58,8 @@ import com.github.florent37.glidepalette.BitmapPalette;
 import com.github.florent37.glidepalette.GlidePalette;
 
 import org.apache.commons.lang3.StringUtils;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -723,4 +726,13 @@ public class SheetDetailActivity extends BaseMusicPlayerActivity implements View
     }
 
     //end播放管理监听器的接口
+
+    /**
+     * 主线程中运行
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onCollectSongClickEvent(CollectSongClickEvent event){
+        //LogUtil.d(TAG,"onCollectSongClickEvent:"+event.getSong().getTitle());
+    }
 }
