@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 
 import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.listener.MusicPlayerListener;
+import com.bo.cloudmusic.manager.ListManager;
 import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.service.MusicPlayerService;
 import com.bo.cloudmusic.utils.Constant;
@@ -35,12 +36,20 @@ public class MusicNotificationManager implements MusicPlayerListener {
     private final MusicPlayerManager musicPlayerManager;
 
     /**
+     * 音乐列表管理器
+     */
+    private final ListManager listManager;
+
+    /**
      * 音乐通知栏广播接收器
      */
     private BroadcastReceiver musicNotificationBroadcastReceiver;
 
     public MusicNotificationManager(Context context) {
         this.context =context.getApplicationContext();
+
+        //初始化列表管理器
+        listManager = MusicPlayerService.getListManager(this.context);
 
         //初始化音乐播放管理器
         musicPlayerManager = MusicPlayerService.getMusicPlayerManager(this.context);
@@ -70,13 +79,17 @@ public class MusicNotificationManager implements MusicPlayerListener {
 
                 switch (action){
                     case Constant.ACTION_PLAY:
-                        ToastUtil.successShortToast("ACTION_PLAY");
+                        if(musicPlayerManager.isPlaying()){
+                            listManager.pause();
+                        }else{
+                            listManager.resume();
+                        }
                         break;
                     case Constant.ACTION_NEXT:
-                        ToastUtil.successShortToast("ACTION_NEXT");
+                        listManager.play(listManager.next());
                         break;
                     case Constant.ACTION_PREVIOUS:
-                        ToastUtil.successShortToast("ACTION_PREVIOUS");
+                        listManager.play(listManager.previous());
                         break;
                     case Constant.ACTION_LIKE:
                         ToastUtil.successShortToast("ACTION_LIKE");
