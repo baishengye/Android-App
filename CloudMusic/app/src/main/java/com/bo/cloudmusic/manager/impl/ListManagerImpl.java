@@ -26,8 +26,9 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
 
     /**
      * 列表管理器实例
+     * volatile防止指令重排
      */
-    private static ListManagerImpl instance;
+    private static volatile ListManagerImpl instance;
 
     /**
      * 音乐播放管理器实例

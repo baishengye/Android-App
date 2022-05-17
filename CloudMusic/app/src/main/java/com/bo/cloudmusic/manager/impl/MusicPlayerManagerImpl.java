@@ -34,7 +34,7 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager,MediaPlayer.On
     /**
      * 单例
      */
-    private static MusicPlayerManagerImpl instance;
+    private static volatile MusicPlayerManagerImpl instance;
 
     /**
      * 上下文

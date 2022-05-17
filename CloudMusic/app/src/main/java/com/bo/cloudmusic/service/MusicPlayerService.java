@@ -10,6 +10,7 @@ import android.os.IBinder;
 import com.bo.cloudmusic.manager.ListManager;
 import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.manager.impl.ListManagerImpl;
+import com.bo.cloudmusic.manager.impl.MusicNotificationManager;
 import com.bo.cloudmusic.manager.impl.MusicPlayerManagerImpl;
 import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.NotificationUtil;
@@ -21,6 +22,8 @@ import com.bo.cloudmusic.utils.ServiceUtil;
 public class MusicPlayerService extends Service {
 
     private static final String TAG = "MusicPlayerService";
+
+    private MusicNotificationManager musicNotificationManager;
 
     /**
      * 构造函数
@@ -37,6 +40,7 @@ public class MusicPlayerService extends Service {
         //尝试启动服务
         ServiceUtil.startService(context,MusicPlayerService.class);
 
+        //返回一个音乐播放管理器
         return MusicPlayerManagerImpl.getInstance(context);
     }
 
@@ -49,6 +53,7 @@ public class MusicPlayerService extends Service {
         //尝试启动服务
         ServiceUtil.startService(context,MusicPlayerService.class);
 
+        //返回一个列表管理器
         return ListManagerImpl.getInstance(context);
     }
 
@@ -59,6 +64,9 @@ public class MusicPlayerService extends Service {
     public void onCreate() {
         super.onCreate();
         LogUtil.d(TAG,"onCreate");
+
+        //初始化音乐通知管理器
+        musicNotificationManager = MusicNotificationManager.getInstance(getApplicationContext());
     }
 
     /**
