@@ -95,12 +95,11 @@
     <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
     <orderEntry type="library" name="Gradle: androidx.constraintlayout:constraintlayout-solver:2.0.4" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.7" level="project" />
-    <orderEntry type="library" name="Gradle: com.mob:MobToolsMCFP:2022.0218.1419" level="project" />
-    <orderEntry type="library" name="Gradle: com.mob:MobCommonsMCFP:2022.0218.1419" level="project" />
-    <orderEntry type="library" name="Gradle: com.mob:MobGUI:2019.0306.1850" level="project" />
-    <orderEntry type="library" name="Gradle: cn.sharesdk:ShareSDK-SinaWeiboX:3.9.8" level="project" />
-    <orderEntry type="library" name="Gradle: cn.sharesdk:ShareSDK-QQ:3.9.8" level="project" />
-    <orderEntry type="library" name="Gradle: cn.sharesdk:ShareSDK-LoopShare:3.9.8" level="project" />
+    <orderEntry type="library" name="Gradle: com.mob:MobGUIULT:2022.0506.1105" level="project" />
+    <orderEntry type="library" name="Gradle: com.mob:MobSupportV1:2022.0506.1105" level="project" />
+    <orderEntry type="library" name="Gradle: cn.sharesdk:ShareSDK-SinaWeiboX:3.9.9" level="project" />
+    <orderEntry type="library" name="Gradle: cn.sharesdk:ShareSDK-QQ:3.9.9" level="project" />
+    <orderEntry type="library" name="Gradle: cn.sharesdk:ShareSDK-LoopShare:3.9.9" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.commons:commons-lang3:3.9" level="project" />
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:disklrucache:4.13.0" level="project" />
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:annotations:4.13.0" level="project" />
@@ -165,10 +164,10 @@
     <orderEntry type="library" name="Gradle: com.squareup.leakcanary:leakcanary-object-watcher-android:2.0-beta-2@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.tracing:tracing:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation-experimental:1.1.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.mob:MobGuardMCFP:2022.0218.1419@aar" level="project" />
-    <orderEntry type="library" name="Gradle: cn.sharesdk:ShareSDK:3.9.8@aar" level="project" />
-    <orderEntry type="library" name="Gradle: cn.sharesdk:ShareSDK-SinaWeiboX-Core:3.9.8@aar" level="project" />
-    <orderEntry type="library" name="Gradle: cn.sharesdk:OneKeyShare:3.9.8@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.mob:MobCoreULT:2022.0506.1105@aar" level="project" />
+    <orderEntry type="library" name="Gradle: cn.sharesdk:ShareSDK:3.9.9@aar" level="project" />
+    <orderEntry type="library" name="Gradle: cn.sharesdk:ShareSDK-SinaWeiboX-Core:3.9.9@aar" level="project" />
+    <orderEntry type="library" name="Gradle: cn.sharesdk:OneKeyShare:3.9.9@aar" level="project" />
     <orderEntry type="library" name="Gradle: me.relex:circleindicator:2.1.6@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.hackware1993:MagicIndicator:1.6.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.GrenderG:Toasty:1.5.2@aar" level="project" />

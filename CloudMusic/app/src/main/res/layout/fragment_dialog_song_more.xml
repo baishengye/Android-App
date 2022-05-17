@@ -188,6 +188,7 @@
 
         <!--按钮容器-->
         <LinearLayout
+            android:clickable="true"
             android:visibility="gone"
             android:id="@+id/ll_delete_song_in_sheet"
             style="@style/ItemContainer">
