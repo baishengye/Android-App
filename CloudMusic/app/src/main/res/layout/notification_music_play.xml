@@ -4,13 +4,62 @@
 但如果是真实项⽬
 还需要在测试其他⼿机-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:text="这是⼩通知"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"  />
-
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+    <!--封⾯-->
+    <ImageView
+        android:id="@+id/iv_banner"
+        android:scaleType="centerCrop"
+        android:src="@drawable/placeholder"
+        android:layout_width="@dimen/button_height_small"
+        android:layout_height="@dimen/button_height_small" />
+    <!--内容容器-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/padding_meddle"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content">
+        <!--标题-->
+        <TextView
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:id="@+id/tv_title"
+            android:text="这是歌曲名称"
+            android:textColor="@color/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <!--信息-->
+        <TextView
+            android:textSize="@dimen/text_small"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/light_grey"
+            android:text="这是歌⼿信息"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <!--播放按钮-->
+    <ImageView
+        android:id="@+id/iv_play"
+        android:scaleType="center"
+        android:src="@drawable/ic_music_notification_play"
+        android:layout_width="@dimen/button_height_small"
+        android:layout_height="@dimen/button_height_small" />
+    <!--下⼀⾸-->
+    <ImageView
+        android:id="@+id/iv_next"
+        android:scaleType="center"
+        android:src="@drawable/ic_music_notification_next"
+        android:layout_width="@dimen/button_height_small"
+        android:layout_height="@dimen/button_height_small" />
+    <!--歌词-->
+    <ImageView
+        android:id="@+id/iv_lyric"
+        android:scaleType="center"
+        android:src="@drawable/ic_music_notification_lyric"
+        android:layout_width="@dimen/button_height_small"
+        android:layout_height="@dimen/button_height_small" />
 </LinearLayout>

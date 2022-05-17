@@ -115,8 +115,8 @@ public class NotificationUtil {
                 .setAutoCancel(false)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-                .setCustomBigContentView(contentView)
-                .setCustomBigContentView(contentBigView);
+                .setCustomBigContentView(contentBigView)
+                .setCustomContentView(contentView);
 
         //显示通知
         NotificationUtil.notify(context,Constant.NOTIFICATION_MUSIC_ID, builder.build());
