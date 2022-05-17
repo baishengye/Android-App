@@ -126,4 +126,14 @@ public class Constant {
      * 音乐播放通知id
      */
     public static final int NOTIFICATION_MUSIC_ID = 10000;
+
+    /**
+     * 音乐播放通知-播放
+     */
+    public static final String ACTION_PLAY = "com.bo.cloudmusic.ACTION_PLAY";
+    public static final String ACTION_PREVIOUS = "com.bo.cloudmusic.ACTION_PREVIOUS";
+    public static final String ACTION_NEXT = "com.bo.cloudmusic.ACTION_NEXT";
+    public static final String ACTION_LIKE = "com.bo.cloudmusic.ACTION_LIKE";
+    public static final String ACTION_LYRIC = "com.bo.cloudmusic.ACTION_LYRIC";
+    public static final String ACTION_UNLOCK_LYRIC = "com.bo.cloudmusic.ACTION_UNLOCK_LYRIC";
 }

@@ -3,11 +3,14 @@ package com.bo.cloudmusic.utils;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import androidx.annotation.NonNull;
@@ -144,10 +147,28 @@ public class NotificationUtil {
 
         setNotificationData(song, contentView, isPlaying,resource);
 
+        //播放按钮点击事件
+        //PendingIntent
+        //可以理解为某个时间
+        //就会触发的事件
+
+        //FLAG_UPDATE_CURRENT
+        //会替换掉原来的⼴播
+        //更深⼊的原理在详解课程中设置
+        onNotificationChildClick(context, contentView,Constant.ACTION_PLAY,R.id.iv_play);
+        onNotificationChildClick(context, contentView,Constant.ACTION_NEXT,R.id.iv_next);
+        onNotificationChildClick(context, contentView,Constant.ACTION_LYRIC,R.id.iv_lyric);
+
         //创建大通知
         RemoteViews contentBigView = new RemoteViews(context.getPackageName(), R.layout.notification_music_play_large);
 
         setNotificationData(song, contentBigView, isPlaying,resource);
+
+        onNotificationChildClick(context, contentBigView,Constant.ACTION_PLAY,R.id.iv_play);
+        onNotificationChildClick(context, contentBigView,Constant.ACTION_NEXT,R.id.iv_next);
+        onNotificationChildClick(context, contentBigView,Constant.ACTION_LYRIC,R.id.iv_lyric);
+        onNotificationChildClick(context, contentBigView,Constant.ACTION_LIKE,R.id.iv_like);
+        onNotificationChildClick(context, contentBigView,Constant.ACTION_PREVIOUS,R.id.iv_previous);
 
         //构建一个通知
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, IMPORTANCE_LOW_CHANNEL_ID)
@@ -159,6 +180,25 @@ public class NotificationUtil {
 
         //显示通知
         NotificationUtil.notify(context,Constant.NOTIFICATION_MUSIC_ID, builder.build());
+    }
+
+    /**
+     * 点击通知栏中的按钮时调用发送广播
+     * @param context
+     * @param contentView
+     * @param actionKey
+     * @param viewId
+     */
+    private static void onNotificationChildClick(Context context, RemoteViews contentView, String actionKey, int viewId) {
+        //新建一个广播的意图
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
+                actionKey.hashCode(),
+                new Intent(actionKey),
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //设置到播放按钮
+        //点击按钮通知栏就发送一个广播
+        contentView.setOnClickPendingIntent(viewId,pendingIntent);
     }
 
     /**
