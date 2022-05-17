@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.widget.RemoteViews;
 
 import androidx.core.app.NotificationCompat;
 
@@ -20,7 +21,7 @@ public class NotificationUtil {
 
     private final static String TAG="NotificationUtil";
 
-    private static final String IMPORTANCE_CHANNEL_ID = "IMPORTANCE_CHANNEL_ID";
+    private static final String IMPORTANCE_LOW_CHANNEL_ID = "IMPORTANCE_LOW_CHANNEL_ID";
 
     private static NotificationManager notificationManager;
 
@@ -50,18 +51,10 @@ public class NotificationUtil {
 
         getNotificationManager(context);
 
-        //创建通知渠道
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){//android8.0以上才会用
-            //渠道Id,渠道名称,重要级别
-            //配置一个通知渠道
-            NotificationChannel channel = new NotificationChannel(IMPORTANCE_CHANNEL_ID, "通知名称", NotificationManager.IMPORTANCE_LOW);
-
-            //创建一个通知渠道
-            notificationManager.createNotificationChannel(channel);
-        }
+        createNotificationChannel();
 
         //创建一个通知
-        Notification notification = new NotificationCompat.Builder(context, IMPORTANCE_CHANNEL_ID)
+        Notification notification = new NotificationCompat.Builder(context, IMPORTANCE_LOW_CHANNEL_ID)
                 .setContentTitle("通知标题")
                 .setContentText("通知内容")
                 .setSmallIcon(R.mipmap.ic_launcher)
@@ -70,6 +63,18 @@ public class NotificationUtil {
 
 
         return notification;
+    }
+
+    private static void createNotificationChannel() {
+        //创建通知渠道
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){//android8.0以上才会用
+            //渠道Id,渠道名称,重要级别
+            //配置一个通知渠道
+            NotificationChannel channel = new NotificationChannel(IMPORTANCE_LOW_CHANNEL_ID, "通知名称", NotificationManager.IMPORTANCE_LOW);
+
+            //创建一个通知渠道
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     private static void getNotificationManager(Context context) {
@@ -91,6 +96,46 @@ public class NotificationUtil {
      * 显示音乐通知
      */
     public static void showMusicNotification(Context context, Song song,boolean isPlaying) {
-        LogUtil.d(TAG,"showMusicNotification:"+song.getTitle()+","+isPlaying);
+
+        //获取通知管理器
+        getNotificationManager(context);
+
+        //创建一个通知渠道
+        createNotificationChannel();
+
+        //创建RemoteView
+        //显示自定义通知固定写法
+        RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification_music_play);
+
+        //创建大通知
+        RemoteViews contentBigView = new RemoteViews(context.getPackageName(), R.layout.notification_music_play_large);
+
+        //构建一个通知
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, IMPORTANCE_LOW_CHANNEL_ID)
+                .setAutoCancel(false)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+                .setCustomBigContentView(contentView)
+                .setCustomBigContentView(contentBigView);
+
+        //显示通知
+        NotificationUtil.notify(context,Constant.NOTIFICATION_MUSIC_ID, builder.build());
+
+
+    }
+
+    /**
+     * 显示通知
+     * @param context
+     * @param id
+     * @param notification
+     */
+    private static void notify(Context context, int id, Notification notification) {
+
+        //获取通知管理器
+        getNotificationManager(context);
+
+        //显示通知
+        notificationManager.notify(id,notification);
     }
 }
