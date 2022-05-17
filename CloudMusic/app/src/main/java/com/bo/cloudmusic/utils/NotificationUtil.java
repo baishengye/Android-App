@@ -11,11 +11,14 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 
 import com.bo.cloudmusic.R;
+import com.bo.cloudmusic.domain.Song;
 
 /**
  * 通知相关的工具类
  */
 public class NotificationUtil {
+
+    private final static String TAG="NotificationUtil";
 
     private static final String IMPORTANCE_CHANNEL_ID = "IMPORTANCE_CHANNEL_ID";
 
@@ -82,5 +85,12 @@ public class NotificationUtil {
      */
     public static void showNotification(int id,Notification notification) {
         notificationManager.notify(id,notification);
+    }
+
+    /***
+     * 显示音乐通知
+     */
+    public static void showMusicNotification(Context context, Song song,boolean isPlaying) {
+        LogUtil.d(TAG,"showMusicNotification:"+song.getTitle()+","+isPlaying);
     }
 }
