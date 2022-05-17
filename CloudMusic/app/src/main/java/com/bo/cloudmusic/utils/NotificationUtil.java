@@ -6,13 +6,20 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.widget.RemoteViews;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.Song;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 /**
  * 通知相关的工具类
@@ -97,6 +104,34 @@ public class NotificationUtil {
      */
     public static void showMusicNotification(Context context, Song song,boolean isPlaying) {
 
+        //先加载图⽚
+        //因为我们的图⽚是在线的
+        //⽽显示通知时没法直接显示⽹络图⽚
+        //所以需要我们先把图⽚下载下来
+        //创建请求选项
+        RequestOptions options = ImageUtil.getCommonRequestOptions();
+
+        //下载图片
+        Glide.with(context)
+                .asBitmap()
+                .load(ResourceUtil.resourceUri(song.getBanner()))
+                .apply(options)
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        //图片下载完成
+                        showMusicNotification(context, song, isPlaying,resource);
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                        //清除下载
+                    }
+                });
+
+    }
+
+    private static void showMusicNotification(Context context, Song song, boolean isPlaying,Bitmap resource) {
         //获取通知管理器
         getNotificationManager(context);
 
@@ -107,12 +142,12 @@ public class NotificationUtil {
         //显示自定义通知固定写法
         RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification_music_play);
 
-        setNotificationData(song, contentView,isPlaying);
+        setNotificationData(song, contentView, isPlaying,resource);
 
         //创建大通知
         RemoteViews contentBigView = new RemoteViews(context.getPackageName(), R.layout.notification_music_play_large);
 
-        setNotificationData(song, contentBigView,isPlaying);
+        setNotificationData(song, contentBigView, isPlaying,resource);
 
         //构建一个通知
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, IMPORTANCE_LOW_CHANNEL_ID)
@@ -124,8 +159,6 @@ public class NotificationUtil {
 
         //显示通知
         NotificationUtil.notify(context,Constant.NOTIFICATION_MUSIC_ID, builder.build());
-
-
     }
 
     /**
@@ -133,9 +166,9 @@ public class NotificationUtil {
      * @param song
      * @param contentView
      */
-    private static void setNotificationData(Song song, RemoteViews contentView ,boolean isPlaying) {
+    private static void setNotificationData(Song song, RemoteViews contentView ,boolean isPlaying,Bitmap resource) {
         //显示数据
-        //TODO 显示封面
+        contentView.setImageViewBitmap(R.id.iv_banner,resource);
 
         //标题
         contentView.setTextViewText(R.id.tv_title, song.getTitle());
