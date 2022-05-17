@@ -107,21 +107,46 @@ public class NotificationUtil {
         //显示自定义通知固定写法
         RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification_music_play);
 
+        setNotificationData(song, contentView,isPlaying);
+
         //创建大通知
         RemoteViews contentBigView = new RemoteViews(context.getPackageName(), R.layout.notification_music_play_large);
+
+        setNotificationData(song, contentBigView,isPlaying);
 
         //构建一个通知
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, IMPORTANCE_LOW_CHANNEL_ID)
                 .setAutoCancel(false)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-                .setCustomBigContentView(contentBigView)
-                .setCustomContentView(contentView);
+                .setCustomContentView(contentView)
+                .setCustomBigContentView(contentBigView);
 
         //显示通知
         NotificationUtil.notify(context,Constant.NOTIFICATION_MUSIC_ID, builder.build());
 
 
+    }
+
+    /**
+     * 设置通知里的数据
+     * @param song
+     * @param contentView
+     */
+    private static void setNotificationData(Song song, RemoteViews contentView ,boolean isPlaying) {
+        //显示数据
+        //TODO 显示封面
+
+        //标题
+        contentView.setTextViewText(R.id.tv_title, song.getTitle());
+
+        //专辑信息
+        contentView.setTextViewText(R.id.tv_info,String.format("%s - 专辑1", song.getSinger().getNickname()));
+
+        //显示播放按钮
+        int playButtonResourceId = isPlaying ? R.drawable.ic_music_notification_pause:R.drawable.ic_music_notification_play;
+
+        contentView.setImageViewResource(R.id.iv_play,playButtonResourceId);
     }
 
     /**
