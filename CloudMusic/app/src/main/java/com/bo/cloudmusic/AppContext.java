@@ -21,6 +21,7 @@ import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
 import es.dmoral.toasty.Toasty;
+import io.realm.Realm;
 
 /**
  * 全局Application
@@ -55,6 +56,11 @@ public class AppContext extends Application {
         // 调用提交隐私协议函数MobSDK.submitPolicyGrantResult提交隐私协议。
         // 反之，如果用户不同意《隐私政策》授权，则不能调用MobSDK.submitPolicyGrantResult提交隐私协议。
         MobSDK.submitPolicyGrantResult(true,null);
+
+        //初始化Realm数据库
+        //还有更多的初始化配置
+        //官⽹有介绍
+        Realm.init(context);
     }
 
     @Override

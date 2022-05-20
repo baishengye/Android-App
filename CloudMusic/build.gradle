@@ -11,6 +11,9 @@ buildscript {
     dependencies {
         // 2.注册MobSDK
         classpath "com.mob.sdk:MobSDK:2018.0319.1724"
+        //realm数据库
+        //https://realm.io/docs/java/latest
+        classpath "io.realm:realm-gradle-plugin:6.0.0"
     }
 }
 

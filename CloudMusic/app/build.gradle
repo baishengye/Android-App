@@ -3,6 +3,9 @@ plugins {
 
     //SharedSDK插件
     id 'com.mob.sdk'
+
+    //realm数据库
+    id 'realm-android'
 }
 
 android {
