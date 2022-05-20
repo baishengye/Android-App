@@ -70,6 +70,11 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
      */
     private int model= Constant.MODEL_LOOP_LIST;
 
+    /**
+     * 最后依次保存的时间
+     */
+    private long lastTime;
+
     private ListManagerImpl(Context context) {
         this.context=context.getApplicationContext();
 
@@ -302,8 +307,21 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
     }
 
     @Override
-    public void onProgress(Song data) {
+    public void onProgress(Song song) {
+        //保存当前⾳乐播放进度
+        //因为Android应⽤不太好监听应⽤被杀掉
+        //所以这⾥就在这⾥保存
+        //真实项⽬肯定需要对不同版本
+        //不同⼿机进⾏适配
+        //⽽不是采⽤下⾯的⽅法保存
+        long currentTimeMillis = System.currentTimeMillis();
 
+        if(currentTimeMillis- lastTime >Constant.SAVE_PROGRESS_TIME){
+            //保存数据
+            orm.saveSong(song);
+
+            lastTime=currentTimeMillis;
+        }
     }
 
     /**

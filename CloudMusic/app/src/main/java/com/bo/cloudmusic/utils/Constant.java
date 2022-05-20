@@ -137,4 +137,9 @@ public class Constant {
     public static final String ACTION_LYRIC = "com.bo.cloudmusic.ACTION_LYRIC";
     public static final String ACTION_UNLOCK_LYRIC = "com.bo.cloudmusic.ACTION_UNLOCK_LYRIC";
     public static final String ACTION_MUSIC_PLAY_CLICK = "com.bo.cloudmusic.ACTION_MUSIC_PLAY_CLICK";
+
+    /**
+     * 保存播放进度间隔时间:毫秒
+     */
+    public static final Integer SAVE_PROGRESS_TIME = 1000;
 }
