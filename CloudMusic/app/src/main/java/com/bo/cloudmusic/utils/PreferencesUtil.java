@@ -36,6 +36,11 @@ public class PreferencesUtil {
      */
     private static final String USER_ID = "USER_ID";
 
+    /**
+     * 最后播放音乐Id的key
+     */
+    private static final String LAST_PLAY_SONG_ID = "LAST_PLAY_SONG_ID";
+
 
     /**
      * 上下文
@@ -94,6 +99,22 @@ public class PreferencesUtil {
     public void logout() {
         delete(USER_ID);
         delete(SESSION);
+    }
+
+    /**
+     * 获取最后播放的音乐id
+     * @return
+     */
+    public String getLastPlaySongId(){
+        return preference.getString(LAST_PLAY_SONG_ID,null);
+    }
+
+    /**
+     * 设置最后播放的音乐id
+     * @param id
+     */
+    public void setLastPlaySongId(String id){
+        putString(LAST_PLAY_SONG_ID,id);
     }
 
     /**

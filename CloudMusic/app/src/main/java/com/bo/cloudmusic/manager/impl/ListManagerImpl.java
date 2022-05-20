@@ -16,6 +16,7 @@ import com.bo.cloudmusic.utils.DataUtil;
 import com.bo.cloudmusic.utils.ListUtil;
 import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.ORMUtil;
+import com.bo.cloudmusic.utils.PreferencesUtil;
 import com.bo.cloudmusic.utils.ResourceUtil;
 
 import java.util.LinkedList;
@@ -55,6 +56,11 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
     private final ORMUtil orm;
 
     /**
+     * 偏好设置工具
+     */
+    private final PreferencesUtil sp;
+
+    /**
      * 正在播放的音乐
      */
     private Song data;
@@ -86,6 +92,9 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
 
         //初始化数据库工具类
         orm = ORMUtil.getInstance(this.context);
+
+        //初始化偏好设置工具类
+        sp = PreferencesUtil.getInstance(this.context);
     }
 
     public static ListManager getInstance(Context context) {
@@ -139,6 +148,9 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
 
         //播放
         musicPlayerManager.play(ResourceUtil.resourceUri(data.getUri()),data);
+
+        //保存最后播放音乐的id
+        sp.setLastPlaySongId(data.getId());
     }
 
     @Override
