@@ -66,7 +66,7 @@ public class BaseMusicPlayerActivity extends BaseTitleActivity implements MusicP
         LogUtil.d(TAG, "onPlayControlSmallClick");
 
         //跳转到简单播放界面
-        SimplePlayerActivity.start(getMainActivity());
+        startMusicPlayerActivity();
     }
     /**
      * 迷你播放控制器 播放暂停按钮点击
@@ -250,6 +250,14 @@ public class BaseMusicPlayerActivity extends BaseTitleActivity implements MusicP
      */
     private void showPlayListDialog() {
         PlayListDialogFragment.show(getSupportFragmentManager());//兼容
+    }
+
+    /**
+     * 启动音乐播放界面
+     */
+    protected void startMusicPlayerActivity() {
+        //启动音乐播放界面
+        SimplePlayerActivity.start(getMainActivity());
     }
 
     @Override

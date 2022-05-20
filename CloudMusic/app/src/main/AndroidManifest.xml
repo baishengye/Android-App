@@ -81,7 +81,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.随波云音乐.NoActionBar.StatusBarTransparent" />
     </application>
 

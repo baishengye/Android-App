@@ -17,6 +17,7 @@ import com.bo.cloudmusic.Adapter.MainAdapter;
 import com.bo.cloudmusic.activity.BaseMusicPlayerActivity;
 import com.bo.cloudmusic.activity.BaseTitleActivity;
 import com.bo.cloudmusic.activity.SettingActivity;
+import com.bo.cloudmusic.activity.SimplePlayerActivity;
 import com.bo.cloudmusic.activity.WebViewActivity;
 import com.bo.cloudmusic.api.Api;
 import com.bo.cloudmusic.domain.User;
@@ -229,6 +230,9 @@ public class MainActivity extends BaseMusicPlayerActivity {
 
             //显示广告界面
             WebViewActivity.start(getMainActivity(),"活动标题",intent.getStringExtra(Constant.URL));
+        }else if(Constant.ACTION_MUSIC_PLAY_CLICK.equals(intent.getAction())){
+            //如果是从通知栏点击来的
+            startMusicPlayerActivity();
         }
     }
 

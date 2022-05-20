@@ -277,7 +277,7 @@ public class SheetDetailActivity extends BaseMusicPlayerActivity implements View
         listManager.play(data);
 
         //跳转到播放界面
-        SimplePlayerActivity.start(getMainActivity());
+        startMusicPlayerActivity();
     }
 
     /**
@@ -582,7 +582,7 @@ public class SheetDetailActivity extends BaseMusicPlayerActivity implements View
                 startActivityExtraId(UserDetailActivity.class,data.getUser().getId());
                 break;
             case R.id.ll_play_all_container:
-                SimplePlayerActivity.start(getMainActivity());
+                startMusicPlayerActivity();
                 break;
         }
     }

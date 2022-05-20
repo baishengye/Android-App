@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import com.bo.cloudmusic.MainActivity;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.Song;
 import com.bumptech.glide.Glide;
@@ -170,13 +171,27 @@ public class NotificationUtil {
         onNotificationChildClick(context, contentBigView,Constant.ACTION_LIKE,R.id.iv_like);
         onNotificationChildClick(context, contentBigView,Constant.ACTION_PREVIOUS,R.id.iv_previous);
 
+        //设置通知点击后启动的界面
+        Intent intent = new Intent(context, MainActivity.class);
+        //传递一个动作
+        intent.setAction(Constant.ACTION_MUSIC_PLAY_CLICK);
+        //在activity以外打开一个activity需要添加一个flag，作为启动方式的标识
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        //创建通知点击的广播意图
+        PendingIntent contentPendingIntent = PendingIntent.getActivity(context,
+                Constant.ACTION_MUSIC_PLAY_CLICK.hashCode(),
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
         //构建一个通知
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, IMPORTANCE_LOW_CHANNEL_ID)
                 .setAutoCancel(false)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .setCustomContentView(contentView)
-                .setCustomBigContentView(contentBigView);
+                .setCustomBigContentView(contentBigView)
+                .setContentIntent(contentPendingIntent);//点击通知栏发生的行为
 
         //显示通知
         NotificationUtil.notify(context,Constant.NOTIFICATION_MUSIC_ID, builder.build());

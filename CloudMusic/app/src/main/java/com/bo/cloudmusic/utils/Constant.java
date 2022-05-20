@@ -136,4 +136,5 @@ public class Constant {
     public static final String ACTION_LIKE = "com.bo.cloudmusic.ACTION_LIKE";
     public static final String ACTION_LYRIC = "com.bo.cloudmusic.ACTION_LYRIC";
     public static final String ACTION_UNLOCK_LYRIC = "com.bo.cloudmusic.ACTION_UNLOCK_LYRIC";
+    public static final String ACTION_MUSIC_PLAY_CLICK = "com.bo.cloudmusic.ACTION_MUSIC_PLAY_CLICK";
 }
