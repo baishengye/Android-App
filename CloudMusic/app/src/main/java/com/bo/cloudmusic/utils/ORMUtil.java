@@ -5,10 +5,12 @@ import android.content.Context;
 import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.domain.SongLocal;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 /**
  * ORM数据库工具类
@@ -118,5 +120,40 @@ public class ORMUtil {
 
         //返回一个含有配置的Realm实例
         return Realm.getInstance(build);
+    }
+
+    /**
+     * 从数据库中查询播放列表
+     * @return
+     */
+    public List<Song> queryPlayList(){
+        //获取数据库
+        Realm realm = getInstance();
+
+        //查询播放列表
+        RealmResults<SongLocal> songLocals = realm.where(SongLocal.class)
+                .equalTo("playList", true)
+                .findAll();
+
+        List<Song> songs = toSongs(songLocals);
+
+        //关闭数据库
+        realm.close();
+
+        return songs;
+    }
+
+    /**
+     * 把RealmResults<SongLocal>转化成List<Song>
+     * @param songLocals
+     * @return
+     */
+    private List<Song> toSongs(RealmResults<SongLocal> songLocals) {
+        List<Song> songs=new LinkedList<>();
+        for (SongLocal songLocal:songLocals) {
+            songs.add(songLocal.toSong());
+        }
+
+        return songs;
     }
 }

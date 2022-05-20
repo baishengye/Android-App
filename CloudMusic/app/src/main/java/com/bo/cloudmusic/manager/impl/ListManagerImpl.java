@@ -19,6 +19,8 @@ import com.bo.cloudmusic.utils.ORMUtil;
 import com.bo.cloudmusic.utils.PreferencesUtil;
 import com.bo.cloudmusic.utils.ResourceUtil;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -95,6 +97,50 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
 
         //初始化偏好设置工具类
         sp = PreferencesUtil.getInstance(this.context);
+
+        //初始化播放列表
+        initPlayList();
+    }
+
+    /**
+     * 初始化播放列表
+     */
+    private void initPlayList() {
+        //查询播放列表
+        List<Song> songs = orm.queryPlayList();
+        if(!songs.isEmpty()){
+            //添加到现在的播放列表
+            this.datum.clear();
+            this.datum.addAll(songs);
+
+            //获取最后播放音乐的Id
+            String lastPlaySongId = sp.getLastPlaySongId();
+            if(StringUtils.isNotBlank(lastPlaySongId)){
+                //有最后播放的音乐
+                //在播放列表中播放
+                for (Song song:songs) {
+                    if(song.getId().equals(lastPlaySongId)){
+                        //找到了
+                        data=song;
+                        break;
+                    }
+                }
+
+                if(data==null){
+                    //没找到
+                    defaultPlaySong();
+                }else{
+                    //找到了
+                    //play(data);
+                }
+            }else{
+                defaultPlaySong();
+            }
+        }
+    }
+
+    private void defaultPlaySong() {
+        data=datum.get(0);
     }
 
     public static ListManager getInstance(Context context) {

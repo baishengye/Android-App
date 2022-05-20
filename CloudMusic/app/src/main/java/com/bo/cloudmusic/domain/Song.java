@@ -20,6 +20,15 @@ public class Song extends BaseMultiItemEntity{
      * 点击数
      */
     private Integer clicks_count = 0;
+
+    public int getSource() {
+        return source;
+    }
+
+    public void setSource(int source) {
+        this.source = source;
+    }
+
     /**
      * 评论数
      */

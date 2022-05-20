@@ -184,4 +184,42 @@ public class SongLocal extends RealmObject {
     public void setProgress(long progress) {
         this.progress = progress;
     }
+
+    /**
+     * 将SongLocal转为Song对象
+     *
+     * @return
+     */
+    public Song toSong() {
+        //创建一个对象
+        Song song = new Song();
+
+        //赋值
+        song.setId(getId());
+        song.setTitle(title);
+        song.setBanner(banner);
+        song.setUri(uri);
+
+        //歌手
+        User singer = new User();
+        singer.setId(singer_id);
+        singer.setNickname(singer_nickname);
+        singer.setAvatar(singer_avatar);
+        song.setSinger(singer);
+
+        //播放列表标志
+        song.setPlayList(playList);
+
+        //来源
+        song.setSource(source);
+
+        //音乐长度
+        song.setDuration(duration);
+
+        //播放进度
+        song.setProgress(progress);
+
+        //返回数据
+        return song;
+    }
 }

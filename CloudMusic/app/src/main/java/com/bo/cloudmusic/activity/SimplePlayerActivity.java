@@ -502,7 +502,7 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
      */
     private void showProgress() {
         //获取播放进度
-        long progress = musicPlayerManager.getData().getProgress();
+        long progress = listManager.getData().getProgress();
 
         //格式化进度
         tv_start.setText(TimeUtil.formatMinuteSecond((int)progress));
@@ -516,7 +516,7 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
      */
     private void showDuration() {
         //获取正在播放音乐的时长
-        long end = musicPlayerManager.getData().getDuration();
+        long end = listManager.getData().getDuration();
 
         //将毫秒格式化成分钟:秒
         tv_end.setText(TimeUtil.formatMinuteSecond((int)end));
