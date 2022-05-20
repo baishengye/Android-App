@@ -3,6 +3,9 @@ package com.bo.cloudmusic.utils;
 import android.content.Context;
 
 import com.bo.cloudmusic.domain.Song;
+import com.bo.cloudmusic.domain.SongLocal;
+
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -53,14 +56,47 @@ public class ORMUtil {
     }
 
     /**
+     * 保存播放列表
+     */
+    public void saveAll(List<Song> songs){
+        SongLocal songLocal=null;
+
+        //获取数据库实例
+        Realm realm = getInstance();
+
+        realm.beginTransaction();
+
+
+        for (Song song:songs) {
+            //要将Song对象转化成SongLocal
+            songLocal = song.toSongLocal();
+
+            realm.copyToRealmOrUpdate(songLocal);
+        }
+
+        realm.commitTransaction();
+
+        realm.close();
+    }
+
+    /**
      * 保存音乐
      * @param song
      */
     public void saveSong(Song song){
+
+        //要将Song对象转化成SongLocal
+        SongLocal songLocal = song.toSongLocal();
+
         //开启(获得)数据库实例
         Realm realm = getInstance();
 
-        //todo 详细操作
+        //开启事务
+        realm.beginTransaction();
+        //新增或更新
+        realm.copyToRealmOrUpdate(songLocal);
+        //提交事务
+        realm.commitTransaction();
 
         //关闭数据库
         realm.close();

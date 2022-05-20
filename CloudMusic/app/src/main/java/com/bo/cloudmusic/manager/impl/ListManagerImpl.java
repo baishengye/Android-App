@@ -2,7 +2,9 @@ package com.bo.cloudmusic.manager.impl;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.DatabaseUtils;
 import android.media.MediaPlayer;
+import android.text.format.DateUtils;
 
 import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.listener.MusicPlayerListener;
@@ -10,8 +12,10 @@ import com.bo.cloudmusic.manager.ListManager;
 import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.service.MusicPlayerService;
 import com.bo.cloudmusic.utils.Constant;
+import com.bo.cloudmusic.utils.DataUtil;
 import com.bo.cloudmusic.utils.ListUtil;
 import com.bo.cloudmusic.utils.LogUtil;
+import com.bo.cloudmusic.utils.ORMUtil;
 import com.bo.cloudmusic.utils.ResourceUtil;
 
 import java.util.LinkedList;
@@ -46,6 +50,11 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
     private final List<Song> datum=new LinkedList<>();
 
     /**
+     * 数据库工具
+     */
+    private final ORMUtil orm;
+
+    /**
      * 正在播放的音乐
      */
     private Song data;
@@ -69,6 +78,9 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
 
         //添加音乐播放监听
         musicPlayerManager.addMusicPlayerListener(this);
+
+        //初始化数据库工具类
+        orm = ORMUtil.getInstance(this.context);
     }
 
     public static ListManager getInstance(Context context) {
@@ -87,11 +99,21 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
     public void setDatum(List<Song> datum) {
         LogUtil.d(TAG,"setDatum");
 
+        //将原来数据playList标志设置位false，标识已经不在播放列表中了
+        DataUtil.changePlayListFlag(this.datum,false);
+        //给数据库添加新的播放列表中的歌曲
+        saveAll();
+
         //清空原来的数据
         this.datum.clear();
 
         //添加新的数据
         this.datum.addAll(datum);
+
+        //改变播放列表标识
+        DataUtil.changePlayListFlag(this.datum,true);
+        //给数据库添加新的播放列表中的歌曲
+        saveAll();
     }
 
     @Override
@@ -216,6 +238,13 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
         datum.clear();
     }
     //end对列表中的歌曲操作
+
+    /**
+     * 保存列表中的所有音乐
+     */
+    public void saveAll(){
+        orm.saveAll(this.datum);
+    }
 
 
     /**

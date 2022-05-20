@@ -149,8 +149,6 @@ public class DiscoveryFragment extends BaseCommonFragment implements OnBannerLis
         fetchBannerData();
 
         adapter.notifyDataSetChanged();
-
-        orm.saveSong(new Song());
     }
 
     @Override
