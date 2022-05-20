@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.bo.cloudmusic.activity.BaseCommonActivity;
 import com.bo.cloudmusic.utils.Constant;
+import com.bo.cloudmusic.utils.ORMUtil;
 import com.bo.cloudmusic.utils.PreferencesUtil;
 
 import butterknife.ButterKnife;
@@ -16,6 +17,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseCommonFragment extends BaseFragment {
     protected PreferencesUtil sp;
+    protected ORMUtil orm;
 
     @Override
     protected void initViews() {
@@ -32,6 +34,9 @@ public abstract class BaseCommonFragment extends BaseFragment {
 
         //初始化偏好设置工具类
         sp = PreferencesUtil.getInstance(getMainActivity());
+
+        //初始化数据库工具类
+        orm = ORMUtil.getInstance(getActivity());
     }
 
     /**

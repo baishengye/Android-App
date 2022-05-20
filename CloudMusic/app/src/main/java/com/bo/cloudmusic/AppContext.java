@@ -9,6 +9,7 @@ import androidx.multidex.MultiDex;
 import com.bo.cloudmusic.activity.LoginOrRegisterActivity;
 import com.bo.cloudmusic.domain.Session;
 import com.bo.cloudmusic.domain.event.LoginSuccessEvent;
+import com.bo.cloudmusic.utils.ORMUtil;
 import com.bo.cloudmusic.utils.PreferencesUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
 import com.facebook.stetho.Stetho;
@@ -132,6 +133,8 @@ public class AppContext extends Application {
      * 解决其他需要退出登录后操作的内容
      */
     private void onLogout() {
+        //一个用户退出登录后就要销毁他的数据库
+        ORMUtil.destroy();
     }
 
     private void otherLogout(String name) {

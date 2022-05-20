@@ -2,7 +2,6 @@ package com.bo.cloudmusic.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,12 +25,9 @@ import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.domain.Title;
 import com.bo.cloudmusic.domain.response.ListResponse;
 import com.bo.cloudmusic.listener.HttpObserver;
-import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.ImageUtil;
-import com.bo.cloudmusic.utils.ToastUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youth.banner.Banner;
-import com.youth.banner.listener.OnBannerClickListener;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
@@ -47,6 +43,8 @@ import io.reactivex.Observable;
  * 首页-我的界面
  */
 public class DiscoveryFragment extends BaseCommonFragment implements OnBannerListener {
+
+    private static final String TAG = "DiscoveryFragment";
 
     //列表控件用的布局管理器
     private GridLayoutManager layoutManager;
@@ -151,6 +149,8 @@ public class DiscoveryFragment extends BaseCommonFragment implements OnBannerLis
         fetchBannerData();
 
         adapter.notifyDataSetChanged();
+
+        orm.saveSong(new Song());
     }
 
     @Override

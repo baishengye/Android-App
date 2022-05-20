@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.bo.cloudmusic.fragment.BaseCommonFragment;
 import com.bo.cloudmusic.utils.Constant;
+import com.bo.cloudmusic.utils.ORMUtil;
 import com.bo.cloudmusic.utils.PreferencesUtil;
 
 import java.io.Serializable;
@@ -27,6 +28,11 @@ public class BaseCommonActivity extends BaseActivity{
      * 偏好设置字段
      */
     protected PreferencesUtil sp;
+
+    /**
+     * 数据库操作工具类
+     */
+    protected ORMUtil orm;
 
     @Override
     protected void initViews() {
@@ -59,6 +65,9 @@ public class BaseCommonActivity extends BaseActivity{
 
         //出生化偏好设置
         sp = PreferencesUtil.getInstance(getMainActivity());
+
+        //初始化Realm数据库工具类
+        orm = ORMUtil.getInstance(getApplicationContext());
     }
 
     /**
