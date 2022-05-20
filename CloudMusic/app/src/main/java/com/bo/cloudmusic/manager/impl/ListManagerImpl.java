@@ -131,7 +131,7 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
                     defaultPlaySong();
                 }else{
                     //找到了
-                    //play(data);
+                    // todo 其他逻辑
                 }
             }else{
                 defaultPlaySong();
@@ -285,6 +285,9 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
         }else{
             //直接删除
             datum.remove(song);
+
+            //从数据库中删除
+            orm.deleteSong(song);
         }
 
     }

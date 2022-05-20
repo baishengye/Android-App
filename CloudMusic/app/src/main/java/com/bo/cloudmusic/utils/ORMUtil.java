@@ -156,4 +156,35 @@ public class ORMUtil {
 
         return songs;
     }
+
+    /**
+     * 删除
+     * @param song
+     */
+    public void deleteSong(Song song) {
+        //获取数据库对象
+        Realm realm = getInstance();
+
+        //先查询到数据在删除
+        SongLocal songLocal = realm.where(SongLocal.class)
+                .equalTo("playList", true)
+                .and()
+                .equalTo("id", song.getId())
+                .findFirst();
+
+        /*//在事务中删除(回调方式自动在事务中进行)
+        realm.executeTransaction(it-> {
+            assert songLocal != null;
+            songLocal.deleteFromRealm();
+        });*/
+
+        //设置字段模拟删除(数据库中还有这个数据但是标识为不存在)
+        realm.executeTransaction(it->{
+            assert songLocal != null;
+            songLocal.setPlayList(false);
+        });
+
+        //关闭数据库
+        realm.close();
+    }
 }
