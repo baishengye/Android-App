@@ -77,4 +77,10 @@
 
     <!--行高比例-->
     <item name="line_spacing_multiplier" type="dimen" format="float">1.2</item>
+
+
+    <!--黑胶唱片-->
+    <dimen name="button_control_height">60dp</dimen>
+    <dimen name="music_seek_bar_height">2dp</dimen>
+    <dimen name="button_play_height">80dp</dimen>
 </resources>

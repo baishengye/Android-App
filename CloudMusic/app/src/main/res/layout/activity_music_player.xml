@@ -6,4 +6,285 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activity.MusicPlayerActivity">
 
+    <!--默认背景
+    因为将默认背景设置到iv_background控件
+    由于使用的LayerDrawable
+    会导致背景不是centerCrop
+    所以这里就在添加一个图片控件
+    可以在看看具体问题在哪里-->
+    <ImageView
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_album"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--背景
+    用ImageView是因为要用他的图片缩放模式-->
+    <ImageView
+        android:id="@+id/iv_background"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--将Toolbar和真实内容放这里
+    fitsSystemWindows="true"：表示布局的时候考虑状态栏
+    也就说设置为true会从状态栏外面显示-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--将AppBarLayout拷贝出来是要设置他的颜色为透明
+        AppBarLayout主要是用来实现标题折叠相关功能-->
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:theme="@style/Theme.随波云音乐.AppBarOverlay"
+            app:elevation="0dp">
+
+            <!--toolbar-->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/transparent"
+                app:popupTheme="@style/Theme.随波云音乐.PopupOverlay" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!--黑胶唱片和歌词容器-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <!--歌词容器-->
+            <RelativeLayout
+                android:id="@+id/rl_lyric"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <!--歌词列表控件-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <!--歌词拖拽容器-->
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/ll_lyric_drag"
+                    android:gravity="center_vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="@dimen/padding_meddle"
+                    android:layout_marginRight="@dimen/padding_meddle">
+
+                    <!--播放按钮-->
+                    <ImageButton
+                        android:id="@+id/ib_lyric_play"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:src="@drawable/ic_lyric_music_play" />
+
+                    <!--分割线-->
+                    <View
+                        android:layout_marginLeft="@dimen/padding_meddle"
+                        android:layout_marginRight="@dimen/padding_meddle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/divider_small"
+                        android:background="@color/white" />
+
+                    <!--歌词时间-->
+                    <TextView
+                        android:id="@+id/tv_lyric_time"
+                        android:text="00:00"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!--黑胶唱片容器-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_record"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:visibility="visible">
+
+                <!--黑胶唱片列表控件-->
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/vp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <!--黑胶唱片指针
+                61dp=92(指针宽度)/2+(30(点宽度)/2)-->
+                <ImageView
+                    android:id="@+id/iv_record_thumb"
+                    android:layout_width="92dp"
+                    android:layout_height="138dp"
+                    android:layout_marginLeft="61dp"
+                    android:layout_marginTop="@dimen/padding_meddle"
+                    android:src="@drawable/cd_thumb"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_goneMarginTop="@dimen/padding_meddle" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
+
+        <!--迷你控制容器-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_control_height">
+
+            <!--点赞按钮-->
+            <ImageButton
+                android:src="@drawable/ic_like"
+                android:background="@null"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/button_control_height" />
+
+            <!--下载按钮-->
+            <ImageButton
+                android:id="@+id/ib_download"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/button_control_height"
+                android:src="@drawable/ic_download"
+                android:background="@null" />
+
+            <!--均衡器按钮-->
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/button_control_height"
+                android:src="@drawable/ic_eq"
+                android:background="@null" />
+
+            <!--评论按钮-->
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/button_control_height"
+                android:src="@drawable/ic_comment_count"
+                android:background="@null" />
+
+            <!--更多按钮-->
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/button_control_height"
+                android:src="@drawable/ic_music_more"
+                android:background="@null" />
+        </LinearLayout>
+
+        <!--进度容器-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp">
+
+            <!--开始位置-->
+            <TextView
+                android:id="@+id/tv_start"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00"
+                android:textSize="@dimen/text_small" />
+
+            <!--进度条-->
+            <SeekBar
+                android:id="@+id/sb_progress"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_meddle"
+                android:layout_marginRight="@dimen/padding_meddle"
+                android:maxHeight="@dimen/music_seek_bar_height"
+                android:minHeight="@dimen/music_seek_bar_height"
+                android:progressDrawable="@drawable/shape_seek_bar" />
+
+            <!--结束位置-->
+            <TextView
+                android:id="@+id/tv_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_small" />
+        </LinearLayout>
+
+        <!--控制容器-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--循环模式-->
+            <ImageButton
+                android:id="@+id/ib_loop_model"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/button_play_height"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_music_repeat_list" />
+
+            <!--上一曲-->
+            <ImageButton
+                android:id="@+id/ib_previous"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/button_play_height"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_music_previous" />
+
+            <!--播放按钮-->
+            <ImageButton
+                android:id="@+id/ib_play"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/button_play_height"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_music_play" />
+
+            <!--下一曲-->
+            <ImageButton
+                android:id="@+id/ib_next"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/button_play_height"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_music_next" />
+
+            <!--播放列表-->
+            <ImageButton
+                android:id="@+id/ib_list"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/button_play_height"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_music_list" />
+        </LinearLayout>
+    </LinearLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
