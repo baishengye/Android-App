@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bo.cloudmusic.Adapter.DiscoveryAdapter;
 import com.bo.cloudmusic.R;
+import com.bo.cloudmusic.activity.BaseMusicPlayerActivity;
 import com.bo.cloudmusic.activity.SheetDetailActivity;
 import com.bo.cloudmusic.activity.WebViewActivity;
 import com.bo.cloudmusic.api.Api;
@@ -25,6 +26,8 @@ import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.domain.Title;
 import com.bo.cloudmusic.domain.response.ListResponse;
 import com.bo.cloudmusic.listener.HttpObserver;
+import com.bo.cloudmusic.manager.ListManager;
+import com.bo.cloudmusic.service.MusicPlayerService;
 import com.bo.cloudmusic.utils.ImageUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youth.banner.Banner;
@@ -177,6 +180,22 @@ public class DiscoveryFragment extends BaseCommonFragment implements OnBannerLis
                     startActivity(intent);*/
 
                     startActivityExtraId(SheetDetailActivity.class,sheet.getId());
+                }else if(item instanceof Song){
+                    //点击单曲
+                    Song song = (Song) item;
+                    //创建一个列表
+                    List<Song> datum=new ArrayList<>();
+                    datum.add(song);
+
+                    //获取播放列表管理器
+                    ListManager listManager = MusicPlayerService.getListManager(getMainActivity());
+                    listManager.setDatum(datum);
+
+                    //播放这首音乐
+                    listManager.play(song);
+
+                    //进入播放界面
+                    ((BaseMusicPlayerActivity)getMainActivity()).startMusicPlayerActivity();
                 }
             }
         });
