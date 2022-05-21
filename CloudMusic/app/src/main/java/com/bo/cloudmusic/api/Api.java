@@ -244,6 +244,15 @@ public class Api {
     }
 
     /**
+     * 单曲详情
+     */
+    public Observable<DetailResponse<Song>> songDetail(String id){
+        return service.songDetail(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
      * 广告单曲
      */
     public Observable<ListResponse<Ad>> ads(){

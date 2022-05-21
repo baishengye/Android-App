@@ -142,4 +142,14 @@ public class Constant {
      * 保存播放进度间隔时间:毫秒
      */
     public static final Integer SAVE_PROGRESS_TIME = 1000;
+
+    /**
+     * LRC歌词
+     */
+    public static final int LRC=0;
+
+    /**
+     * KSC歌词
+     */
+    public static final int KSC=10;
 }

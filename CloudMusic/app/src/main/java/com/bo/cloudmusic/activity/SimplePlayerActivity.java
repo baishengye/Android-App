@@ -483,6 +483,12 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
     public void onCompletion(MediaPlayer mp) {
         LogUtil.d(TAG, "onCompletion");
     }*/
+
+    @Override
+    public void onLyricChanged(Song song) {
+        LogUtil.d(TAG,"onLyricChanged: "+song.getLyric());
+    }
+
     //end接口方法
 
     /**

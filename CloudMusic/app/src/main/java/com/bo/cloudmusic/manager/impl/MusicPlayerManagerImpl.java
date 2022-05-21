@@ -8,8 +8,11 @@ import android.os.Message;
 
 import androidx.annotation.NonNull;
 
+import com.bo.cloudmusic.api.Api;
 import com.bo.cloudmusic.domain.Song;
+import com.bo.cloudmusic.domain.response.DetailResponse;
 import com.bo.cloudmusic.listener.Consumer;
+import com.bo.cloudmusic.listener.HttpObserver;
 import com.bo.cloudmusic.listener.MusicPlayerListener;
 import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.utils.Constant;
@@ -144,20 +147,65 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager,MediaPlayer.On
             //应该要使用异步
             player.prepare();
 
+            //开始播放
+            player.start();
+
             //回调监听器
             publishPlayingStatus(data);
 
             //启动播放进度通知
             startPublishProgress();
 
-            //开始播放
-            player.start();
+            //判断是否本地音乐
+            //本地就不获取歌词
+            if(data.isLocal()){
+                return;
+            }
+            ////歌词处理
+            //真实项⽬可能会
+            //将歌词这个部分拆分到其他组件中
+            if(data.getLyric()==null){
+                //没有歌词才请求
+                Api.getInstance().songDetail(data.getId())
+                        .subscribe(new HttpObserver<DetailResponse<Song>>() {
+                            @Override
+                            public void onSucceeded(DetailResponse<Song> songDetailResponse) {
+                                //请求成功
+                                if(songDetailResponse!=null&&songDetailResponse.getData()!=null){
+                                    //将数据设置到歌曲对象上
+
+                                    Song song = songDetailResponse.getData();
+                                    data.setStyle(song.getStyle());
+                                    data.setLyric(song.getLyric());
+                                }
+
+                                //通知歌词改变了
+                                onLyricChanged();
+                            }
+                        });
+            }else{
+                //没有歌词通知一下
+                onLyricChanged();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             //todo 处理错误
         } finally {
             //todo 释放资源
         }
+    }
+
+    /**
+     * 通知歌词改变了
+     */
+    private void onLyricChanged() {
+        //不管有无歌词都要回调
+        ListUtil.eachListener(listeners, new Consumer<MusicPlayerListener>() {
+            @Override
+            public void accept(MusicPlayerListener listener) {
+                listener.onLyricChanged(data);
+            }
+        });
     }
 
     @Override
