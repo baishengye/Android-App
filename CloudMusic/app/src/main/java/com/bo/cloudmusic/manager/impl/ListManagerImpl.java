@@ -311,6 +311,16 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
         //从数据库中删除
         orm.deleteAll();
     }
+
+    @Override
+    public void seekTo(int progress) {
+        //如果暂停了就继续播放
+        if(!musicPlayerManager.isPlaying()){
+            resume();
+        }
+
+        musicPlayerManager.seekTo(progress);
+    }
     //end对列表中的歌曲操作
 
     /**

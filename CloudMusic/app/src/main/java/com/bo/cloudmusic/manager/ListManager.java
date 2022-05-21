@@ -72,4 +72,10 @@ public interface ListManager {
      * 删除所有音乐
      */
     void deleteAll();
+
+    /**
+     * 跳转到该位置播放
+     * @param progress
+     */
+    void seekTo(int progress);
 }
