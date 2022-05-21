@@ -8,9 +8,7 @@ import android.os.Bundle;
 
 import com.bo.cloudmusic.R;
 
-import java.net.InetSocketAddress;
-
-public class MusicPlayerActivity extends BaseMusicPlayerActivity {
+public class MusicPlayerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

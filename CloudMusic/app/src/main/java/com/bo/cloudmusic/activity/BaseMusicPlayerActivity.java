@@ -35,7 +35,7 @@ public class BaseMusicPlayerActivity extends BaseTitleActivity implements MusicP
      * 迷你播放控制器 容器
      */
     @BindView(R.id.ll_play_small_control)
-    LinearLayout ll_play_control_small;
+    LinearLayout ll_play_small_control;
     /**
      * 迷你播放控制器 封⾯
      */
@@ -171,7 +171,7 @@ public class BaseMusicPlayerActivity extends BaseTitleActivity implements MusicP
         if (listManager.getDatum() != null && listManager.getDatum().size() > 0) {
             //有音乐
             //显示迷你控制器
-            ll_play_control_small.setVisibility(View.VISIBLE);
+            ll_play_small_control.setVisibility(View.VISIBLE);
             //获取当前播放的⾳乐
             Song data = listManager.getData();
             if (data != null) {
@@ -186,7 +186,7 @@ public class BaseMusicPlayerActivity extends BaseTitleActivity implements MusicP
             }
         } else {
             //隐藏迷你控制器
-            ll_play_control_small.setVisibility(View.GONE);
+            ll_play_small_control.setVisibility(View.GONE);
         }
     }
     /**
