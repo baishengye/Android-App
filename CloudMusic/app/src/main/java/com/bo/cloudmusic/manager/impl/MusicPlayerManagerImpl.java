@@ -183,7 +183,7 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager,MediaPlayer.On
 
     @Override
     public void resume() {
-        if (!player.isPlaying()) {
+        if (!isPlaying()) {
             player.start();
 
             publishPlayingStatus(data);

@@ -17,13 +17,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bo.cloudmusic.Adapter.PlayListAdapter;
 import com.bo.cloudmusic.R;
+import com.bo.cloudmusic.domain.event.PlayListChangedEvent;
 import com.bo.cloudmusic.manager.ListManager;
 import com.bo.cloudmusic.service.MusicPlayerService;
+import com.bo.cloudmusic.utils.EventBusUtil;
 import com.bo.cloudmusic.utils.PlayListUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 迷你控制器 播放列表
@@ -186,5 +191,17 @@ public class PlayListDialogFragment extends BaseBottomSheetDialogFragment {
         //显示
         //TAG只是⽤Fragment
         fragment.show(fragmentManager,"song_play_list_dialog");
+    }
+
+    /**
+     * 删除列表中所有音乐
+     */
+    @OnClick(R.id.ib_delete_all)
+    public void OnDeleteAllClick(){
+        dismiss();
+        listManager.deleteAll();
+
+        //发送⾳乐列表改变通知
+        EventBusUtil.post(new PlayListChangedEvent());
     }
 }

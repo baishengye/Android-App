@@ -472,7 +472,6 @@ public class SimplePlayerActivity extends BaseTitleActivity implements SeekBar.O
         //选中当前音乐
         scrollPosition();
     }
-
     @Override
     public void onProgress(Song data) {
         //LogUtil.d(TAG,"onProgress:" + data.getProgress()+" ,"+data.getDuration());

@@ -208,7 +208,7 @@ public class ORMUtil {
         RealmResults<SongLocal> songLocals = queryPlayListSongLocal(realm);
 
         //在事务中删除播放列表的音乐
-        realm.executeTransactionAsync(it->{
+        realm.executeTransaction(it->{
             for (SongLocal songLocal:songLocals) {
                 //更改播放列表标志
                 songLocal.setPlayList(false);
