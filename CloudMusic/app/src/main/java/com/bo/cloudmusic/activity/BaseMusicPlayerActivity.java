@@ -257,7 +257,10 @@ public class BaseMusicPlayerActivity extends BaseTitleActivity implements MusicP
      */
     public void startMusicPlayerActivity() {
         //启动音乐播放界面
-        SimplePlayerActivity.start(getMainActivity());
+        //SimplePlayerActivity.start(getMainActivity());
+
+        //启动黑胶唱片
+        MusicPlayerActivity.start(getMainActivity());
     }
 
     @Override
