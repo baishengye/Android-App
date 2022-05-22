@@ -16,10 +16,12 @@ import com.bo.cloudmusic.utils.DataUtil;
 import com.bo.cloudmusic.utils.ListUtil;
 import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.ORMUtil;
+import com.bo.cloudmusic.utils.OnPlayEvent;
 import com.bo.cloudmusic.utils.PreferencesUtil;
 import com.bo.cloudmusic.utils.ResourceUtil;
 
 import org.apache.commons.lang3.StringUtils;
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -185,6 +187,10 @@ public class ListManagerImpl implements ListManager, MusicPlayerListener {
     @Override
     public void play(Song data) {
         LogUtil.d(TAG,"play");
+
+        //播放音乐前先发通知
+        //使得黑胶唱片接收到通知后先停止原来的唱片转动
+        EventBus.getDefault().post(new OnPlayEvent());
 
         //标记为播放了
         isPlay=true;
