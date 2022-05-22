@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.bo.cloudmusic.Adapter.SongAdapter;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.Song;
+import com.bo.cloudmusic.domain.event.PlayListChangedEvent;
 import com.bo.cloudmusic.fragment.PlayListDialogFragment;
 import com.bo.cloudmusic.listener.MusicPlayerListener;
 import com.bo.cloudmusic.manager.ListManager;
@@ -43,6 +44,9 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 
 import org.apache.commons.lang3.StringUtils;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -179,6 +183,9 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
 
         //添加音乐播放监听
         musicPlayerManager.addMusicPlayerListener(this);
+
+        //发布订阅注册
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -187,6 +194,22 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
 
         //移除音乐播放监听
         musicPlayerManager.removeMusicPlayerListener(this);
+
+        //注销订阅
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * 播放列表改变时间
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPlayListChangedEvent(PlayListChangedEvent event){
+        if(listManager.getDatum().size()==0){
+            //没有音乐
+            //关闭界面
+            finish();
+        }
     }
 
     /**
