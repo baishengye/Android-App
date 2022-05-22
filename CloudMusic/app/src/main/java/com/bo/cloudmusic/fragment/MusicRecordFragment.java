@@ -10,10 +10,17 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.Song;
+import com.bo.cloudmusic.domain.event.OnStartRecordEvent;
+import com.bo.cloudmusic.domain.event.OnStopRecordEvent;
 import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.ImageUtil;
+import com.bo.cloudmusic.utils.LogUtil;
 
-import java.io.Serializable;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -23,6 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class MusicRecordFragment extends BaseCommonFragment{
 
+    private static final String TAG = "MusicRecordFragment";
     /**
      * ⿊胶唱⽚容器
      */
@@ -34,7 +42,21 @@ public class MusicRecordFragment extends BaseCommonFragment{
     @BindView(R.id.iv_banner)
     CircleImageView iv_banner;
 
+    /**
+     * 当前界面播放的音乐
+     */
+    private Song data;
+    private TimerTask timerTask;
 
+
+    @Override
+    public void onDestroy() {
+        if(EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().unregister(this);
+        }
+
+        super.onDestroy();
+    }
     /**
      * 初始化数据
      */
@@ -42,12 +64,79 @@ public class MusicRecordFragment extends BaseCommonFragment{
     protected void initDatum() {
         super.initDatum();
 
+        if(!EventBus.getDefault().isRegistered(this)){
+            //注册发布订阅
+            EventBus.getDefault().register(this);
+        }
+
         //获取传递的数据
-        Song song = (Song) extraData();
+        data = (Song) extraData();
 
         //显示封面
-        ImageUtil.show(getMainActivity(),iv_banner,song.getBanner());
+        ImageUtil.show(getMainActivity(),iv_banner, data.getBanner());
     }
+
+    /**
+     * ⿊胶唱⽚开始转动事件
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onStartRecordEvent(OnStartRecordEvent event) {
+            //由于Fragment放⼊ViewPager中
+            //他的⽣命周期就改变了
+            //所以不能通过onResume这样的⽅法判断
+            //当前Fragment是否显示
+            //所有这⾥解决⽅法是
+            //通过事件传递当前⾳乐
+            //如果当前⾳乐匹配
+            //当前Fragment就是操作当前fragment
+            //如果不是就忽略
+        if(event.getData()== data){
+            //如果黑胶唱片要转动的图片的歌曲是正在播放的音乐
+            LogUtil.d(TAG,"onStartRecordEvent: "+data.getTitle());
+
+            startRecordRotate();
+        }
+
+    }
+
+    /**
+     * 开始转动
+     */
+    private void startRecordRotate() {
+
+    }
+
+    /**
+     * ⿊胶唱⽚停止转动事件
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onStopRecordEvent(OnStopRecordEvent event) {
+        //由于Fragment放⼊ViewPager中
+        //他的⽣命周期就改变了
+        //所以不能通过onResume这样的⽅法判断
+        //当前Fragment是否显示
+        //所有这⾥解决⽅法是
+        //通过事件传递当前⾳乐
+        //如果当前⾳乐匹配
+        //当前Fragment就是操作当前fragment
+        //如果不是就忽略
+        if(event.getData()== data){
+            //如果黑胶唱片要转动的图片的歌曲是正在播放的音乐
+            LogUtil.d(TAG,"onStopRecordEvent: "+ data.getTitle());
+
+            stopRecordRotate();
+        }
+    }
+
+    /**
+     * 停止转动
+     */
+    private void stopRecordRotate() {
+    }
+
+
 
 
     /**

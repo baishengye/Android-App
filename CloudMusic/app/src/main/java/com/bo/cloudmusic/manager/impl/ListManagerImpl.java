@@ -1,10 +1,7 @@
 package com.bo.cloudmusic.manager.impl;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.database.DatabaseUtils;
 import android.media.MediaPlayer;
-import android.text.format.DateUtils;
 
 import com.bo.cloudmusic.domain.Song;
 import com.bo.cloudmusic.listener.MusicPlayerListener;
@@ -13,10 +10,9 @@ import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.service.MusicPlayerService;
 import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.DataUtil;
-import com.bo.cloudmusic.utils.ListUtil;
 import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.ORMUtil;
-import com.bo.cloudmusic.utils.OnPlayEvent;
+import com.bo.cloudmusic.domain.event.OnPlayEvent;
 import com.bo.cloudmusic.utils.PreferencesUtil;
 import com.bo.cloudmusic.utils.ResourceUtil;
 
@@ -26,8 +22,6 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-
-import es.dmoral.toasty.Toasty;
 
 public class ListManagerImpl implements ListManager, MusicPlayerListener {
 

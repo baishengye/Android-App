@@ -6,7 +6,6 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -24,9 +23,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.bo.cloudmusic.Adapter.MusicPlayAdapter;
-import com.bo.cloudmusic.Adapter.SongAdapter;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.Song;
+import com.bo.cloudmusic.domain.event.OnStopRecordEvent;
 import com.bo.cloudmusic.domain.event.PlayListChangedEvent;
 import com.bo.cloudmusic.fragment.PlayListDialogFragment;
 import com.bo.cloudmusic.listener.MusicPlayerListener;
@@ -34,9 +33,9 @@ import com.bo.cloudmusic.manager.ListManager;
 import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.service.MusicPlayerService;
 import com.bo.cloudmusic.utils.Constant;
-import com.bo.cloudmusic.utils.ImageUtil;
 import com.bo.cloudmusic.utils.LogUtil;
-import com.bo.cloudmusic.utils.OnPlayEvent;
+import com.bo.cloudmusic.domain.event.OnPlayEvent;
+import com.bo.cloudmusic.domain.event.OnStartRecordEvent;
 import com.bo.cloudmusic.utils.ResourceUtil;
 import com.bo.cloudmusic.utils.SwitchDrawableUtil;
 import com.bo.cloudmusic.utils.TimeUtil;
@@ -232,7 +231,7 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
         musicPlayerManager = MusicPlayerService.getMusicPlayerManager(getApplicationContext());
 
         //创建黑胶唱片列表适配器
-        recordAdapter = new MusicPlayAdapter(getApplicationContext(), getSupportFragmentManager());
+        recordAdapter = new MusicPlayAdapter(getMainActivity(), getSupportFragmentManager());
 
         //设置到控件
         vp.setAdapter(recordAdapter);
@@ -259,6 +258,8 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
     protected void initViews() {
         super.initViews();
 
+        //缓存界面数量
+        vp.setOffscreenPageLimit(3);
     }
 
     /**
@@ -522,12 +523,12 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
                     vp.setCurrentItem(idx,false);
                 }
 
-                /*//判断是否需要转动黑胶唱片
+                //判断是否需要转动黑胶唱片
                 if(musicPlayerManager.isPlaying()){
-                    //startRecordRotate();
+                    startRecordRotate();
                 }else{
-                    //stopRecordRotate();
-                }*/
+                    stopRecordRotate();
+                }
             }
         });
     }
@@ -623,7 +624,7 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
 
             //判断黑胶唱片位置对应的音乐是不是和现在播放的是同一首
             Song song = listManager.getDatum().get(vp.getCurrentItem());
-            if(song.getId().equals(listManager.getData().getId())){
+            if(listManager.getData().getId().equals(song.getId())){
                 //同一首
                 //判断播放状态
                 if(musicPlayerManager.isPlaying()){
@@ -647,17 +648,10 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
         Song data = listManager.getData();
 
         LogUtil.d(TAG,"startRecordRotate: "+data.getTitle());
+
+        EventBus.getDefault().post(new OnStartRecordEvent(data));
     }
 
-    /**
-     * 播放前回调
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onPlayEvent(OnPlayEvent event){
-        //停止黑胶唱片滚动
-        stopRecordRotate();
-
-    }
 
     /**
      * 黑胶唱片停止转动
@@ -669,6 +663,17 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
 
         LogUtil.d(TAG,"stopRecordRotate: "+data.getTitle());
 
+        EventBus.getDefault().post(new OnStopRecordEvent(data));
     }
+
+    /**
+     * 播放前回调
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPlayEvent(OnPlayEvent event){
+        //停止黑胶唱片滚动
+        stopRecordRotate();
+    }
+
     //end page滚动回调
 }
