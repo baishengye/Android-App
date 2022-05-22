@@ -10,6 +10,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.bo.cloudmusic.R;
@@ -20,6 +22,7 @@ import com.bo.cloudmusic.service.MusicPlayerService;
 import com.bo.cloudmusic.utils.ImageUtil;
 import com.bo.cloudmusic.utils.ResourceUtil;
 import com.bo.cloudmusic.utils.SwitchDrawableUtil;
+import com.bo.cloudmusic.utils.ToastUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.RequestOptions;
@@ -78,6 +81,42 @@ public class MusicPlayerActivity extends BaseTitleActivity {
         listManager = MusicPlayerService.getListManager(getApplicationContext());
         //初始化播放管理器
         musicPlayerManager = MusicPlayerService.getMusicPlayerManager(getApplicationContext());
+    }
+
+    /**
+     * 记载菜单布局
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //加载布局文件
+        getMenuInflater().inflate(R.menu.menu_music_player,menu);
+        return true;
+    }
+
+    /**
+     * 点击菜单回调
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_report:
+                //举报
+                break;
+            case R.id.action_share:
+                //分享
+                ToastUtil.successShortToast("分享");
+                break;
+            case R.id.action_sort:
+                //排序
+                break;
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 
     /**
