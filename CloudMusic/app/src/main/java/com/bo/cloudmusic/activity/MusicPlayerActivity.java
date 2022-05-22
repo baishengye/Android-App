@@ -5,23 +5,36 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
+import com.bo.cloudmusic.Adapter.SongAdapter;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.Song;
+import com.bo.cloudmusic.fragment.PlayListDialogFragment;
+import com.bo.cloudmusic.listener.MusicPlayerListener;
 import com.bo.cloudmusic.manager.ListManager;
 import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.service.MusicPlayerService;
+import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.ImageUtil;
+import com.bo.cloudmusic.utils.LogUtil;
 import com.bo.cloudmusic.utils.ResourceUtil;
 import com.bo.cloudmusic.utils.SwitchDrawableUtil;
+import com.bo.cloudmusic.utils.TimeUtil;
 import com.bo.cloudmusic.utils.ToastUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
@@ -32,11 +45,13 @@ import com.bumptech.glide.request.transition.Transition;
 import org.apache.commons.lang3.StringUtils;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
-public class MusicPlayerActivity extends BaseTitleActivity {
+public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlayerListener {
 
 
+    private static final String TAG = "MusicPlayerActivity";
     /**
      * 列表管理器
      */
@@ -53,6 +68,86 @@ public class MusicPlayerActivity extends BaseTitleActivity {
     @BindView(R.id.iv_background)
     ImageView iv_background;
 
+    /**
+     * 歌词容器
+     */
+    @BindView(R.id.rl_lyric)
+    View rl_lyric;
+
+    /**
+     * 歌词列表控件
+     */
+    @BindView(R.id.rv)
+    RecyclerView rv;
+
+    /**
+     * 歌词拖拽容器
+     */
+    @BindView(R.id.ll_lyric_drag)
+    View ll_lyric_drag;
+
+    /**
+     * 当前歌词时间控件
+     */
+    @BindView(R.id.tv_lyric_time)
+    TextView tv_lyric_time;
+
+    /**
+     * 黑胶唱片容器
+     */
+    @BindView(R.id.cl_record)
+    View cl_record;
+
+    /**
+     * 黑胶唱片列表控件
+     */
+    @BindView(R.id.vp)
+    ViewPager vp;
+
+    /**
+     * 黑胶唱片指针
+     */
+    @BindView(R.id.iv_record_thumb)
+    ImageView iv_record_thumb;
+
+    /**
+     * 下载按钮
+     */
+    @BindView(R.id.ib_download)
+    ImageButton ib_download;
+
+    /**
+     * 开始位置
+     */
+    @BindView(R.id.tv_start)
+    TextView tv_start;
+
+    /**
+     * 进度条
+     */
+    @BindView(R.id.sb_progress)
+    SeekBar sb_progress;
+
+    /**
+     * 结束位置
+     */
+    @BindView(R.id.tv_end)
+    TextView tv_end;
+
+    /**
+     * 循环模式按钮
+     */
+    @BindView(R.id.ib_loop_model)
+    ImageButton ib_loop_model;
+
+    /**
+     * 播放按钮
+     */
+    @BindView(R.id.ib_play)
+    ImageButton ib_play;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +163,30 @@ public class MusicPlayerActivity extends BaseTitleActivity {
 
         //显示初始化数据
         showInitData();
+
+        //显示时长
+        showDuration();
+
+        //显示播放状态
+        showPlayStatus();
+
+        //显示循环模式
+        showLoopModel();
+
+        //显示进度条
+        showProgress();
+
+
+        //添加音乐播放监听
+        musicPlayerManager.addMusicPlayerListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        //移除音乐播放监听
+        musicPlayerManager.removeMusicPlayerListener(this);
     }
 
     /**
@@ -187,4 +306,180 @@ public class MusicPlayerActivity extends BaseTitleActivity {
         Intent intent=new Intent(activity,MusicPlayerActivity.class);
         activity.startActivity(intent);
     }
+
+
+    /**
+     * 循环模式按钮点击
+     */
+    @OnClick(R.id.ib_loop_model)
+    public void onLoopModelClick() {
+        LogUtil.d(TAG, "onLoopModelClick");
+
+        //更改模式
+        listManager.changeLoopModel();
+
+        //显示循环模式
+        showLoopModel();
+    }
+
+    /**
+     * 显示循环模式
+     */
+    private void showLoopModel() {
+        //获取当前循环模式
+        int model = listManager.getLoopModel();
+
+        switch (model) {
+            case Constant.MODEL_LOOP_RANDOM:
+                ib_loop_model.setImageResource(R.drawable.ic_music_repeat_random);
+                break;
+            case Constant.MODEL_LOOP_LIST:
+                ib_loop_model.setImageResource(R.drawable.ic_music_repeat_list);
+                break;
+            case Constant.MODEL_LOOP_ONE:
+                ib_loop_model.setImageResource(R.drawable.ic_music_repeat_one);
+                break;
+        }
+    }
+
+    /**
+     * 下载按钮点击
+     */
+    @OnClick(R.id.ib_download)
+    public void onDownloadClick() {
+
+    }
+
+    /**
+     * 上一曲按钮点击
+     */
+    @OnClick(R.id.ib_previous)
+    public void onPreviousClick() {
+        LogUtil.d(TAG, "onPreviousClick");
+
+        listManager.play(listManager.previous());
+    }
+
+    /**
+     * 播放按钮点击
+     */
+    @OnClick(R.id.ib_play)
+    public void onPlayClick() {
+        LogUtil.d(TAG, "onPlayClick");
+
+        playOrPause();
+    }
+
+    /**
+     * 播放或暂停
+     */
+    private void playOrPause() {
+        if (musicPlayerManager.isPlaying()) {
+            listManager.pause();
+        } else {
+            listManager.resume();
+        }
+    }
+
+    /**
+     * 下一曲按钮点击
+     */
+    @OnClick(R.id.ib_next)
+    public void onNextClick() {
+        LogUtil.d(TAG, "onNextClick");
+
+        listManager.play(listManager.next());
+    }
+
+    /**
+     * 播放列表按钮点击
+     */
+    @OnClick(R.id.ib_list)
+    public void onListClick() {
+        LogUtil.d(TAG, "onListClick");
+
+        PlayListDialogFragment.show(getSupportFragmentManager());
+    }
+
+
+    //音乐播放监听回调
+    @Override
+    public void onPaused(Song song) {
+        showPlayStatus();
+    }
+
+    @Override
+    public void onPlaying(Song song) {
+        showPlayStatus();
+    }
+
+    /**
+     * 显示播放状态
+     */
+    private void showPlayStatus() {
+        if(!musicPlayerManager.isPlaying()){
+            ib_play.setImageResource(R.drawable.ic_music_play);
+        }else{
+            ib_play.setImageResource(R.drawable.ic_music_pause);
+        }
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mp, Song data) {
+        //显示时长
+        showDuration();
+
+        //显示初始化标题
+        showInitData();
+
+        //选中当前音乐
+        scrollPosition();
+    }
+
+    /**
+     * 选中当前音乐
+     */
+    private void scrollPosition() {
+        //选中当前播放的⾳乐
+        //使⽤post⽅法是
+        //将⽅法放到了消息循环
+        //如果不这样做
+        //在onCreate这样的⽅法中滚动⽆效
+        //因为这时候列表的数据还没有显示完成
+        //具体的这部分我们在《详解View》课程中讲解了
+        rv.post(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+    }
+
+    /**
+     * 显示时长
+     */
+    private void showDuration() {
+        long duration = listManager.getData().getDuration();
+
+        tv_end.setText(TimeUtil.formatMinuteSecond((int) duration));
+
+        sb_progress.setMax((int) duration);
+    }
+
+    @Override
+    public void onProgress(Song data) {
+        showProgress();
+    }
+
+    /**
+     * 显示进度
+     */
+    private void showProgress() {
+        long progress = listManager.getData().getProgress();
+
+        tv_start.setText(TimeUtil.formatMinuteSecond((int) progress));
+
+        sb_progress.setProgress((int) progress);
+    }
+    //end
 }
