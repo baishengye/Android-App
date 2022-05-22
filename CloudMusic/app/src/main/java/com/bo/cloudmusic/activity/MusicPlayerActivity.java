@@ -48,7 +48,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
-public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlayerListener {
+public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlayerListener, SeekBar.OnSeekBarChangeListener {
 
 
     private static final String TAG = "MusicPlayerActivity";
@@ -200,6 +200,16 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
         listManager = MusicPlayerService.getListManager(getApplicationContext());
         //初始化播放管理器
         musicPlayerManager = MusicPlayerService.getMusicPlayerManager(getApplicationContext());
+    }
+
+    /**
+     * 初始化监听器
+     */
+    @Override
+    protected void initListeners() {
+        super.initListeners();
+
+        sb_progress.setOnSeekBarChangeListener(this);
     }
 
     /**
@@ -480,6 +490,30 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
         tv_start.setText(TimeUtil.formatMinuteSecond((int) progress));
 
         sb_progress.setProgress((int) progress);
+    }
+
+    /**
+     * 进度条改变
+     * @param seekBar
+     * @param progress
+     * @param fromUser
+     */
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if(fromUser){
+            //跳转到这个位置
+            listManager.seekTo(progress);
+        }
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
     }
     //end
 }
