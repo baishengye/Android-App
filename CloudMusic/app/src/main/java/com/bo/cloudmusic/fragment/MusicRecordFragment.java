@@ -20,6 +20,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
@@ -46,7 +47,18 @@ public class MusicRecordFragment extends BaseCommonFragment{
      * 当前界面播放的音乐
      */
     private Song data;
+
+    /**
+     * 定时器任务
+     */
     private TimerTask timerTask;
+
+    /**
+     * 旋转角度
+     */
+    private float recordRotation;
+    private static final float RoTATION_PER=0.2304F;
+    private Timer timer;
 
 
     @Override
@@ -104,7 +116,35 @@ public class MusicRecordFragment extends BaseCommonFragment{
      * 开始转动
      */
     private void startRecordRotate() {
+        if(timerTask!=null){
+            //定时器已经启动了
+            return;
+        }
 
+        //创建一个定时器任务
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                LogUtil.d(TAG,"startRecordRotate: "+data.getTitle());
+
+                //判断旋转角度
+                if(recordRotation >=360){
+                    //归0
+                    recordRotation=0;
+                }
+                ////每次加旋转的偏移
+                recordRotation += RoTATION_PER;
+
+                cl_content.setRotation(recordRotation);
+            }
+        };
+
+        //创建定时器
+        timer = new Timer();
+
+        //0:不延迟
+        //16毫秒执行一次任务
+        timer.schedule(timerTask,0,16);
     }
 
     /**
@@ -134,6 +174,15 @@ public class MusicRecordFragment extends BaseCommonFragment{
      * 停止转动
      */
     private void stopRecordRotate() {
+        if(timerTask!=null){
+            timerTask.cancel();
+            timerTask=null;
+        }
+
+        if(timer!=null){
+            timer.cancel();
+            timer=null;
+        }
     }
 
 

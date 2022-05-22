@@ -10,6 +10,8 @@ import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.ORMUtil;
 import com.bo.cloudmusic.utils.PreferencesUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.Serializable;
 
 import butterknife.ButterKnife;

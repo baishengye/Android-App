@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/cl_container">
+
     <!--ConstraintLayout布局还是很复杂的
-       这里只讲解用到的功能
-       其他的功能会在相应基础课程讲解
+   这里只讲解用到的功能
+   其他的功能会在相应基础课程讲解
 
-       宽高要设置为0dp
+   宽高要设置为0dp
 
-       以下代码实现垂直水平居中：
-           app:layout_constraintLeft_toLeftOf="parent"
-           app:layout_constraintRight_toRightOf="parent"
-           app:layout_constraintTop_toTopOf="parent"
-           app:layout_constraintBottom_toBottomOf="parent"
+   以下代码实现垂直水平居中：
+       app:layout_constraintLeft_toLeftOf="parent"
+       app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintBottom_toBottomOf="parent"
 
-       layout_constraintWidth_percent：当前控件的宽为父布局的0.731倍
+   layout_constraintWidth_percent：当前控件的宽为父布局的0.731倍
 
-       layout_constraintDimensionRatio：宽高比例为H,1（宽）:1（高）
-       也就说是一个矩形
-       -->
+   layout_constraintDimensionRatio：宽高比例为H,1（宽）:1（高）
+   也就说是一个矩形
+   -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_content"
         android:layout_width="0dp"
@@ -51,6 +54,4 @@
             app:layout_constraintDimensionRatio="H,1:1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
