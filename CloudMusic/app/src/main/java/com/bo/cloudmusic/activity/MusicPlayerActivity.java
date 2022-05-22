@@ -187,6 +187,9 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
 
         //发布订阅注册
         EventBus.getDefault().register(this);
+
+        //滚动到当前音乐位置
+        scrollPosition();
     }
 
     @Override
@@ -490,10 +493,14 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
         //在onCreate这样的⽅法中滚动⽆效
         //因为这时候列表的数据还没有显示完成
         //具体的这部分我们在《详解View》课程中讲解了
-        rv.post(new Runnable() {
+        vp.post(new Runnable() {
             @Override
             public void run() {
-
+                int idx = listManager.getDatum().indexOf(listManager.getData());
+                if(idx!=-1){
+                    //滚动到该位置
+                    vp.setCurrentItem(idx,false);
+                }
             }
         });
     }
