@@ -10,6 +10,8 @@ import com.bo.cloudmusic.utils.Constant;
 import com.bo.cloudmusic.utils.ORMUtil;
 import com.bo.cloudmusic.utils.PreferencesUtil;
 
+import java.io.Serializable;
+
 import butterknife.ButterKnife;
 
 /**
@@ -57,6 +59,15 @@ public abstract class BaseCommonFragment extends BaseFragment {
             intent.putExtra(Constant.ID,id);
 
         startActivity(intent);
+    }
+
+
+    /**
+     * 获取data
+     * @return
+     */
+    protected Serializable extraData() {
+        return getArguments().getSerializable(Constant.DATA);
     }
 
     /**
