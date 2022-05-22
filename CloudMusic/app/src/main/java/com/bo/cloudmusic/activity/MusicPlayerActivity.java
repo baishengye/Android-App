@@ -19,6 +19,7 @@ import com.bo.cloudmusic.manager.MusicPlayerManager;
 import com.bo.cloudmusic.service.MusicPlayerService;
 import com.bo.cloudmusic.utils.ImageUtil;
 import com.bo.cloudmusic.utils.ResourceUtil;
+import com.bo.cloudmusic.utils.SwitchDrawableUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.RequestOptions;
@@ -127,7 +128,10 @@ public class MusicPlayerActivity extends BaseTitleActivity {
                         iv_background.setImageDrawable(resource);
 
                         //创建切换动画工具类
-                        //new SwitchDrawableUtil(iv_background.getDrawable(),resource);
+                        SwitchDrawableUtil switchDrawableUtil = new SwitchDrawableUtil(iv_background.getDrawable(), resource);
+
+                        //把新的Drawable设置到背景
+                        iv_background.setImageDrawable(switchDrawableUtil.getDrawable());
                     }
 
                     @Override
