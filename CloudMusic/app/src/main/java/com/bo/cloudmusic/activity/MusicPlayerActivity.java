@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.bo.cloudmusic.Adapter.MusicPlayAdapter;
 import com.bo.cloudmusic.Adapter.SongAdapter;
 import com.bo.cloudmusic.R;
 import com.bo.cloudmusic.domain.Song;
@@ -149,7 +150,7 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
      */
     @BindView(R.id.ib_play)
     ImageButton ib_play;
-
+    private MusicPlayAdapter recordAdapter;
 
 
     @Override
@@ -223,6 +224,15 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
         listManager = MusicPlayerService.getListManager(getApplicationContext());
         //初始化播放管理器
         musicPlayerManager = MusicPlayerService.getMusicPlayerManager(getApplicationContext());
+
+        //创建黑胶唱片列表适配器
+        recordAdapter = new MusicPlayAdapter(getMainActivity(), getSupportFragmentManager());
+
+        //设置到控件
+        vp.setAdapter(recordAdapter);
+
+        //设置数据recordAdapter
+        recordAdapter.setDatum(listManager.getDatum());
     }
 
     /**
