@@ -178,5 +178,6 @@
     <orderEntry type="library" name="Gradle: com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.youth.banner:banner:1.4.10@aar" level="project" />
     <orderEntry type="library" name="Gradle: io.reactivex.rxjava2:rxandroid:2.1.1@aar" level="project" />
+    <orderEntry type="library" name="Gradle: de.hdodenhof:circleimageview:3.0.0@aar" level="project" />
   </component>
 </module>

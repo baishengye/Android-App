@@ -1,14 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/purple_200">
+    android:layout_height="match_parent">
+    <!--ConstraintLayout布局还是很复杂的
+       这里只讲解用到的功能
+       其他的功能会在相应基础课程讲解
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="黑胶唱片"/>
+       宽高要设置为0dp
+
+       以下代码实现垂直水平居中：
+           app:layout_constraintLeft_toLeftOf="parent"
+           app:layout_constraintRight_toRightOf="parent"
+           app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintBottom_toBottomOf="parent"
+
+       layout_constraintWidth_percent：当前控件的宽为父布局的0.731倍
+
+       layout_constraintDimensionRatio：宽高比例为H,1（宽）:1（高）
+       也就说是一个矩形
+       -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.731"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="89dp">
+
+        <!--黑胶唱片-->
+        <ImageView
+            android:src="@drawable/cd_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!--封面-->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_banner"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/placeholder"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintWidth_percent="0.64"
+            app:layout_constraintDimensionRatio="H,1:1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
