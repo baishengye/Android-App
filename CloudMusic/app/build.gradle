@@ -194,6 +194,12 @@ dependencies {
     //https://github.com/hackware1993/MagicIndicator
     implementation 'com.github.hackware1993:MagicIndicator:1.6.0'
 
+    //与Glide配合使用处理图片
+    //https://github.com/wasabeef/glide-transformations
+    implementation 'jp.wasabeef:glide-transformations:4.1.0'
+
+    // If you want to use the GPU Filters
+    //implementation 'jp.co.cyberagent.android:gpuimage:2.1.0'
 
     //提供通过注解的⽅式找控件
     //绑定⽅法
