@@ -57,7 +57,7 @@ public class MusicRecordFragment extends BaseCommonFragment{
      * 旋转角度
      */
     private float recordRotation;
-    private static final float RoTATION_PER=0.2304F;
+    private static final float ROTATION_PER=0.2304F;
     private Timer timer;
 
 
@@ -65,6 +65,16 @@ public class MusicRecordFragment extends BaseCommonFragment{
     public void onDestroy() {
         if(EventBus.getDefault().isRegistered(this)){
             EventBus.getDefault().unregister(this);
+        }
+
+        if(timerTask!=null){
+            timerTask.cancel();
+            timerTask=null;
+        }
+
+        if(timer!=null){
+            timer.cancel();
+            timer=null;
         }
 
         super.onDestroy();
@@ -133,7 +143,7 @@ public class MusicRecordFragment extends BaseCommonFragment{
                     recordRotation=0;
                 }
                 ////每次加旋转的偏移
-                recordRotation += RoTATION_PER;
+                recordRotation += ROTATION_PER;
 
                 cl_content.setRotation(recordRotation);
             }
