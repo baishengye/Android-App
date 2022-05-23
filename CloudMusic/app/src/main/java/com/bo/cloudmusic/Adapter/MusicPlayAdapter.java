@@ -33,6 +33,6 @@ public class MusicPlayAdapter extends BaseFragmentPagerAdapter<Song>{
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return MusicRecordFragment.newInstance(datum.get(position));
+        return MusicRecordFragment.newInstance(getData(position));
     }
 }

@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -55,7 +57,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
-public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlayerListener, SeekBar.OnSeekBarChangeListener, ViewPager.OnPageChangeListener {
+public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlayerListener, SeekBar.OnSeekBarChangeListener, ViewPager.OnPageChangeListener, ValueAnimator.AnimatorUpdateListener {
 
 
     private static final String TAG = "MusicPlayerActivity";
@@ -152,16 +154,27 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
      */
     @BindView(R.id.ib_play)
     ImageButton ib_play;
+
+    /**
+     * 黑胶唱片适配器
+     */
     private MusicPlayAdapter recordAdapter;
+
+    /**
+     * 黑胶唱片指针从停止到播放的转动动画
+     */
+    private ObjectAnimator toPlayThumbAnimator;
+
+    /**
+     * 黑胶唱片指针从播放到停止的转动动画
+     */
+    private ValueAnimator toPauseThumbAnimator;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_player);
-
-        //状态栏透明
-        lightStatusBar();
     }
 
     @Override
@@ -171,26 +184,25 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
         //显示初始化数据
         showInitData();
 
-        //显示时长
+        //显示音乐时长
         showDuration();
 
+        //显示播放进度
+        showProgress();
+
         //显示播放状态
-        showPlayStatus();
+        showMusicPlayStatus();
 
         //显示循环模式
         showLoopModel();
 
-        //显示进度条
-        showProgress();
-
-
-        //添加音乐播放监听
+        //添加播放监听器
         musicPlayerManager.addMusicPlayerListener(this);
 
-        //发布订阅注册
+        //注册发布订阅框架
         EventBus.getDefault().register(this);
 
-        //滚动到当前音乐位置
+        ////滚动到当前音乐位置
         scrollPosition();
     }
 
@@ -238,6 +250,27 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
 
         //设置数据recordAdapter
         recordAdapter.setDatum(listManager.getDatum());
+
+        //创建
+
+        //从暂停到播放状态动画
+        //从-25到0
+        //属性动画ObjectAnimator是ValueAnimator的子类
+        toPlayThumbAnimator = ObjectAnimator.ofFloat(iv_record_thumb, "rotation", Constant.THUMB_ROTATION_PAUSEING, Constant.THUMB_ROTATION_PLAYING);
+
+        //设置执行时间
+        toPlayThumbAnimator.setDuration(Constant.THUMB_DURATION);
+
+        //从播放到暂停状态动画
+        //从0到-25
+        //属性动画ObjectAnimator是ValueAnimator的子类
+        toPauseThumbAnimator = ValueAnimator.ofFloat(Constant.THUMB_ROTATION_PLAYING,Constant.THUMB_ROTATION_PAUSEING);
+
+        //设置执行时间
+        toPauseThumbAnimator.setDuration(Constant.THUMB_DURATION);
+
+        //设置更新监听器
+        toPauseThumbAnimator.addUpdateListener(this);
     }
 
     /**
@@ -258,8 +291,12 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
     protected void initViews() {
         super.initViews();
 
+        //状态栏透明
+        lightStatusBar();
+
         //缓存界面数量
-        vp.setOffscreenPageLimit(3);
+        //todo 这个地方如果缓存界面数量设得小于歌曲总数，那么在viewPager切换界面的时候会发生内存泄露,目前还没有解决
+        vp.setOffscreenPageLimit(1000);
     }
 
     /**
@@ -481,23 +518,38 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
     }
 
     /**
+     * 显示音乐播放状态
+     */
+    private void showMusicPlayStatus() {
+        if (musicPlayerManager.isPlaying()) {
+            showPauseStatus();
+        } else {
+            showPlayStatus();
+        }
+    }
+
+    /**
+     * 显示暂停状态
+     */
+    private void showPauseStatus() {
+        ib_play.setImageResource(R.drawable.ic_music_pause);
+    }
+
+    /**
      * 显示播放状态
      */
     private void showPlayStatus() {
-        if(!musicPlayerManager.isPlaying()){
-            ib_play.setImageResource(R.drawable.ic_music_play);
-        }else{
-            ib_play.setImageResource(R.drawable.ic_music_pause);
-        }
+        ib_play.setImageResource(R.drawable.ic_music_play);
     }
 
     @Override
     public void onPrepared(MediaPlayer mp, Song data) {
-        //显示时长
-        showDuration();
 
         //显示初始化标题
         showInitData();
+
+        //显示时长
+        showDuration();
 
         //选中当前音乐
         scrollPosition();
@@ -650,6 +702,9 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
         LogUtil.d(TAG,"startRecordRotate: "+data.getTitle());
 
         EventBus.getDefault().post(new OnStartRecordEvent(data));
+
+        //旋转黑胶唱片指针
+        startRecordThumbRotation();
     }
 
 
@@ -664,6 +719,25 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
         LogUtil.d(TAG,"stopRecordRotate: "+data.getTitle());
 
         EventBus.getDefault().post(new OnStopRecordEvent(data));
+
+        //停止旋转黑胶唱片
+        pauseRecordThumbRotation();
+    }
+
+
+    /**
+     * 黑胶唱片指针默认状态(正在播放)
+     */
+    public void startRecordThumbRotation(){
+        //开始播放由暂停到播放的动画
+        toPlayThumbAnimator.start();
+    }
+
+    /**
+     * 黑胶唱片指针暂停状态(正在暂停)
+     */
+    public void pauseRecordThumbRotation(){
+        toPauseThumbAnimator.start();
     }
 
     /**
@@ -676,4 +750,13 @@ public class MusicPlayerActivity extends BaseTitleActivity implements MusicPlaye
     }
 
     //end page滚动回调
+
+    /**
+     * 属性动画回调
+     * @param animation
+     */
+    @Override
+    public void onAnimationUpdate(ValueAnimator animation) {
+        iv_record_thumb.setRotation((Float) animation.getAnimatedValue());
+    }
 }
